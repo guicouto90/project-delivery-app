@@ -1,12 +1,15 @@
 const express = require('express');
 const usersRouter = require('../database/routers/usersRouter');
-const errorHandler = require('../database/utils/errorHandler');
+const errorHandler = require('../database/middlewares/errorHandler');
+const loginRouter = require('../database/routers/loginRouter');
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/users', usersRouter);
+
+app.use('/login', loginRouter);
 
 app.use(errorHandler);
 

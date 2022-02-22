@@ -1,4 +1,4 @@
-const { BAD_REQUEST, INTERNAL_SERVER_ERROR } = require("./statusCodes");
+const { BAD_REQUEST, INTERNAL_SERVER_ERROR } = require("../utils/statusCodes");
 
 const errorHandler = (err, req, res, _next) => {
   if(err.status) return res.status(err.status).json({ message: err.message });

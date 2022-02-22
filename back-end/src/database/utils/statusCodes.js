@@ -1,11 +1,15 @@
 const {
-  CREATED,
   BAD_REQUEST,
+  CONFLICT,
+  CREATED,
   INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED
 } = require('http-status-codes').StatusCodes;
 
 module.exports = {
-  CREATED,
   BAD_REQUEST,
+  CONFLICT,
+  CREATED,
   INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED
 };

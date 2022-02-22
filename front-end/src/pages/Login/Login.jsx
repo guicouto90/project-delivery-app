@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import postLogin from '../../axios/index';
 import './Login.css';
 import Input from './input';
 
 function Login(props) {
   const { history } = props;
-  const [loginValue, setLoginValue] = useState(false);
+  const [loginValue, setLoginValue] = useState();
   const [passwordValue, setPasswordValue] = useState('');
+  const [errorInfo, setError] = useState('');
 
-  function emailValidated() {
-    const re = /\S+@\S+\.\S+/;
-    const valid = re.test(loginValue);
-    return valid;
-  }
+  // function emailValidated() {
+  //   const re = /\S+@\S+\.\S+/;
+  //   const valid = re.test(loginValue);
+  //   return valid;
+  // }
+
+  //robervaldo@email.com
+  //123456
 
   function redirectRegister() {
     history.push('/register');
+  }
+
+  async function validPage() {
+    const user = await postLogin(loginValue, passwordValue);
+    if (!user.error) {
+      localStorage.user = JSON.stringify(user.data);
+      history.push('/products');
+      console.log(user)
+    }
+    setError(user.error);
   }
 
   function loginHandleChange({ target }) {
@@ -49,10 +64,10 @@ function Login(props) {
       />
 
       <button
-        // onClick={ }
+        onClick={ validPage }
         data-testid="common_login__button-login"
         type="button"
-        disabled={ !loginValue || !emailValidated() }
+        // disabled={ !loginValue || !emailValidated() }
       >
         LOGIN
       </button>

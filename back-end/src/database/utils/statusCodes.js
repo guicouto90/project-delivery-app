@@ -1,4 +1,5 @@
 const {
+  OK,
   BAD_REQUEST,
   CONFLICT,
   CREATED,
@@ -8,6 +9,7 @@ const {
 } = require('http-status-codes').StatusCodes;
 
 module.exports = {
+  OK,
   BAD_REQUEST,
   CONFLICT,
   CREATED,

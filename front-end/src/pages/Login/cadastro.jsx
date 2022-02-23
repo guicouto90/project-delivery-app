@@ -2,7 +2,7 @@ import React from 'react';
 import Input from './input';
 
 function Cadastro() {
-  return(
+  return (
     <div>
       <Input />
       <Input />

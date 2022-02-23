@@ -1,5 +1,5 @@
 const { userSchema } = require("./schemas")
-const { Users } = require('../models/index');
+const { users } = require('../models/index');
 const cryptograph = require("../utils/cryptoPassword");
 const { BAD_REQUEST, CONFLICT } = require("../utils/statusCodes");
 const { userExists } = require("../utils/errorMessages");
@@ -13,20 +13,22 @@ const validateUser = (name, email, password, role) => {
 
 const newUser = async(name, email, password, role) => {
   const passwordCrypto = cryptograph(password);
-  const user = await Users.create({ name, email, password: passwordCrypto, role });
+  const user = await users.create({ name, email, password: passwordCrypto, role });
 
   return user;
 };
 
-const verifyEmail = async(email) => {
-  const user = await Users.findOne({ where: { email }});
-  if(user) {
+const verifyEmail = async(email, name) => {
+  const userEmail = await users.findOne({ where: { email }});
+  const userName = await users.findOne({ where: { name }});
+  //console.log(user)
+  if(userEmail || userName) {
     throw errorConstructor(CONFLICT, userExists);
   };
 };
 
 const findAllUsers = async () => {
-  const user = await Users.findAll();
+  const user = await users.findAll();
 
   return user;
 }

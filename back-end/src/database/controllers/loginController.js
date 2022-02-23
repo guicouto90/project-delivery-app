@@ -5,8 +5,8 @@ const addLogin = async(req, res, next) => {
   try {
     const { email, password } = req.body;
     validateLogin(email, password);
-    await verifyLogin(email, password);
-    const result = await newLogin(email, password);
+    const user = await verifyLogin(email, password);
+    const result = await newLogin(user);
 
     return res.status(CREATED).json(result);
   } catch (error) {

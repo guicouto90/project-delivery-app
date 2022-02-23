@@ -1,9 +1,15 @@
-/* .form-login {
-  position: relative;
-  width: 1920px;
-  height: 1080px;
+.main{
+  display: flex;
+}
 
-  background: #FFFFFF;
+.form {
+  position: absolute;
+  padding-top: 100px;
+  width: 425px;
+  height: 344px;
+  left: 750px;
+  top: 501px;
+  background:red;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -70,4 +76,4 @@
   to {
     transform: translate(0);
   }
-} */
+}

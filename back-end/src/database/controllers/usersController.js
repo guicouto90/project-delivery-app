@@ -5,7 +5,7 @@ const addUser = async(req, res, next) => {
   try {
     const { name, email, password, role } = req.body;
     validateUser(name, email, password, role);
-    await verifyEmail(email);
+    await verifyEmail(email, name);
     const result = await newUser(name, email, password, role);
 
     return res.status(CREATED).json(result);

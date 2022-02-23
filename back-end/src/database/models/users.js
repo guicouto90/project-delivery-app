@@ -1,5 +1,5 @@
-const Users = (sequelize, DataTypes) => {
-  const User = sequelize.define('Users', {
+const users = (sequelize, DataTypes) => {
+  const user = sequelize.define('users', {
     id: { 
       type: DataTypes.INTEGER, 
       primaryKey: true,
@@ -16,7 +16,7 @@ const Users = (sequelize, DataTypes) => {
     User.hasOne(models.BlogPosts, { as: 'sales', foreignKey: 'id' });
    };*/
 
-  return User;
+  return user;
 };
 
-module.exports = Users;
+module.exports = users;

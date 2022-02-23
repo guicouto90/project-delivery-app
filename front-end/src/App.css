@@ -18,9 +18,29 @@
   font-weight: 900;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+.productCard {
+  align-items: center;
+  border: solid black;
+  color: #464646;
+  display: flex;
+  flex-flow: column wrap;
+  width: fit-content;
+}
+
+.productsTable {
+  border: #464646;
+  display: flex;
+}
+
+button {
+  background-color: #036b52;
+  border-radius: 5px;
+  color: #f2fffc;
+}
+
+.cardInput {
+  text-align: center;
+  width: 25px;
 }
 
 @keyframes shake {

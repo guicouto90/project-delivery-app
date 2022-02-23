@@ -1,20 +1,24 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-
-import Login from './pages/Login/Login';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
+import DeliveryProvider from './context/DeliveryProvider';
+import ProductsPage from './pages/client-flow/ProductsPage';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-        <Route path="/login" component={ Login } />
-        <Route path="/resgister" />
-      </Switch>
-    </div>
+    <DeliveryProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
+          <Route exact path="/login" component={ Login } />
+          <Route exact path="/customer/products" component={ ProductsPage } />
+          <Route path="/resgister" />
+        </Switch>
+      </BrowserRouter>
+    </DeliveryProvider>
   );
 }
 

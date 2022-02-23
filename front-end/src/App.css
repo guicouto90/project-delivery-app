@@ -32,6 +32,10 @@
   display: flex;
 }
 
+nav {
+  display: flex;
+}
+
 button {
   background-color: #036b52;
   border-radius: 5px;

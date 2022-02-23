@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../../context/DeliveryContext';
+import ClientNavBar from './utils/ClientNavBar';
 
 const productsMock = [
   {
@@ -72,7 +74,8 @@ const productsMock = [
 productsMock.forEach((product) => { product.quantity = 0; });
 
 function ProductsPage() {
-  const { products, setProducts } = useContext(DeliveryContext);
+  const history = useHistory();
+  const { products, setProducts, setItemsInCart } = useContext(DeliveryContext);
 
   useEffect(() => {
     setProducts(productsMock);
@@ -86,6 +89,7 @@ function ProductsPage() {
 
   return (
     <>
+      <ClientNavBar />
       <div className="productsTable">
         { products.map((product, index) => {
           const prefix = 'customer_products__';
@@ -133,7 +137,14 @@ function ProductsPage() {
           );
         })}
       </div>
-      <button type="button">
+      <button
+        type="button"
+        onClick={ () => {
+          const order = products.filter((product) => product.quantity !== 0);
+          setItemsInCart(order);
+          history.push('/customer/checkout');
+        } }
+      >
         {`Ver Carrinho: R$ ${calculatePrice(products).toFixed(2)}`}
       </button>
     </>

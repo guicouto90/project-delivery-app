@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {
-  const [orders, setOrders] = useState([]);
+  const [itemsInCart, setItemsInCart] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const contextValue = { orders, setOrders, products, setProducts };
+  const contextValue = { itemsInCart, setItemsInCart, products, setProducts };
 
   return (
     <DeliveryContext.Provider value={ contextValue }>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from './input';
 import postUsers from '../../axios/postUsers';
+import './Login.css';
 
 function Cadastro() {
   const [name, setName] = useState('');
@@ -30,54 +31,59 @@ function Cadastro() {
   }
 
   return (
-    <div>
-      Nome
-      <Input
-        value={ name }
-        onChange={ ({ target }) => {
-          setName(target.value);
-          creatUser();
-        } }
-        // id=""
-        data-testid="common_register__input-name"
-        type="text"
-      />
+    <div className="login">
+      <fieldset>
+        <h1 className="title">Nome</h1>
+        <Input
+          className="inputEmail"
+          value={ name }
+          onChange={ ({ target }) => {
+            setName(target.value);
+            creatUser();
+          } }
+          // id=""
+          data-testid="common_register__input-name"
+          type="text"
+        />
 
-      Email
-      <Input
-        value={ email }
-        onChange={ ({ target }) => {
-          setEmail(target.value);
-          creatUser();
-        } }
-        // id=""
-        data-testid="common_register__input-email"
-        type="email"
-      />
+        <h1 className="title">Email</h1>
+        <Input
+          className="inputEmail"
+          value={ email }
+          onChange={ ({ target }) => {
+            setEmail(target.value);
+            creatUser();
+          } }
+          // id=""
+          data-testid="common_register__input-email"
+          type="email"
+        />
 
-      Senha
-      <Input
-        value={ password }
-        onChange={ ({ target }) => {
-          setPassword(target.value);
-          creatUser();
-        } }
-        // id=""
-        data-testid="common_register__input-password"
-        type="password"
-      />
+        <h1 className="title">Senha</h1>
+        <Input
+          className="inputSenha"
+          value={ password }
+          onChange={ ({ target }) => {
+            setPassword(target.value);
+            creatUser();
+          } }
+          // id=""
+          data-testid="common_register__input-password"
+          type="password"
+        />
 
-      <button
-        onClick={ () => postUsers(name, email, password) }
-        data-testid="common_register__button-register"
-        type="button"
-        disabled={ !loginValidated || !emailValidated() }
-      >
-        Cadastrar
-      </button>
+        <button
+          className="loginButton"
+          onClick={ () => postUsers(name, email, password) }
+          data-testid="common_register__button-register"
+          type="button"
+          disabled={ !loginValidated || !emailValidated() }
+        >
+          Cadastrar
+        </button>
 
-      <br data-testid="common_register__element-invalid_register" />
-
+        <br data-testid="common_register__element-invalid_register" />
+      </fieldset>
     </div>
   );
 }

@@ -1,5 +1,3 @@
-const path = require('path');
-
 const { allProducts, productById } = require('../services/productsServices');
 const { OK } = require('../utils/statusCodes');
 
@@ -27,14 +25,7 @@ const getProductById = async (req, res, next) => {
   }
 };
 
-const getImageProductByName = async (req, res, _next) => {
-  const { name } = req.params;
-
-  res.sendFile(path.join(__dirname, '../../../public/images', name));
-};
-
 module.exports = {
   getAllProducts,
   getProductById,
-  getImageProductByName,
 }

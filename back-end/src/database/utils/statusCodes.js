@@ -4,7 +4,8 @@ const {
   CONFLICT,
   CREATED,
   INTERNAL_SERVER_ERROR,
-  UNAUTHORIZED
+  UNAUTHORIZED,
+  OK,
 } = require('http-status-codes').StatusCodes;
 
 module.exports = {
@@ -13,5 +14,6 @@ module.exports = {
   CONFLICT,
   CREATED,
   INTERNAL_SERVER_ERROR,
-  UNAUTHORIZED
+  UNAUTHORIZED,
+  OK,
 };

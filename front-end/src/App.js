@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import DeliveryProvider from './context/DeliveryProvider';
 import ProductsPage from './pages/client-flow/ProductsPage';
-import Login from './pages/login/Login';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           </Route>
           <Route exact path="/login" component={ Login } />
           <Route exact path="/customer/products" component={ ProductsPage } />
+          <Route path="/resgister" />
         </Switch>
       </BrowserRouter>
     </DeliveryProvider>

@@ -18,6 +18,7 @@ const getTasks = async () => {
 // adicionar infos
 const postLogin = async (email, password) => {
   try {
+    console.log('xablau1');
     const response = await axios.post(`${url}/login`, {
       email,
       password,

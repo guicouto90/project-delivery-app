@@ -8,7 +8,7 @@ function Login(props) {
   const { history } = props;
   const [loginValue, setLoginValue] = useState();
   const [passwordValue, setPasswordValue] = useState('');
-  const [errorInfo, setError] = useState('');
+  const [, setError] = useState(''); // error removed
 
   // function emailValidated() {
   //   const re = /\S+@\S+\.\S+/;
@@ -16,8 +16,8 @@ function Login(props) {
   //   return valid;
   // }
 
-  //robervaldo@email.com
-  //123456
+  // robervaldo@email.com
+  // 123456
 
   function redirectRegister() {
     history.push('/register');
@@ -28,7 +28,6 @@ function Login(props) {
     if (!user.error) {
       localStorage.user = JSON.stringify(user.data);
       history.push('/products');
-      console.log(user)
     }
     setError(user.error);
   }

@@ -6,6 +6,7 @@ import Input from './input';
 
 function Login(props) {
   const { history } = props;
+  const [loginValidated, setValid] = useState(false);
   const [loginValue, setLoginValue] = useState();
   const [passwordValue, setPasswordValue] = useState('');
   const [, setError] = useState(''); // error removed
@@ -32,22 +33,38 @@ function Login(props) {
     setError(user.error);
   }
 
-  function loginHandleChange({ target }) {
-    const { value } = target;
-    setLoginValue(value);
+  function emailValidated() {
+    const re = /\S+@\S+\.\S+/;
+    const valid = re.test(loginValue);
+    return valid;
   }
 
-  function passwordHandleChange({ target }) {
-    const { value } = target;
-    setPasswordValue(value);
+  function passwordValidated() {
+    const minimum = 6;
+    if (passwordValue.length >= minimum) {
+      setValid(true);
+    }
   }
+
+  // function loginHandleChange({ target }) {
+  //   const { value } = target;
+  //   setLoginValue(value);
+  // }
+
+  // function passwordHandleChange({ target }) {
+  //   const { value } = target;
+  //   setPasswordValue(value);
+  // }
 
   return (
     <div>
       Login
       <Input
         value={ loginValue }
-        onChange={ loginHandleChange }
+        onChange={ ({ target }) => {
+          setLoginValue(target.value);
+          passwordValidated();
+        } }
         id="common_login__input-email"
         data-testid="common_login__input-email"
         type="email"
@@ -56,7 +73,10 @@ function Login(props) {
       Senha
       <Input
         value={ passwordValue }
-        onChange={ passwordHandleChange }
+        onChange={ ({ target }) => {
+          setPasswordValue(target.value);
+          passwordValidated();
+        } }
         id="common_login__input-password"
         data-testid="common_login__input-password"
         type="password"
@@ -66,9 +86,10 @@ function Login(props) {
         onClick={ validPage }
         data-testid="common_login__button-login"
         type="button"
+        disabled={ !loginValidated || !emailValidated() }
         // disabled={ !loginValue || !emailValidated() }
       >
-        LOGIN
+        Login
       </button>
 
       <button
@@ -78,6 +99,7 @@ function Login(props) {
       >
         Ainda não tenho conta
       </button>
+
       <p data-testid="common_login__element-invalid-email">error</p>
     </div>
   );

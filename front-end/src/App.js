@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
+import Cadastro from './pages/Login/cadastro';
 import Login from './pages/Login/Login';
 import './App.css';
 
@@ -12,7 +12,7 @@ function App() {
           <Redirect to="/login" />
         </Route>
         <Route path="/login" component={ Login } />
-        <Route path="/resgister" />
+        <Route path="/register" component={ Cadastro } />
       </Switch>
     </div>
   );

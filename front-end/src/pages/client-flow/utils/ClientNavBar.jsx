@@ -3,18 +3,22 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 function ClientNavBar() {
   const history = useHistory();
-  const location = useLocation();
+  const { pathname } = useLocation();
   return (
     <nav>
       <button
         data-testId="customer_products__element-navbar-link-products"
         type="button"
+        disabled={ pathname === '/customer/products' }
+        onClick={ () => history.push('/customer/products') }
       >
         Produtos
       </button>
       <button
         data-testId="customer_products__element-navbar-link-orders"
         type="button"
+        disabled={ pathname === '/customer/orders' }
+        onClick={ () => history.push('/customer/orders') }
       >
         Meus Pedidos
       </button>
@@ -27,7 +31,6 @@ function ClientNavBar() {
         date-testId="customer_products__element-navbar-link-logout"
         type="button"
         onClick={ () => {
-          console.log(location);
           history.push('/login');
         } }
       >

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const usersRouter = require('../database/routers/usersRouter');
 const errorHandler = require('../database/middlewares/errorHandler');
 const loginRouter = require('../database/routers/loginRouter');
@@ -6,6 +7,8 @@ const loginRouter = require('../database/routers/loginRouter');
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use('/users', usersRouter);
 

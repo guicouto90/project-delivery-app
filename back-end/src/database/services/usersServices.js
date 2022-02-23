@@ -19,14 +19,21 @@ const newUser = async(name, email, password, role) => {
 };
 
 const verifyEmail = async(email) => {
-  const user = await Users.findOne({ email: { email } });
+  const user = await Users.findOne({ where: { email }});
   if(user) {
     throw errorConstructor(CONFLICT, userExists);
   };
+};
+
+const findAllUsers = async () => {
+  const user = await Users.findAll();
+
+  return user;
 }
 
 module.exports = {
   newUser,
   validateUser,
   verifyEmail,
+  findAllUsers,
 }

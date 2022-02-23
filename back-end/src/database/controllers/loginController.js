@@ -6,9 +6,9 @@ const addLogin = async(req, res, next) => {
     const { email, password } = req.body;
     validateLogin(email, password);
     await verifyLogin(email, password);
-    const token = await newLogin(email, password);
+    const result = await newLogin(email, password);
 
-    return res.status(CREATED).json({token});
+    return res.status(CREATED).json(result);
   } catch (error) {
    console.error(error.message);
    next(error); 

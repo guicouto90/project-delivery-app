@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import postLogin from '../../axios/index';
 import './Login.css';
 import Input from './input';
+import { postLogin } from '../../axios/index';
 
 function Login(props) {
   const { history } = props;
@@ -22,7 +22,7 @@ function Login(props) {
     const user = await postLogin(loginValue, passwordValue);
     if (!user.error) {
       localStorage.user = JSON.stringify(user.data);
-      history.push('/products');
+      history.push('/customer/products');
     }
     setError(user.error);
   }

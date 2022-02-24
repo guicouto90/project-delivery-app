@@ -1,5 +1,5 @@
 const { generateToken } = require("../middlewares/auth");
-const { Users, Login } = require("../models");
+const { users, Login } = require("../models");
 const cryptograph = require("../utils/cryptoPassword");
 const { invalidPasswordEmail } = require("../utils/errorMessages");
 const errorConstructor = require("../utils/functions");
@@ -12,20 +12,25 @@ const validateLogin = (email, password) => {
 };
 
 const verifyLogin = async(email, password) => {
-  const user = await Users.findOne({ where: { email }});
+  const user = await users.findOne({ where: { email }});
   const passwordCrypto = cryptograph(password)
   if(!user || user.password !== passwordCrypto) {
     throw errorConstructor(UNAUTHORIZED, invalidPasswordEmail);
-  }
+  };
+  return user;
 }
 
-const newLogin = async (email, password) => {
+const newLogin = async (user) => {
   //await Login.create({ email, password });
+  const { name, email, role } = user;
   const token = generateToken(email);
   const login = {
+    name,
     email,
     token,
-  }
+    role
+  };
+  
   return login;
 };
 

@@ -25,8 +25,8 @@ const postLogin = async (email, password) => {
     console.log(response);
     return response;
   } catch (error) {
-    // const error =
     console.error(error.message);
+    return error;
   }
 };
 

@@ -6,15 +6,10 @@ import Input from './input';
 
 function Login(props) {
   const { history } = props;
+  const [loginValidated, setValid] = useState(false);
   const [loginValue, setLoginValue] = useState();
   const [passwordValue, setPasswordValue] = useState('');
   const [, setError] = useState(''); // error removed
-
-  // function emailValidated() {
-  //   const re = /\S+@\S+\.\S+/;
-  //   const valid = re.test(loginValue);
-  //   return valid;
-  // }
 
   // robervaldo@email.com
   // 123456
@@ -32,53 +27,70 @@ function Login(props) {
     setError(user.error);
   }
 
-  function loginHandleChange({ target }) {
-    const { value } = target;
-    setLoginValue(value);
+  function emailValidated() {
+    const re = /\S+@\S+\.\S+/;
+    const valid = re.test(loginValue);
+    return valid;
   }
 
-  function passwordHandleChange({ target }) {
-    const { value } = target;
-    setPasswordValue(value);
+  function passwordValidated() {
+    const minimum = 5;
+    if (passwordValue.length >= minimum) {
+      setValid(true);
+    } else if (passwordValue.length < minimum) {
+      setValid(false);
+    }
   }
 
   return (
-    <div>
-      Login
-      <Input
-        value={ loginValue }
-        onChange={ loginHandleChange }
-        id="common_login__input-email"
-        data-testid="common_login__input-email"
-        type="email"
-      />
+    <div className="login">
+      <fieldset>
+        <h1 className="title">Login</h1>
+        <Input
+          className="inputEmail"
+          value={ loginValue }
+          onChange={ ({ target }) => {
+            setLoginValue(target.value);
+            passwordValidated();
+          } }
+          id="common_login__input-email"
+          data-testid="common_login__input-email"
+          type="email"
+        />
 
-      Senha
-      <Input
-        value={ passwordValue }
-        onChange={ passwordHandleChange }
-        id="common_login__input-password"
-        data-testid="common_login__input-password"
-        type="password"
-      />
+        <Input
+          className="inputSenha"
+          value={ passwordValue }
+          onChange={ ({ target }) => {
+            setPasswordValue(target.value);
+            passwordValidated();
+          } }
+          id="common_login__input-password"
+          data-testid="common_login__input-password"
+          type="password"
+        />
 
-      <button
-        onClick={ validPage }
-        data-testid="common_login__button-login"
-        type="button"
-        // disabled={ !loginValue || !emailValidated() }
-      >
-        LOGIN
-      </button>
+        <button
+          className="loginButton"
+          onClick={ validPage }
+          data-testid="common_login__button-login"
+          type="button"
+          disabled={ !loginValidated || !emailValidated() }
+        >
+          Login
+        </button>
+        <br />
+        <button
+          className="loginButton"
+          onClick={ redirectRegister }
+          data-testid="common_login__button-register"
+          type="button"
+        >
+          Ainda não tenho conta
+        </button>
 
-      <button
-        onClick={ redirectRegister }
-        data-testid="common_login__button-register"
-        type="button"
-      >
-        Ainda não tenho conta
-      </button>
-      <p data-testid="common_login__element-invalid-email">error</p>
+        <br data-testid="common_login__element-invalid-email" />
+      </fieldset>
     </div>
   );
 }

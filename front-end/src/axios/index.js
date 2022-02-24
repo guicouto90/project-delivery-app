@@ -18,16 +18,13 @@ const getTasks = async () => {
 // adicionar infos
 const postLogin = async (email, password) => {
   try {
-    console.log('xablau1');
     const response = await axios.post(`${url}/login`, {
       email,
       password,
     });
-    console.log(response);
     return response;
   } catch (error) {
-    console.error(error.message);
-    return error;
+    console.error(error);
   }
 };
 

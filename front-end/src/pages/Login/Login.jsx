@@ -9,10 +9,8 @@ function Login(props) {
   const [loginValidated, setValid] = useState(false);
   const [loginValue, setLoginValue] = useState();
   const [passwordValue, setPasswordValue] = useState('');
-  const [, setError] = useState(''); // error removed
-
-  // robervaldo@email.com
-  // 123456
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('');
 
   function redirectRegister() {
     history.push('/register');
@@ -20,11 +18,13 @@ function Login(props) {
 
   async function validPage() {
     const user = await postLogin(loginValue, passwordValue);
-    if (!user.error) {
+    if (!user) {
+      setError(true);
+      setMessage('Usuario ou senha invalidos');
+    } else {
       localStorage.user = JSON.stringify(user.data);
       history.push('/customer/products');
     }
-    setError(user.error);
   }
 
   function emailValidated() {
@@ -88,8 +88,8 @@ function Login(props) {
         >
           Ainda não tenho conta
         </button>
-
-        <br data-testid="common_login__element-invalid-email" />
+        {!error ? ''
+          : <p data-testid="common_login__element-invalid-email">{message}</p>}
       </fieldset>
     </div>
   );

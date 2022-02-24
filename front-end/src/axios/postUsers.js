@@ -14,7 +14,6 @@ const postUsers = async (name, email, password) => {
     return response;
   } catch (error) {
     console.error(error.message);
-    return error.message;
   }
 };
 

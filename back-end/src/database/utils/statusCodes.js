@@ -1,6 +1,7 @@
 const {
   OK,
   BAD_REQUEST,
+  NOT_FOUND,
   CONFLICT,
   CREATED,
   INTERNAL_SERVER_ERROR,
@@ -14,4 +15,5 @@ module.exports = {
   CREATED,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
+  NOT_FOUND
 };

@@ -6,7 +6,7 @@ import CheckoutPage from './pages/client-flow/CheckoutPage';
 import OrdersPage from './pages/client-flow/OrdersPage';
 import ProductsPage from './pages/client-flow/ProductsPage';
 import Login from './pages/Login/Login';
-import Cadastro from './pages/Login/cadastro';
+import Register from './pages/Login/Register';
 
 function App() {
   return (
@@ -19,10 +19,9 @@ function App() {
           <Route exact path="/login" component={ Login } />
           <Route exact path="/customer/orders" component={ OrdersPage } />
           <Route exact path="/customer/orders/:id" component={ Login } />
-          <Route path="/register" component={ Cadastro } />
+          <Route exact path="/register" component={ Register } />
           <Route exact path="/customer/checkout" component={ CheckoutPage } />
           <Route exact path="/customer/products" component={ ProductsPage } />
-          <Route path="/resgister" />
         </Switch>
       </BrowserRouter>
     </DeliveryProvider>

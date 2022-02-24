@@ -22,11 +22,9 @@ const postLogin = async (email, password) => {
       email,
       password,
     });
-    console.log(response);
     return response;
   } catch (error) {
-    console.error(error.message);
-    return error;
+    console.error(error);
   }
 };
 

@@ -70,6 +70,7 @@ function ProductsPage() {
       </div>
       <button
         type="button"
+        data-testid="customer_products__button-checkout"
         onClick={ () => {
           const cartItems = products.filter((product) => product.quantity !== 0);
           setItemsInCart(cartItems);

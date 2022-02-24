@@ -38,15 +38,22 @@ function CheckoutPage() {
         </tr>
         <tr>
           <td>
-            <select name="" id="">
+            <select name="" id="" data-testid="customer_checkout__select-seller">
               {sellers.map((seller) => <option key={ seller }>{seller}</option>)}
             </select>
           </td>
-          <td><input type="text" /></td>
-          <td><input type="number" /></td>
+          <td><input data-testid="customer_checkout__input-address" type="text" /></td>
+          <td>
+            <input data-testid="customer_checkout__input-addressNumber" type="number" />
+          </td>
         </tr>
       </table>
-      <button type="button">Finalizar Pedido</button>
+      <button
+        type="button"
+        data-testid="customer_checkout__button-submit-order"
+      >
+        Finalizar Pedido
+      </button>
     </>
   );
 }

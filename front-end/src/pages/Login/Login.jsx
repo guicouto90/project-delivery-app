@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import postLogin from '../../axios/index';
 import './Login.css';
 import Input from './input';
+import { postLogin } from '../../axios/index';
 
 function Login(props) {
   const { history } = props;
@@ -43,10 +43,11 @@ function Login(props) {
   }
 
   return (
-    <div className="main">
-      <div className="form">
-        Login
+    <div className="login">
+      <fieldset>
+        <h1 className="title">Login</h1>
         <Input
+          className="inputEmail"
           value={ loginValue }
           onChange={ ({ target }) => {
             setLoginValue(target.value);
@@ -57,8 +58,8 @@ function Login(props) {
           type="email"
         />
 
-        Senha
         <Input
+          className="inputSenha"
           value={ passwordValue }
           onChange={ ({ target }) => {
             setPasswordValue(target.value);
@@ -70,6 +71,7 @@ function Login(props) {
         />
 
         <button
+          className="loginButton"
           onClick={ validPage }
           data-testid="common_login__button-login"
           type="button"
@@ -77,8 +79,9 @@ function Login(props) {
         >
           Login
         </button>
-
+        <br />
         <button
+          className="loginButton"
           onClick={ redirectRegister }
           data-testid="common_login__button-register"
           type="button"
@@ -87,7 +90,7 @@ function Login(props) {
         </button>
         {!error ? ''
           : <p data-testid="common_login__element-invalid-email">{message}</p>}
-      </div>
+      </fieldset>
     </div>
   );
 }

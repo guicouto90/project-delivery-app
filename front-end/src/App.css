@@ -17,10 +17,90 @@
   font-size: 3em;
   font-weight: 900;
 }
+/* style my image */
+img {
+  width: 40px;
+  height: auto;
+  border-radius: 50%;
+}
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
+nav > div > p {
+  align-items: center;
+  justify-content: center;
+  background: #421981;
+  color: #fff;
+  display: flex;
+  font-size: 1.5em;
+  margin:  0px 10px;
+  height: 100%;
+}
+
+.productButton {
+  background: #2FC18C;
+  color: #001813;
+}
+
+.myOrdersButton {
+  background: #036B52;;
+}
+
+nav > div > button {
+  background: #421981;
+  border: none;
+  border-radius: unset;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 900;
+  height: 100%;
+  padding: 0.5em;
+  width: 300px;
+}
+
+nav > div {
+  align-items: center;
+  background: #421981;
+}
+
+nav > div > button {
+  background:  #056CF9;
+  border: none;
+  border-radius: unset;
+}
+
+.productCard {
+  align-items: center;
+  border: solid black;
+  color: #464646;
+  display: flex;
+  flex-flow: column wrap;
+  width: 300px;
+}
+
+.productsTable {
+  border: #464646;
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+}
+
+nav {
+  background: #036B52;
+}
+
+nav, nav > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #036b52;
+  border-radius: 5px;
+  color: #f2fffc;
+}
+
+.cardInput {
+  text-align: center;
+  width: 25px;
 }
 
 @keyframes shake {

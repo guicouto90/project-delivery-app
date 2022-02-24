@@ -1,22 +1,24 @@
-.main{
+.login {
+  background: url('https://www.opendelivery.org.br/assets/imagens/background/delivery.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
-}
-
-.form {
-  position: absolute;
-  padding-top: 100px;
-  width: 425px;
-  height: 344px;
-  left: 750px;
-  top: 501px;
-  background:red;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 100vh;
+  position: relative;
 }
 
 .title {
   animation-duration: 1000ms;
   animation-fill-mode: backwards;
   animation-name: up;
+}
+
+.login fieldset {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 }
 
 .loginButton {
@@ -28,6 +30,18 @@
   width: 80px;
 }
 
+
+.login fieldset * {
+  padding: 10px;
+}
+
+.login fieldset label {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+}
+
 .login fieldset input {
   border: 2px solid;
   border-radius: 10px;
@@ -36,16 +50,14 @@
   width: 300px;
 }
 
+.login fieldset input:focus {
+  width: 360px;
+}
+
 .inputEmail {
   animation-duration: 2000ms;
   animation-fill-mode: backwards;
   animation-name: up;
-
-  position: absolute;
-  width: 371px;
-  height: 112px;
-  left: 775px;
-  top: 516px;
 }
 
 .inputSenha {

@@ -41,4 +41,13 @@ const editTask = async (id, status) => {
   }
 }; */
 
-export default postLogin;
+const getAllProducts = async () => {
+  try {
+    const response = await axios.get(`${url}/products`);
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export { postLogin, getAllProducts };

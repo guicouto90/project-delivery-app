@@ -58,7 +58,7 @@ function Register(props) {
 
   useEffect(() => {
     enableButton();
-  }, [name, email, password]);
+  }, [name, email, password, enableButton]);
 
   return (
     <div>

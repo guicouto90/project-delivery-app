@@ -33,9 +33,19 @@ const findAllUsers = async () => {
   return user;
 }
 
+const findUserByRole = async (role) => {
+  const user = await users.findAll({
+    attributes: { exclude: ['password']},
+    where: { role },
+  });
+
+  return user;
+}
+
 module.exports = {
   newUser,
   validateUser,
   verifyEmail,
   findAllUsers,
+  findUserByRole,
 }

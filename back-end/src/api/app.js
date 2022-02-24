@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const usersRouter = require('../database/routers/usersRouter');
 const errorHandler = require('../database/middlewares/errorHandler');
 const loginRouter = require('../database/routers/loginRouter');
@@ -16,6 +17,12 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 
 app.use('/products', productsRouter);
+
+app.get('/images/:name', async (req, res, _next) => {
+  const { name } = req.params;
+
+  res.sendFile(path.join(__dirname, '../../public/images', name));
+});
 
 app.use(errorHandler);
 

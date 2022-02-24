@@ -3,13 +3,14 @@ import DeliveryContext from '../../../context/DeliveryContext';
 
 function CheckoutItemsInTable(item, index) {
   const { name, quantity, price } = item;
+  console.log(price);
   const { itemsInCart, setItemsInCart } = useContext(DeliveryContext);
   return (
     <tr key={ index }>
       <td>{index + 1}</td>
       <td>{name}</td>
       <td>{quantity}</td>
-      <td>{price}</td>
+      <td>{price.toFixed(2)}</td>
       <td>{(price * quantity).toFixed(2)}</td>
       <td>
         <button

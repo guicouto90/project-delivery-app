@@ -4,6 +4,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 function ClientNavBar() {
   const history = useHistory();
   const { pathname } = useLocation();
+  const user = JSON.parse(localStorage.user);
+
   return (
     <nav>
       <button
@@ -25,7 +27,7 @@ function ClientNavBar() {
       <p
         data-testId="customer_products__element-navbar-user-full-name"
       >
-        Nome de Usuário
+        {user.name || 'Jhon Doe'}
       </p>
       <button
         date-testId="customer_products__element-navbar-link-logout"

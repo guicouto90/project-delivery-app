@@ -24,11 +24,9 @@ const sales = (sequelize, DataTypes) => {
 
   sale.associate = (models) => {
     sale.belongsTo(models.users, { as: 'user', foreignKey: 'user_id' });
-    // sale.belongsTo(models.users, { as: 'user', foreignKey: 'seller_id'})
   };
 
   sale.associate = (models) => {
-    // sale.belongsTo(models.users, { as: 'user', foreignKey: 'user_id' });
     sale.belongsTo(models.users, { as: 'user', foreignKey: 'seller_id'})
   };
 

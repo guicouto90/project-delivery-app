@@ -10,7 +10,7 @@ const addUser = async(req, res, next) => {
 
     return res.status(CREATED).json(result);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     next(error);
   }
 };

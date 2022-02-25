@@ -1,7 +1,7 @@
 const { userSchema } = require("./schemas")
 const { users } = require('../models/index');
 const cryptograph = require("../utils/cryptoPassword");
-const { BAD_REQUEST, CONFLICT } = require("../utils/statusCodes");
+const { CONFLICT } = require("../utils/statusCodes");
 const { userExists } = require("../utils/errorMessages");
 const errorConstructor = require("../utils/functions");
 

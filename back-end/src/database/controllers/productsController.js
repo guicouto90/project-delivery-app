@@ -1,7 +1,11 @@
 const { allProducts, productById } = require('../services/productsServices');
 const { OK } = require('../utils/statusCodes');
 
+<<<<<<< HEAD
 const getAllProducts = async(req, res, next) => {
+=======
+const getAllProducts = async(_req, res, next) => {
+>>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852
   try {
     const products = await allProducts();
     
@@ -28,4 +32,8 @@ const getProductById = async (req, res, next) => {
 module.exports = {
   getAllProducts,
   getProductById,
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852

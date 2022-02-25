@@ -1,5 +1,9 @@
 const { validateLogin, verifyLogin, newLogin } = require("../services/loginService");
+<<<<<<< HEAD
 const { OK } = require("../utils/statusCodes");
+=======
+const { CREATED, OK } = require("../utils/statusCodes");
+>>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852
 
 const addLogin = async(req, res, next) => {
   try {

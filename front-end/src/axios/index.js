@@ -5,15 +5,17 @@ const url = 'http://localhost:3001';
 // LOGIN
 const postLogin = async (email, password) => {
   try {
-    console.log('xablau1');
     const response = await axios.post(`${url}/login`, {
       email,
       password,
     });
-    console.log(response);
     return response;
   } catch (error) {
+<<<<<<< HEAD
     console.error(error.message);
+=======
+    console.error(error);
+>>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852
   }
 };
 
@@ -43,4 +45,17 @@ const getAllProducts = async () => {
   }
 };
 
+<<<<<<< HEAD
 export { postLogin, postUsers, getAllProducts };
+=======
+const getAllProducts = async () => {
+  try {
+    const response = await axios.get(`${url}/products`);
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export { postLogin, getAllProducts };
+>>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852

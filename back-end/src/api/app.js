@@ -5,6 +5,7 @@ const errorHandler = require('../database/middlewares/errorHandler');
 const usersRouter = require('../database/routers/usersRouter');
 const loginRouter = require('../database/routers/loginRouter');
 const productsRouter = require('../database/routers/productsRouter');
+const salesRouter = require('../database/routers/salesRouter');
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 
 app.use('/products', productsRouter);
+
+app.use('/sales', salesRouter);
 
 app.get('/images/:name', async (req, res, _next) => {
   const { name } = req.params;

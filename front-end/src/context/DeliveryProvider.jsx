@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../axios/index';
+import { getAllProducts } from '../axios';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {

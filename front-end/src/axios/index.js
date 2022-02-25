@@ -11,11 +11,7 @@ const postLogin = async (email, password) => {
     });
     return response;
   } catch (error) {
-<<<<<<< HEAD
     console.error(error.message);
-=======
-    console.error(error);
->>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852
   }
 };
 
@@ -45,17 +41,4 @@ const getAllProducts = async () => {
   }
 };
 
-<<<<<<< HEAD
 export { postLogin, postUsers, getAllProducts };
-=======
-const getAllProducts = async () => {
-  try {
-    const response = await axios.get(`${url}/products`);
-    return response;
-  } catch (error) {
-    console.error(error.message);
-  }
-};
-
-export { postLogin, getAllProducts };
->>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852

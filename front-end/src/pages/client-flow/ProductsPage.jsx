@@ -44,7 +44,7 @@ function ProductsPage() {
                   data-testid={ `${prefix}button-card-rm-item-${product.id}` }
                   disabled={ product.quantity === 0 }
                   onClick={ () => {
-                    product.quantity -= 1;
+                    product.quantity = Number(product.quantity) - 1;
                     setProducts([...productsAux]);
                   } }
                 >
@@ -52,8 +52,9 @@ function ProductsPage() {
                 </button>
                 <input
                   className="cardInput"
-                  defaultValue={ product.quantity }
-                  onChange={ () => {
+                  value={ product.quantity }
+                  onChange={ (e) => {
+                    product.quantity = e.target.value;
                     setProducts([...productsAux]);
                   } }
                   data-testid={ `${prefix}input-card-quantity-${product.id}` }
@@ -62,7 +63,7 @@ function ProductsPage() {
                   type="button"
                   data-testid={ `${prefix}button-card-add-item-${product.id}` }
                   onClick={ () => {
-                    productsAux[index].quantity += 1;
+                    product.quantity = Number(product.quantity) + 1;
                     setProducts([...productsAux]);
                   } }
                 >

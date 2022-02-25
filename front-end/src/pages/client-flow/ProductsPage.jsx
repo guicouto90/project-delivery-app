@@ -52,7 +52,10 @@ function ProductsPage() {
                 </button>
                 <input
                   className="cardInput"
-                  value={ product.quantity }
+                  defaultValue={ product.quantity }
+                  onChange={ () => {
+                    setProducts([...productsAux]);
+                  } }
                   data-testid={ `${prefix}input-card-quantity-${product.id}` }
                 />
                 <button

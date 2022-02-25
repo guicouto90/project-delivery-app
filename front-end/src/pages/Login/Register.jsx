@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Input from './input';
-import postUsers from '../../axios/postUsers';
+import { postUsers } from '../../axios/index';
 
 function Register(props) {
   const { history } = props;
   const [name, setName] = useState('');
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginValidated, setValid] = useState(true);
   const [error, setError] = useState(false);
@@ -18,12 +18,6 @@ function Register(props) {
     return valid;
   }
 
-  // function nameValidated() {
-  //   const minimum = 12;
-  //   if (name.length >= minimum) {
-  //     setValid(true);
-  //   }
-  // }
   const enableButton = () => {
     const minimuPassword = 6;
     const minimun = 12;
@@ -34,16 +28,6 @@ function Register(props) {
       setValid(true);
     }
   };
-
-  /* function creatUser() {
-    const minimuPassword = 6;
-    const minimun = 12;
-    console.log(password.length);
-    console.log('MINIMO:', minimuPassword);
-    if (password.length > minimuPassword && name.length >= minimun) {
-      setValid(true);
-    }
-  } */
 
   async function validPage() {
     const user = await postUsers(name, email, password);
@@ -58,7 +42,7 @@ function Register(props) {
 
   useEffect(() => {
     enableButton();
-  }, [name, email, password, enableButton]);
+  }, [name, email, password]);
 
   return (
     <div>
@@ -68,7 +52,6 @@ function Register(props) {
         name="name"
         onChange={ ({ target }) => {
           setName(target.value);
-          // creatUser();
         } }
         id="common_register__input-name"
         data-testid="common_register__input-name"
@@ -81,7 +64,6 @@ function Register(props) {
         name="email"
         onChange={ ({ target }) => {
           setEmail(target.value);
-          // creatUser();
         } }
         id="common_register__input-email"
         data-testid="common_register__input-email"
@@ -94,7 +76,6 @@ function Register(props) {
         name="password"
         onChange={ ({ target }) => {
           setPassword(target.value);
-          // creatUser();
         } }
         id="common_register__input-password"
         data-testid="common_register__input-password"

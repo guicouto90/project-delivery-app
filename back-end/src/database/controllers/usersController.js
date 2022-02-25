@@ -1,10 +1,4 @@
-const {
-  validateUser,
-  newUser,
-  verifyEmail,
-  findAllUsers,
-  findUserByRole,
-} = require("../services/usersServices");
+const { validateUser, newUser, verifyEmail, findAllUsers, findUserByRole } = require("../services/usersServices");
 const { CREATED, OK } = require("../utils/statusCodes");
 
 const addUser = async(req, res, next) => {
@@ -16,7 +10,7 @@ const addUser = async(req, res, next) => {
 
     return res.status(CREATED).json(result);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     next(error);
   }
 };
@@ -48,5 +42,5 @@ const listUsersByRole = async(req, res, next) => {
 module.exports = {
   addUser,
   listAllUsers,
-  listUsersByRole,
+  listUsersByRole
 }

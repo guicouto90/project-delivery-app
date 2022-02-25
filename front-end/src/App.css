@@ -1,3 +1,5 @@
+
+  
 .App {
   align-items: center;
   background: #0fa36b;
@@ -55,6 +57,7 @@ nav > div > button {
   padding: 0.5em;
   width: 300px;
 }
+<<<<<<< HEAD
 
 nav > div {
   align-items: center;
@@ -98,6 +101,51 @@ button {
   color: #f2fffc;
 }
 
+=======
+
+nav > div {
+  align-items: center;
+  background: #421981;
+}
+
+nav > div > button {
+  background:  #056CF9;
+  border: none;
+  border-radius: unset;
+}
+
+.productCard {
+  align-items: center;
+  border: solid black;
+  color: #464646;
+  display: flex;
+  flex-flow: column wrap;
+  width: 300px;
+}
+
+.productsTable {
+  border: #464646;
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+}
+
+nav {
+  background: #036B52;
+}
+
+nav, nav > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background-color: #036b52;
+  border-radius: 5px;
+  color: #f2fffc;
+}
+
+>>>>>>> f223b72a0860aab9295a6d706aa20382f5a44852
 .cardInput {
   text-align: center;
   width: 25px;

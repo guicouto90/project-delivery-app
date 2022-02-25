@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const usersRouter = require('../database/routers/usersRouter');
 const errorHandler = require('../database/middlewares/errorHandler');
+const usersRouter = require('../database/routers/usersRouter');
 const loginRouter = require('../database/routers/loginRouter');
 const productsRouter = require('../database/routers/productsRouter');
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
 import Input from './input';
@@ -6,8 +6,8 @@ import { postLogin } from '../../axios/index';
 
 function Login(props) {
   const { history } = props;
-  const [loginValidated, setValid] = useState(false);
-  const [loginValue, setLoginValue] = useState();
+  const [loginValidated, setValid] = useState(true);
+  const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
@@ -33,14 +33,19 @@ function Login(props) {
     return valid;
   }
 
-  function passwordValidated() {
-    const minimum = 5;
-    if (passwordValue.length >= minimum) {
-      setValid(true);
-    } else if (passwordValue.length < minimum) {
+  const enableButton = () => {
+    const minimuPassword = 6;
+    const emailValid = emailValidated();
+    if (emailValid && passwordValue.length >= minimuPassword) {
       setValid(false);
+    } else {
+      setValid(true);
     }
-  }
+  };
+
+  useEffect(() => {
+    enableButton();
+  }, [loginValue, passwordValue]);
 
   return (
     <div className="login">
@@ -51,7 +56,6 @@ function Login(props) {
           value={ loginValue }
           onChange={ ({ target }) => {
             setLoginValue(target.value);
-            passwordValidated();
           } }
           id="common_login__input-email"
           data-testid="common_login__input-email"
@@ -63,7 +67,6 @@ function Login(props) {
           value={ passwordValue }
           onChange={ ({ target }) => {
             setPasswordValue(target.value);
-            passwordValidated();
           } }
           id="common_login__input-password"
           data-testid="common_login__input-password"
@@ -75,7 +78,7 @@ function Login(props) {
           onClick={ validPage }
           data-testid="common_login__button-login"
           type="button"
-          disabled={ !loginValidated || !emailValidated() }
+          disabled={ loginValidated }
         >
           Login
         </button>

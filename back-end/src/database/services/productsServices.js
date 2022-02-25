@@ -1,17 +1,17 @@
-const { Products } = require('../models');
+const { products } = require('../models');
 
 const allProducts = async () => {
-  const products = await Products.findAll();
+  const result = await products.findAll();
 
-  return products;
+  return result;
 };
 
 const productById = async (id) => {
-  const product = await Products.findOne({
+  const result = await products.findOne({
     where: { id },
   });
 
-  return product;
+  return result;
 };
 
 module.exports = {

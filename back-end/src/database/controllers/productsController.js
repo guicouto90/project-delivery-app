@@ -1,7 +1,7 @@
 const { allProducts, productById } = require('../services/productsServices');
 const { OK } = require('../utils/statusCodes');
 
-const getAllProducts = async(_req, res, next) => {
+const getAllProducts = async(req, res, next) => {
   try {
     const products = await allProducts();
     

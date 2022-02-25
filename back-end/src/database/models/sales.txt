@@ -1,3 +1,5 @@
+
+  
 const sales = (sequelize, DataTypes) => {
   const sale = sequelize.define('sales', {
     id: { 
@@ -29,4 +31,3 @@ const sales = (sequelize, DataTypes) => {
 };
 
 module.exports = sales;
-

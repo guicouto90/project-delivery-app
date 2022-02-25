@@ -21,7 +21,6 @@ const newUser = async(name, email, password, role) => {
 const verifyEmail = async(email, name) => {
   const userEmail = await users.findOne({ where: { email }});
   const userName = await users.findOne({ where: { name }});
-  //console.log(user)
   if(userEmail || userName) {
     throw errorConstructor(CONFLICT, userExists);
   };

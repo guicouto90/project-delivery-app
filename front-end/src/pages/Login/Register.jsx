@@ -6,7 +6,7 @@ import { postUsers } from '../../axios/index';
 function Register(props) {
   const { history } = props;
   const [name, setName] = useState('');
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginValidated, setValid] = useState(true);
   const [error, setError] = useState(false);

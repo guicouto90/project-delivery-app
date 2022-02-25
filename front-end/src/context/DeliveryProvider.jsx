@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../axios';
-import state01 from '../pages/client-flow/utils/state01';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {

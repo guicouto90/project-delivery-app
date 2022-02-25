@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Cadastro from './pages/Login/cadastro';
+import Register from './pages/Login/Register';
 import Login from './pages/Login/Login';
 import './App.css';
+import ProductsPage from './pages/client-flow/ProductsPage';
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
         <Route exact path="/">
           <Redirect to="/login" />
         </Route>
-        <Route path="/login" component={ Login } />
-        <Route path="/register" component={ Cadastro } />
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/register" component={ Register } />
+        <Route exact path="/customer/products" component={ ProductsPage } />
       </Switch>
     </div>
   );

@@ -1,6 +1,7 @@
 const {
   OK,
   BAD_REQUEST,
+  NOT_FOUND,
   CONFLICT,
   CREATED,
   INTERNAL_SERVER_ERROR,
@@ -10,6 +11,7 @@ const {
 module.exports = {
   OK,
   BAD_REQUEST,
+  NOT_FOUND,
   CONFLICT,
   CREATED,
   INTERNAL_SERVER_ERROR,

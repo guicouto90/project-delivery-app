@@ -1,5 +1,5 @@
 const { validateLogin, verifyLogin, newLogin } = require("../services/loginService");
-const { CREATED } = require("../utils/statusCodes");
+const { OK } = require("../utils/statusCodes");
 
 const addLogin = async(req, res, next) => {
   try {
@@ -8,7 +8,7 @@ const addLogin = async(req, res, next) => {
     const user = await verifyLogin(email, password);
     const result = await newLogin(user);
 
-    return res.status(CREATED).json(result);
+    return res.status(OK).json(result);
   } catch (error) {
    console.error(error.message);
    next(error); 

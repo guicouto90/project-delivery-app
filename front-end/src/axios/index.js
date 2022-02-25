@@ -2,20 +2,7 @@ import axios from 'axios';
 
 const url = 'http://localhost:3001';
 
-/* import axios from "axios"
-const URL = 'http://localhost:3001/tasks'
-
-const getTasks = async () => {
-  try {
-    const response = await axios.get(URL);
-    const tasks = await response.data;
-    return tasks;
-  } catch (error) {
-    console.error(error);
-  }
-}; */
-
-// adicionar infos
+// LOGIN
 const postLogin = async (email, password) => {
   try {
     console.log('xablau1');
@@ -27,21 +14,23 @@ const postLogin = async (email, password) => {
     return response;
   } catch (error) {
     console.error(error.message);
-    return error;
   }
 };
 
-/*
-const editTask = async (id, status) => {
+// NEW USER
+const postUsers = async (name, email, password) => {
   try {
-    const response = await axios.put(`${URL}/${id}`, {
-      status,
+    const response = await axios.post(`${url}/users`, {
+      name,
+      email,
+      password,
+      role: 'customer',
     });
     console.log(response);
     return response;
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   }
-}; */
+};
 
-export default postLogin;
+export { postLogin, postUsers };

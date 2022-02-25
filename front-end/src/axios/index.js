@@ -33,4 +33,14 @@ const postUsers = async (name, email, password) => {
   }
 };
 
-export { postLogin, postUsers };
+// GET PRODUCTS
+const getAllProducts = async () => {
+  try {
+    const response = await axios.get(`${url}/products`);
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export { postLogin, postUsers, getAllProducts };

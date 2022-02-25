@@ -26,8 +26,8 @@ const newLogin = async (user) => {
   const login = {
     name,
     email,
+    role,
     token,
-    role
   };
   
   return login;

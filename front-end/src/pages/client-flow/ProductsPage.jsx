@@ -76,7 +76,7 @@ function ProductsPage() {
       </div>
       <button
         type="button"
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
         disabled={ calculatePrice(products) === 0 }
         onClick={ () => {
           const cartItems = products.filter((product) => product.quantity !== 0);
@@ -84,7 +84,14 @@ function ProductsPage() {
           history.push('/customer/checkout');
         } }
       >
-        {`R$ ${calculatePrice(products).toFixed(2).replace(/\./, ',')}`}
+        R$
+        {' '}
+        <p
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {`${calculatePrice(products).toFixed(2).replace(/\./, ',')}`}
+
+        </p>
       </button>
     </>
   );

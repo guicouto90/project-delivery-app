@@ -27,12 +27,12 @@ function CheckoutItemsInTable(item, index) {
           `customer_checkout__element-order-table-unit-price-${index}`
         }
       >
-        {price}
+        {price.replace('.', ',')}
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
       >
-        {(price * quantity).toFixed(2)}
+        {(price * quantity).toFixed(2).replace('.', ',')}
       </td>
       <td>
         <button

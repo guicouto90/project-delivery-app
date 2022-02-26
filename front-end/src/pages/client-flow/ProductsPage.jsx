@@ -24,11 +24,10 @@ function ProductsPage() {
       <div className="productsTable">
         { products.map((product, index) => {
           const prefix = 'customer_products__';
-          // const newPrice = product.price.replace(/\./, ',');
           return (
             <div className="productCard" key={ index }>
               <h1 data-testid={ `${prefix}element-card-price-${product.id}` }>
-                {product.price.replace(/\./, ',')}
+                {`R$ ${product.price.replace(/\./, ',')}`}
               </h1>
               <img
                 src={ product.url_image }
@@ -44,7 +43,7 @@ function ProductsPage() {
                   data-testid={ `${prefix}button-card-rm-item-${product.id}` }
                   disabled={ product.quantity === 0 }
                   onClick={ () => {
-                    product.quantity = Number(product.quantity) - 1;
+                    product.quantity -= 1;
                     setProducts([...productsAux]);
                   } }
                 >
@@ -54,7 +53,8 @@ function ProductsPage() {
                   className="cardInput"
                   value={ product.quantity }
                   onChange={ (e) => {
-                    product.quantity = e.target.value;
+                    const filtredInput = Number(e.target.value.replace(/\D/g, ''));
+                    product.quantity = filtredInput;
                     setProducts([...productsAux]);
                   } }
                   data-testid={ `${prefix}input-card-quantity-${product.id}` }
@@ -63,7 +63,7 @@ function ProductsPage() {
                   type="button"
                   data-testid={ `${prefix}button-card-add-item-${product.id}` }
                   onClick={ () => {
-                    product.quantity = Number(product.quantity) + 1;
+                    product.quantity += 1;
                     setProducts([...productsAux]);
                   } }
                 >
@@ -77,13 +77,14 @@ function ProductsPage() {
       <button
         type="button"
         data-testid="customer_products__checkout-bottom-value"
+        disabled={ calculatePrice(products) === 0 }
         onClick={ () => {
           const cartItems = products.filter((product) => product.quantity !== 0);
           setItemsInCart(cartItems);
           history.push('/customer/checkout');
         } }
       >
-        {`${calculatePrice(products).toFixed(2).replace(/\./, ',')}`}
+        {`R$ ${calculatePrice(products).toFixed(2).replace(/\./, ',')}`}
       </button>
     </>
   );

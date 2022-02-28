@@ -208,7 +208,7 @@ describe(requirement(15), () => {
     );
   };
 
-  test.only(`O avaliador testará se adição do item: \`${JSON.stringify(
+  test(`O avaliador testará se adição do item: \`${JSON.stringify(
     randomItem1
   )}\`, também altera sua quantidade`, async () => {
     const { productId, quantity } = randomItem1;
@@ -216,7 +216,7 @@ describe(requirement(15), () => {
     await addItem(productId, quantity);
   });
 
-  test.only(`O avaliador testará se após a adição do item: \`${JSON.stringify(
+  test(`O avaliador testará se após a adição do item: \`${JSON.stringify(
     randomItem2
   )}\`, a remoção não resultará em quantidades negativas`, async () => {
     const { productId, quantity } = randomItem2;
@@ -226,7 +226,7 @@ describe(requirement(15), () => {
     await addItem(productId, quantity);
   });
 
-  test.only(`O avaliador testará se definição manual do item: \`${JSON.stringify(
+  test(`O avaliador testará se definição manual do item: \`${JSON.stringify(
     randomItem3
   )}\`, retornará o valor total correto`, async () => {
     const { productId, quantity, subTotal } = randomItem3;
@@ -239,7 +239,7 @@ describe(requirement(15), () => {
     );
   });
 
-  test.only("O avaliador testará o fluxo completo de adição de itens, validando o valor total de produtos", async () => {
+  test("O avaliador testará o fluxo completo de adição de itens, validando o valor total de produtos", async () => {
     expect(
       await action.customer.validateProductsTotalPrice(page, itemList)
     ).toBeTruthy();

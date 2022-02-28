@@ -28,7 +28,13 @@ function CheckoutPage() {
           return (CheckoutItemsInTable(item, index));
         })}
       </table>
-      <h3>{`Total: R$ ${total.toFixed(2)}`}</h3>
+      <h3>
+        {'Total: R$ '}
+        <span data-testid="customer_checkout__element-order-total-price">
+          {total.toFixed(2).replace('.', ',')}
+        </span>
+
+      </h3>
       <h4>Detalhes e Endereço para Entrega</h4>
       <table>
         <tr>

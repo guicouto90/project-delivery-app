@@ -24,7 +24,6 @@ const postUsers = async (name, email, password) => {
       password,
       role: 'customer',
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.error(error.message);

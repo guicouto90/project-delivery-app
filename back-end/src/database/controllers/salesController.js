@@ -1,11 +1,14 @@
-const { validateSale, newSale, getAllSales, editSaleStatus } = require("../services/salesService");
+const { productsExist } = require("../services/productsServices");
+const { validateSale, newSale, getAllSales, editSaleStatus, addSalesProducts, getSaleById } = require("../services/salesService");
 const { CREATED, OK } = require("../utils/statusCodes");
 
 const addSales = async(req, res, next) => {
   try {
     validateSale(req.body);
-    console.log(req.body)
+    const { productsDetails } = req.body;
+    await productsExist(productsDetails);
     const result = await newSale(req.body);
+    await addSalesProducts(result.id, productsDetails)
 
     return res.status(CREATED).json(result);
   } catch (error) {
@@ -28,7 +31,7 @@ const listSales = async(req, res, next) => {
 const listSaleById = async(req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await getAllSales(id);
+    const result = await getSaleById(id);
 
     return res.status(OK).json(result);
   } catch (error) {

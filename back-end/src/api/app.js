@@ -6,6 +6,7 @@ const usersRouter = require('../database/routers/usersRouter');
 const loginRouter = require('../database/routers/loginRouter');
 const productsRouter = require('../database/routers/productsRouter');
 const salesRouter = require('../database/routers/salesRouter');
+const {salesProducts} = require('../database/models/');
 
 const app = express();
 
@@ -20,6 +21,18 @@ app.use('/login', loginRouter);
 app.use('/products', productsRouter);
 
 app.use('/sales', salesRouter);
+
+app.get('/salesproducts', async (req, res) => {
+  const teste = await salesProducts.findAll();
+  return res.status(200).json(teste);
+})
+
+app.get('/salesproducts/:sale_id', async (req, res) => {
+  const { sale_id } = req.params;
+  const teste = await salesProducts.findAll( { where: { sale_id }});
+
+  return res.status(200).json(teste);
+})
 
 app.get('/images/:name', async (req, res, _next) => {
   const { name } = req.params;

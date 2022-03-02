@@ -24,6 +24,7 @@ function CheckoutPage() {
       deliveryNumber: 150,
       productsDetails,
     };
+    // REF: https://blog.logrocket.com/using-axios-set-request-headers/
     const config = {
       headers: {
         authorization: user.token,

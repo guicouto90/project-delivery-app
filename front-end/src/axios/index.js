@@ -40,4 +40,31 @@ const getAllProducts = async () => {
   }
 };
 
-export { postLogin, postUsers, getAllProducts };
+// POST SALE
+const postSale = async (body, headers) => {
+  const {
+    userId,
+    sellerId,
+    totalPrice,
+    deliveryAddress,
+    deliveryNumber,
+    productsDetails } = body;
+  try {
+    const response = await axios.post(`${url}/sales`, {
+      user_id: userId,
+      seller_id: sellerId,
+      total_price: totalPrice,
+      delivery_address: deliveryAddress,
+      delivery_number: deliveryNumber,
+      status: 'Pendente',
+      productsDetails,
+    }, headers);
+
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export { postLogin, postUsers, getAllProducts, postSale };

@@ -8,9 +8,10 @@ const validateSale = (body) => {
     total_price, 
     delivery_address, 
     delivery_number, 
-    status 
+    status,
+    productsDetails
   } = body;
-  const { error } = salesSchema.validate( {user_id, seller_id, total_price, delivery_address, delivery_number, status} );
+  const { error } = salesSchema.validate( {user_id, seller_id, total_price, delivery_address, delivery_number, status, productsDetails} );
   if(error) throw error;
 }
 
@@ -25,18 +26,8 @@ const newSale = async(body) => {
   } = body;
   const sale_date = new Date().toISOString();
   const { id } = await sales.create({ user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status });
-  const result = {
-    id,
-    user_id, 
-    seller_id, 
-    total_price, 
-    delivery_address, 
-    delivery_number, 
-    sale_date,
-    status
-  };
 
-  return result;
+  return id;
 };
 
 const addSalesProducts = async(sale_id, productsDetails) => {
@@ -56,10 +47,8 @@ const getAllSales = async() => {
 
 const getSaleById = async(id) => {
   const result = await sales.findByPk(id,
-    { include: [
-      { model: products, as: 'products', through: { attributes: [] } },
-      { model: salesProducts, as: 'quantity', attributes: { exclude: ['product_id', 'sale_id']} }
-    ]});
+    { include: { model: products, as: 'products', through: { attributes: ['quantity'] } } }
+  );
 
   return result;
 };

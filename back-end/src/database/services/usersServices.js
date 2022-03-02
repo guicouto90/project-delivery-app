@@ -4,6 +4,7 @@ const cryptograph = require("../utils/cryptoPassword");
 const { CONFLICT } = require("../utils/statusCodes");
 const { userExists } = require("../utils/errorMessages");
 const errorConstructor = require("../utils/functions");
+const { generateToken } = require("../middlewares/auth");
 
 const validateUser = (name, email, password, role) => {
   const { error } = userSchema.validate({name, email, password, role});
@@ -13,9 +14,17 @@ const validateUser = (name, email, password, role) => {
 
 const newUser = async(name, email, password, role) => {
   const passwordCrypto = cryptograph(password);
-  const user = await users.create({ name, email, password: passwordCrypto, role });
+  const token = generateToken(email);
+  const { id } = await users.create({ name, email, password: passwordCrypto, role });
+  const login = {
+    id,
+    name,
+    email,
+    role,
+    token,
+  };
 
-  return user;
+  return login;
 };
 
 const verifyEmail = async(email, name) => {

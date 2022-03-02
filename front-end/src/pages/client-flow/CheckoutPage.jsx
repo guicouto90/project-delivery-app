@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { postSale } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from './utils/ClientNavBar';
@@ -10,6 +11,29 @@ function CheckoutPage() {
   useEffect(() => {}, [itemsInCart]);
 
   let total = 0;
+  const newSale = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const productsDetails = itemsInCart.map((item) => (
+      { product_id: item.id, quantity: item.quantity }
+    ));
+    const body = {
+      userId: user.id,
+      sellerId: 2,
+      totalPrice: total,
+      deliveryAddress: 'Rua do teste',
+      deliveryNumber: 150,
+      productsDetails,
+    };
+    const config = {
+      headers: {
+        authorization: user.token,
+      },
+    };
+    const response = await postSale(body, config);
+
+    return response;
+  };
+
   return (
     <>
       <ClientNavBar />
@@ -57,6 +81,7 @@ function CheckoutPage() {
       <button
         type="button"
         data-testid="customer_checkout__button-submit-order"
+        onClick={ newSale }
       >
         Finalizar Pedido
       </button>

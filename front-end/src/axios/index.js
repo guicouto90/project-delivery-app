@@ -60,11 +60,25 @@ const postSale = async (body, headers) => {
       productsDetails,
     }, headers);
 
-    console.log(response.data);
     return response;
   } catch (error) {
     console.error(error.message);
   }
 };
 
-export { postLogin, postUsers, getAllProducts, postSale };
+// GET SALE BY ID
+// https://axios-http.com/ptbr/docs/example
+const getSaleById = async (id) => {
+  try {
+    const response = await axios.get(`${url}/sales/${id}`, {
+      params: {
+        id,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export { postLogin, postUsers, getAllProducts, postSale, getSaleById };

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { postSale } from '../../axios';
+import { getSaleById, postSale } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from './utils/ClientNavBar';
@@ -31,8 +31,10 @@ function CheckoutPage() {
       },
     };
     const response = await postSale(body, config);
-
-    return response;
+    console.log(response.data);
+    const teste = await getSaleById(response.data.id);
+    console.log(teste);
+    return response.data;
   };
 
   return (

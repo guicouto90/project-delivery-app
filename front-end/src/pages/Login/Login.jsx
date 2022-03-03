@@ -20,12 +20,11 @@ function Login(props) {
 
   async function validPage() {
     const user = await postLogin(loginValue, passwordValue);
-    console.log(user.data);
-    setUser(user.data);
     if (!user) {
       setError(true);
       setMessage('Usuario ou senha invalidos');
     } else {
+      setUser(user.data);
       localStorage.user = JSON.stringify(user.data);
       history.push('/customer/products');
     }

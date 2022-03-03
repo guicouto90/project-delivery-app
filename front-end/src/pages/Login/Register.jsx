@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useContext } from 'react/cjs/react.production.min';
 import Input from './input';
 import { postUsers } from '../../axios/index';
+import DeliveryContext from '../../context/DeliveryContext';
 
 function Register(props) {
   const { history } = props;
@@ -11,6 +13,7 @@ function Register(props) {
   const [loginValidated, setValid] = useState(true);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
+  const { setUser } = useContext(DeliveryContext);
 
   function emailValidated() {
     const re = /\S+@\S+\.\S+/;
@@ -35,6 +38,7 @@ function Register(props) {
       setError(true);
       setMessage('Email ou nome já cadastrados');
     } else {
+      setUser(user.data);
       localStorage.user = JSON.stringify(user.data);
       history.push('/customer/products');
     }
@@ -42,7 +46,7 @@ function Register(props) {
 
   useEffect(() => {
     enableButton();
-  }, [name, email, password]);
+  }, [name, email, password, enableButton]);
 
   return (
     <div>

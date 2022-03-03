@@ -1,3 +1,4 @@
+const { product } = require("puppeteer");
 const { sales, products, salesProducts } = require("../models/");
 const { salesSchema } = require("./schemas");
 
@@ -47,9 +48,9 @@ const getAllSales = async() => {
 
 const getSaleById = async(id) => {
   const result = await sales.findByPk(id,
-    { include: { model: products, as: 'products', through: { attributes: ['quantity'] } } }
-  );
-
+    { include: { model: products, as: 'products', through: { attributes: ['quantity'] } },
+  });
+  
   return result;
 };
 

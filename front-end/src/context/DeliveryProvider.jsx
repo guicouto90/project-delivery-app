@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../axios';
+import { getAllProducts, getSellersUsers } from '../axios';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {
   const [itemsInCart, setItemsInCart] = useState([]); // Global State to the items in cart.
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
-  // const [seller, setSellers] = useState([]);
+  const [sellers, setSellers] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -15,10 +15,25 @@ function DeliveryProvider({ children }) {
       setProducts(result.data);
     };
     getProducts();
+
+    const getSellers = async () => {
+      const sellersList = await getSellersUsers();
+      console.log(sellersList);
+      setSellers(sellersList);
+    };
+
+    getSellers();
   }, []);
 
   const contextValue = {
-    itemsInCart, setItemsInCart, products, setProducts, user, setUser };
+    itemsInCart,
+    setItemsInCart,
+    products,
+    setProducts,
+    user,
+    setUser,
+    sellers,
+    setSellers };
 
   return (
     <DeliveryContext.Provider value={ contextValue }>

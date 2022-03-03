@@ -41,6 +41,7 @@ const getAllProducts = async () => {
 };
 
 // POST SALE
+// REF: https://blog.logrocket.com/using-axios-set-request-headers/
 const postSale = async (body, headers) => {
   const {
     userId,
@@ -81,4 +82,36 @@ const getSaleById = async (id) => {
   }
 };
 
-export { postLogin, postUsers, getAllProducts, postSale, getSaleById };
+// PUT SALE STATUS
+const putSaleStatus = async (id, status) => {
+  try {
+    const response = await axios.put(`${url}/sales/${id}`, {
+      status,
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+// GET SELLERS USERS
+const getSellersUsers = async () => {
+  try {
+    const response = await axios.get(`${url}/users/seller`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export {
+  postLogin,
+  postUsers,
+  getAllProducts,
+  postSale,
+  getSaleById,
+  putSaleStatus,
+  getSellersUsers,
+};

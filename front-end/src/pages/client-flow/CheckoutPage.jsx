@@ -6,9 +6,10 @@ import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from './utils/ClientNavBar';
 
 function CheckoutPage() {
-  const { itemsInCart, setUser, user } = useContext(DeliveryContext);
-  const sellers = ['VendedorA', 'VendedorB', 'VendedorC'];
+  const { itemsInCart, setUser, user, sellers } = useContext(DeliveryContext);
+  // const sellers = ['VendedorA', 'VendedorB', 'VendedorC'];
   const history = useHistory();
+  console.log(sellers);
 
   useEffect(() => {}, [itemsInCart]);
 
@@ -48,12 +49,16 @@ function CheckoutPage() {
         <tr>
           <td>
             <select
+              data-testid="customer_checkout__select-seller"
               name=""
               id=""
-              data-testid="customer_checkout__select-seller"
             >
               {sellers.map((seller) => (
-                <option key={ seller }>{seller}</option>
+                <option
+                  key={ seller.id }
+                >
+                  {seller.name}
+                </option>
               ))}
             </select>
           </td>

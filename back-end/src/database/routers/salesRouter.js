@@ -1,8 +1,9 @@
 const express = require('express');
 const { addSales, listSales, listSaleById, updateSaleStatus } = require('../controllers/salesController');
+const { validateToken } = require('../middlewares/auth');
 const salesRouter = express.Router();
 
-salesRouter.post('/', addSales);
+salesRouter.post('/', validateToken, addSales);
 
 salesRouter.get('/', listSales);
 

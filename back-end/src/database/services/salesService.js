@@ -1,4 +1,5 @@
-const { sales } = require("../models/");
+const { product } = require("puppeteer");
+const { sales, products, salesProducts } = require("../models/");
 const { salesSchema } = require("./schemas");
 
 const validateSale = (body) => {
@@ -8,9 +9,10 @@ const validateSale = (body) => {
     total_price, 
     delivery_address, 
     delivery_number, 
-    status 
+    status,
+    productsDetails
   } = body;
-  const { error } = salesSchema.validate( {user_id, seller_id, total_price, delivery_address, delivery_number, status} );
+  const { error } = salesSchema.validate( {user_id, seller_id, total_price, delivery_address, delivery_number, status, productsDetails} );
   if(error) throw error;
 }
 
@@ -24,30 +26,31 @@ const newSale = async(body) => {
     status 
   } = body;
   const sale_date = new Date().toISOString();
-  const {id} = await sales.create({ user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status });
-  const result = {
-    id,
-    user_id, 
-    seller_id, 
-    total_price, 
-    delivery_address, 
-    delivery_number, 
-    sale_date,
-    status
-  };
+  const { id } = await sales.create({ user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status });
 
-  return result;
+  return id;
 };
+
+const addSalesProducts = async(sale_id, productsDetails) => {
+  await Promise.all(productsDetails.map(async (productDetail) => {
+    const { product_id, quantity } = productDetail;
+    await salesProducts.create({ sale_id, product_id, quantity })
+  }));
+}
 
 const getAllSales = async() => {
-  const result = await sales.findAll();
+  const result = await sales.findAll(
+    { include: { model: products, as: 'products', through: { attributes: ['quantity'] } } }
+  );
 
   return result;
 };
 
-const getSaleById = async() => {
-  const result = await sales.findOne({ where: { id }});
-
+const getSaleById = async(id) => {
+  const result = await sales.findByPk(id,
+    { include: { model: products, as: 'products', through: { attributes: ['quantity'] } },
+  });
+  
   return result;
 };
 
@@ -65,5 +68,6 @@ module.exports = {
   newSale,
   getAllSales,
   getSaleById,
-  editSaleStatus
+  editSaleStatus,
+  addSalesProducts
 }

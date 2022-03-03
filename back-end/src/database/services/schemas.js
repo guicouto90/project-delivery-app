@@ -18,11 +18,15 @@ const salesSchema = Joi.object({
   total_price: Joi.number().min(1).strict().required(),
   delivery_address: Joi.string().not().empty().required(),
   delivery_number: Joi.number().min(1).strict().required(),
-  status: Joi.string().valid('PENDENTE', 'ENTREGUE', 'PREPARANDO').required(),
+  status: Joi.string().valid('Pendente', 'Entregue', 'Preparando', 'Em Trânsito').required(),
+  productsDetails: Joi.array().items(Joi.object({
+    product_id: Joi.number().integer().strict().required(),
+    quantity: Joi.number().integer().strict().required(),
+  }).required()).required()
 });
 
 const salesSchemaUpdate = Joi.object({
-  status: Joi.string().valid('PENDENTE', 'ENTREGUE', 'PREPARANDO').required(),
+  status: Joi.string().valid('Pendente', 'Entregue', 'Preparando', 'Em Trânsito').required(),
 })
 
 module.exports = {

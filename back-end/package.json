@@ -11,7 +11,7 @@
   "scripts": {
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "start": "node .",
-    "dev": "nodemon .",
+    "dev": "nodemon app.js",
     "test": "mocha src/tests/**/*$NAME*.test.js --exit",
     "test:coverage": "nyc --all npm run test",
     "test:coverage:json": "nyc --all --reporter=json-summary npm run test",
@@ -19,12 +19,14 @@
   },
   "dependencies": {
     "@hapi/boom": "9.1.2",
+    "@hapi/joi": "^17.1.1",
     "@types/express": "4.17.11",
     "body-parser": "1.19.0",
     "cors": "2.8.5",
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "express-rescue": "1.1.26",
+    "http-status-codes": "^2.2.0",
     "jsonwebtoken": "8.5.1",
     "md5": "2.3.0",
     "multer": "1.4.2",
@@ -39,7 +41,7 @@
     "mocha": "8.4.0",
     "nodemon": "2.0.4",
     "nyc": "15.1.0",
-    "sequelize-cli": "6.2.0",
+    "sequelize-cli": "^6.2.0",
     "sinon": "10.0.0"
   }
 }

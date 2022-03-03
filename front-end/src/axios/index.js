@@ -41,6 +41,7 @@ const getAllProducts = async () => {
 };
 
 // POST SALE
+// REF: https://blog.logrocket.com/using-axios-set-request-headers/
 const postSale = async (body, headers) => {
   const {
     userId,

@@ -18,6 +18,7 @@ const generateToken = (user) => {
 const validateToken = (req, res, next) => {
   try {
     const { authorization } = req.headers;
+    console.log(authorization);
     const { user } = jwt.verify(authorization, secret);
     req.user = user;
 

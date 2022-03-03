@@ -27,8 +27,11 @@ const newSale = async(body) => {
   } = body;
   const sale_date = new Date().toISOString();
   const { id } = await sales.create({ user_id, seller_id, total_price, delivery_address, delivery_number, sale_date, status });
+  // console.log(id,'id');
+  const result = await sales.findOne({where: {id}, logging: console.log},);
+  // console.log(result, 'resylt');
 
-  return id;
+  return result.dataValues;
 };
 
 const addSalesProducts = async(sale_id, productsDetails) => {

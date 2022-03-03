@@ -8,9 +8,10 @@ const addSales = async(req, res, next) => {
     const { productsDetails } = req.body;
     await productsExist(productsDetails);
     const result = await newSale(req.body);
-    await addSalesProducts(result, productsDetails)
+    console.log(result.id);
+    await addSalesProducts(result.id, productsDetails)
 
-    return res.status(CREATED).json({id: result});
+    return res.status(CREATED).json(result);
   } catch (error) {
     console.error(error.message);
     next(error);

@@ -2,6 +2,7 @@ import { getSaleById, postSale } from '../index';
 
 const newSale = async (itemInCart, user, total) => {
   // const user = JSON.parse(localStorage.getItem('user'));
+  console.log(itemInCart);
   const productsDetails = itemInCart.map((item) => ({
     product_id: item.id,
     quantity: item.quantity,

@@ -1,8 +1,8 @@
 const { userSchema } = require("./schemas")
 const { users } = require('../models/index');
 const cryptograph = require("../utils/cryptoPassword");
-const { CONFLICT } = require("../utils/statusCodes");
-const { userExists } = require("../utils/errorMessages");
+const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require("../utils/statusCodes");
+const { userExists, userNotExists, unauthorized } = require("../utils/errorMessages");
 const errorConstructor = require("../utils/functions");
 const { generateToken } = require("../middlewares/auth");
 
@@ -50,10 +50,25 @@ const findUserByRole = async (role) => {
   return user;
 }
 
+const deleteById = async (id, userEmail) => {
+  const findUserByIdDelete = await users.findOne({ where: { id } });
+  
+  if (!findUserByIdDelete) throw errorConstructor(NO_CONTENT, userNotExists);
+
+  const findUserAdmin = await users.findOne({ where: { email: userEmail } });
+
+  if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
+
+  const userDeleted = await users.destroy({ where: { id } });
+
+  return userDeleted;
+}
+
 module.exports = {
   newUser,
   validateUser,
   verifyEmail,
   findAllUsers,
-  findUserByRole
+  findUserByRole,
+  deleteById,
 }

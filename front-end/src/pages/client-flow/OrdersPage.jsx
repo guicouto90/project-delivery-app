@@ -58,7 +58,7 @@ function OrdersPage() {
           key={ index }
           className="productsTable"
           aria-hidden="true"
-          onClick={ () => { history.push(`/customer/products/${saleObject.id}`); } }
+          onClick={ () => { history.push(`/customer/orders/${saleObject.id}`); } }
         >
           <h3>{`Pedido: ${saleObject.id}`}</h3>
           <p>{saleObject.status}</p>

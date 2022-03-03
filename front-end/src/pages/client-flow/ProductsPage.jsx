@@ -53,8 +53,8 @@ function ProductsPage() {
                   className="cardInput"
                   value={ product.quantity }
                   onChange={ (e) => {
-                    const filtredInput = Number(e.target.value.replace(/\D/g, ''));
-                    product.quantity = filtredInput;
+                    const filteredInput = Number(e.target.value.replace(/\D/g, ''));
+                    product.quantity = filteredInput;
                     setProducts([...productsAux]);
                   } }
                   data-testid={ `${prefix}input-card-quantity-${product.id}` }

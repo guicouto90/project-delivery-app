@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
 import Input from './input';
 import { postLogin } from '../../axios/index';
+import DeliveryContext from '../../context/DeliveryContext';
 
 function Login(props) {
   const { history } = props;
@@ -11,6 +12,7 @@ function Login(props) {
   const [passwordValue, setPasswordValue] = useState('');
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
+  const { setUser } = useContext(DeliveryContext);
 
   function redirectRegister() {
     history.push('/register');
@@ -18,6 +20,8 @@ function Login(props) {
 
   async function validPage() {
     const user = await postLogin(loginValue, passwordValue);
+    console.log(user.data);
+    setUser(user.data);
     if (!user) {
       setError(true);
       setMessage('Usuario ou senha invalidos');
@@ -45,7 +49,7 @@ function Login(props) {
 
   useEffect(() => {
     enableButton();
-  }, [loginValue, passwordValue]);
+  }, [enableButton, loginValue, passwordValue]);
 
   return (
     <div className="login">

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { getSaleById, postSale } from '../../axios';
+import { getSaleById, getSellersUsers, postSale, putSaleStatus } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from './utils/ClientNavBar';
@@ -7,6 +7,15 @@ import ClientNavBar from './utils/ClientNavBar';
 function CheckoutPage() {
   const { itemsInCart } = useContext(DeliveryContext);
   const sellers = ['VendedorA', 'VendedorB', 'VendedorC'];
+
+  useEffect(() => {
+    const getSellers = async () => {
+      const teste = await getSellersUsers();
+      console.log(teste);
+    };
+
+    getSellers();
+  }, []);
 
   useEffect(() => {}, [itemsInCart]);
 
@@ -32,7 +41,9 @@ function CheckoutPage() {
     const response = await postSale(body, config);
     console.log(response.data);
     const teste = await getSaleById(response.data.id);
-    console.log(teste);
+    console.log(teste.data);
+    const vinteUm = 21;
+    await putSaleStatus(vinteUm, 'Entregue');
     return response.data;
   };
 

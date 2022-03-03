@@ -22,8 +22,10 @@ const verifyLogin = async(email, password) => {
 
 const newLogin = async (user) => {
   const { name, email, role } = user;
+  const { id } = await users.findOne({ where: { email }});
   const token = generateToken(email);
   const login = {
+    id,
     name,
     email,
     role,

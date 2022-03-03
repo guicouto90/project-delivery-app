@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { getSaleById, getSellersUsers, postSale, putSaleStatus } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from './utils/ClientNavBar';
@@ -7,9 +8,45 @@ function CheckoutPage() {
   const { itemsInCart } = useContext(DeliveryContext);
   const sellers = ['VendedorA', 'VendedorB', 'VendedorC'];
 
+  useEffect(() => {
+    const getSellers = async () => {
+      const teste = await getSellersUsers();
+      console.log(teste);
+    };
+
+    getSellers();
+  }, []);
+
   useEffect(() => {}, [itemsInCart]);
 
   let total = 0;
+  const newSale = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const productsDetails = itemsInCart.map((item) => (
+      { product_id: item.id, quantity: item.quantity }
+    ));
+    const body = {
+      userId: user.id,
+      sellerId: 2,
+      totalPrice: total,
+      deliveryAddress: 'Rua do teste',
+      deliveryNumber: 150,
+      productsDetails,
+    };
+    const config = {
+      headers: {
+        authorization: user.token,
+      },
+    };
+    const response = await postSale(body, config);
+    console.log(response.data);
+    const teste = await getSaleById(response.data.id);
+    console.log(teste.data);
+    const vinteUm = 21;
+    await putSaleStatus(vinteUm, 'Entregue');
+    return response.data;
+  };
+
   return (
     <>
       <ClientNavBar />
@@ -57,6 +94,7 @@ function CheckoutPage() {
       <button
         type="button"
         data-testid="customer_checkout__button-submit-order"
+        onClick={ newSale }
       >
         Finalizar Pedido
       </button>

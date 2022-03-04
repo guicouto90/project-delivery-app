@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import newSale from '../../axios/utils';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
-import ClientNavBar from './utils/ClientNavBar';
+import ClientNavBar from '../components/ClientNavBar';
 
 function CheckoutPage() {
   const {
@@ -88,7 +88,10 @@ function CheckoutPage() {
         data-testid="customer_checkout__button-submit-order"
         onClick={ async () => {
           const result = await newSale(itemsInCart, user, total);
-          result.products = itemsInCart;
+          result.products = [...itemsInCart];
+          result.products = result.products
+            .map((product) => (
+              { ...product, salesProducts: { quantity: product.quantity } }));
           setOrders([...orders, result]);
           setSale(result);
           history.push(`/customer/orders/${result.id}`);

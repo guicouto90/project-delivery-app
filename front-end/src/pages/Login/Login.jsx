@@ -5,6 +5,12 @@ import Input from './input';
 import { postLogin } from '../../axios/index';
 import DeliveryContext from '../../context/DeliveryContext';
 
+const isLogedAux = (loged, history) => {
+  if (loged) loged = JSON.parse(loged);
+  if (loged && loged.role === 'customer') history.push('/customer/products');
+  if (loged && loged.role === 'seller') history.push('/seller/orders');
+};
+
 function Login(props) {
   const { history } = props;
   const [loginValidated, setValid] = useState(true);
@@ -15,7 +21,7 @@ function Login(props) {
   const { setUser } = useContext(DeliveryContext);
   const { user: isLoged } = localStorage;
 
-  if (isLoged) history.push('/customer/products');
+  isLogedAux(isLoged, history);
 
   function redirectRegister() {
     history.push('/register');
@@ -27,9 +33,11 @@ function Login(props) {
       setError(true);
       setMessage('Usuario ou senha invalidos');
     } else {
+      const { data } = user;
       setUser(user.data);
       localStorage.user = JSON.stringify(user.data);
-      history.push('/customer/products');
+      if (data.role === 'customer') history.push('/customer/products');
+      if (data.role === 'seller') history.push('/seller/orders');
     }
   }
 

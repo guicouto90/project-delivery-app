@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSaleById, putSaleStatus } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
-import CheckoutItemsInTable from './utils/CheckoutItemsTable';
+import SellerCheckoutItemsInTable from './utils/SellerCheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
 
 const formatedDate = require('../utils');
@@ -10,10 +10,9 @@ const formatedDate = require('../utils');
 function OrderDetails() {
   const { sale, setSale, sellers } = useContext(DeliveryContext);
   const { pathname } = useLocation();
-  const pageId = pathname.replace('/customer/orders/', '');
+  const pageId = pathname.replace('/seller/orders/', '');
   const { id, seller_id: sellerId, total_price: totalPrice } = sale;
-  const testId = 'customer_order_details__element-order-';
-  console.log(sale);
+  const testId = 'seller_order_details__element-order-';
 
   useEffect(() => {
     const loadSale = async (saleId) => {
@@ -22,10 +21,9 @@ function OrderDetails() {
     };
 
     loadSale(pageId);
-  }, []);
+  }, [pageId, setSale]);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;
-  const sellerName = sellers.find((seller) => seller.id === sellerId).name;
 
   return (
     <>
@@ -34,22 +32,10 @@ function OrderDetails() {
       <div>
         <h4>
           {'Pedido '}
-          <span
-            data-testid={
-              `${testId}details-label-order-id`
-            }
-          >
+          <span data-testid={ `${testId}details-label-order-id` }>
             {id}
           </span>
         </h4>
-        <p>
-          {'P. Vend: '}
-          <span
-            data-testid={ `${testId}details-label-seller-name` }
-          >
-            {sellerName}
-          </span>
-        </p>
         <p data-testid={ `${testId}details-label-order-date` }>
           {formatedDate(sale.sale_date)}
         </p>
@@ -61,14 +47,23 @@ function OrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sale.status !== 'Em Trânsito' }
-          data-testid="customer_order_details__button-delivery-check"
+          disabled={ sale.status !== 'Pendente' }
+          data-testid="seller_order_details__button-preparing-check"
           onClick={ () => {
-            putSaleStatus(id, 'Entregue');
+            putSaleStatus(id, 'Preparando');
           } }
         >
-          MARCAR COMO ENTREGUE
-
+          PREPARANDO PEDIDO
+        </button>
+        <button
+          type="button"
+          disabled={ sale.status !== 'Preparando' }
+          data-testid="seller_order_details__button-dispatch-check"
+          onClick={ () => {
+            putSaleStatus(id, 'Em Trânsito');
+          } }
+        >
+          SAIU PARA ENTREGA
         </button>
       </div>
       <table>
@@ -79,11 +74,11 @@ function OrderDetails() {
           <th>Valor Unitário</th>
           <th>Sub-total</th>
         </tr>
-        {sale.products.map((item, index) => CheckoutItemsInTable(item, index))}
+        {sale.products.map((item, index) => SellerCheckoutItemsInTable(item, index))}
       </table>
       <h2>
         {'Total R$ '}
-        <span data-testid="customer_order_details__element-order-total-price">
+        <span data-testid="seller_order_details__element-order-total-price">
           {totalPrice.replace('.', ',')}
         </span>
       </h2>

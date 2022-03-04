@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import DeliveryContext from '../../context/DeliveryContext';
-import ClientNavBar from './utils/ClientNavBar';
+import ClientNavBar from '../components/ClientNavBar';
 
 function ProductsPage() {
   const { products, setProducts, setItemsInCart } = useContext(DeliveryContext);

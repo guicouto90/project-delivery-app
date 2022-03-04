@@ -1,4 +1,5 @@
-const { userSchema } = require("./schemas")
+const { Op } = require('sequelize');
+const { userSchema } = require("./schemas");
 const { users } = require('../models/index');
 const cryptograph = require("../utils/cryptoPassword");
 const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require("../utils/statusCodes");
@@ -64,6 +65,16 @@ const deleteById = async (id, userEmail) => {
   return userDeleted;
 }
 
+const findUsersForAdmin = async  (userEmail) => {
+  const findUserAdmin = await users.findOne({ where: { email: userEmail } });
+
+  if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
+
+  const user = await users.findAll({where: {role: {[Op.ne]: 'administrator'}}});
+
+  return user;
+}
+
 module.exports = {
   newUser,
   validateUser,
@@ -71,4 +82,5 @@ module.exports = {
   findAllUsers,
   findUserByRole,
   deleteById,
+  findUsersForAdmin,
 }

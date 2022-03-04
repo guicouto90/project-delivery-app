@@ -12,7 +12,6 @@ function OrderDetails() {
   const { id, seller_id: sellerId } = sale;
   const sellerName = sellers.find((seller) => seller.id === sellerId).name;
   const testId = 'customer_order_details__element-order-';
-  console.log(sale);
 
   return (
     <>

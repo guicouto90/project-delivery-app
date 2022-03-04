@@ -13,6 +13,9 @@ function Login(props) {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const { setUser } = useContext(DeliveryContext);
+  const { user: isLoged } = localStorage;
+
+  if (isLoged) history.push('/customer/products');
 
   function redirectRegister() {
     history.push('/register');

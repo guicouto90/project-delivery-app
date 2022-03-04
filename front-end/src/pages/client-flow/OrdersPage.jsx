@@ -24,7 +24,7 @@ function OrdersPage() {
             history.push(`/customer/orders/${order.id}`);
           } }
         >
-          <h3 data-testid={ `customer_orders__element-order-id-${index}` }>
+          <h3 data-testid={ `customer_orders__element-order-id-${order.id}` }>
             {`Pedido: ${order.id}`}
           </h3>
           <p data-testid={ `customer_orders__element-delivery-status-${index}` }>

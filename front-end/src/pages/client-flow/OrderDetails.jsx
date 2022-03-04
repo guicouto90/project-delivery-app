@@ -23,7 +23,7 @@ function OrderDetails() {
           {'Pedido '}
           <span
             data-testid={
-              `${testId}details-label-order-${id}`
+              `${testId}details-label-order-id`
             }
           >
             {id}
@@ -48,6 +48,7 @@ function OrderDetails() {
         </p>
         <button
           type="button"
+          disabled={ sale.status !== 'Em Trânsito' }
           data-testid="customer_order_details__button-delivery-check"
         >
           MARCAR COMO ENTREGUE
@@ -66,7 +67,9 @@ function OrderDetails() {
       </table>
       <h2>
         {'Total R$ '}
-        <span data-testid="">{sale.total_price}</span>
+        <span data-testid="customer_order_details__element-order-total-price">
+          {sale.total_price.replace('.', ',')}
+        </span>
       </h2>
     </>
   );

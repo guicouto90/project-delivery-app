@@ -1,15 +1,9 @@
-const { productsExist } = require("../services/productsServices");
-const { validateSale, newSale, getAllSales, editSaleStatus, addSalesProducts, getSaleById } = require("../services/salesService");
-const { CREATED, OK } = require("../utils/statusCodes");
+const { newSale, getAllSales, editSaleStatus, getSaleById } = require('../services/salesService');
+const { CREATED, OK } = require('../utils/statusCodes');
 
-const addSales = async(req, res, next) => {
+const addSales = async (req, res, next) => {
   try {
-    validateSale(req.body);
-    const { productsDetails } = req.body;
-    await productsExist(productsDetails);
     const result = await newSale(req.body);
-    console.log(result.id);
-    await addSalesProducts(result.id, productsDetails)
 
     return res.status(CREATED).json(result);
   } catch (error) {
@@ -18,7 +12,7 @@ const addSales = async(req, res, next) => {
   }
 };
 
-const listSales = async(req, res, next) => {
+const listSales = async (req, res, next) => {
   try {
     const result = await getAllSales();
 
@@ -29,7 +23,7 @@ const listSales = async(req, res, next) => {
   }
 };
 
-const listSaleById = async(req, res, next) => {
+const listSaleById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await getSaleById(id);
@@ -41,7 +35,7 @@ const listSaleById = async(req, res, next) => {
   }
 };
 
-const updateSaleStatus = async(req, res, next) => {
+const updateSaleStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -58,5 +52,5 @@ module.exports = {
   listSales,
   addSales,
   listSaleById,
-  updateSaleStatus
-}
+  updateSaleStatus,
+};

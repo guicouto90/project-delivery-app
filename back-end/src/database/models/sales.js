@@ -1,5 +1,3 @@
-
-  
 const sales = (sequelize, DataTypes) => {
   const sale = sequelize.define('sales', {
     id: { 
@@ -17,8 +15,8 @@ const sales = (sequelize, DataTypes) => {
     },
     total_price: DataTypes.DECIMAL,
     delivery_address: DataTypes.STRING,
-    delivery_number: DataTypes.STRING,
-    sale_date: DataTypes.DATE,
+    delivery_number: DataTypes.INTEGER,
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING
   }, { timestamps: false });
 

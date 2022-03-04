@@ -52,11 +52,11 @@ const postSale = async (body, headers) => {
     productsDetails } = body;
   try {
     const response = await axios.post(`${url}/sales`, {
-      user_id: userId,
-      seller_id: sellerId,
-      total_price: totalPrice,
-      delivery_address: deliveryAddress,
-      delivery_number: deliveryNumber,
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
       status: 'Pendente',
       productsDetails,
     }, headers);

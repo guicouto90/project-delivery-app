@@ -2,7 +2,7 @@ import { postSale } from '../index';
 
 const newSale = async (itemInCart, user, total) => {
   const productsDetails = itemInCart.map((item) => ({
-    product_id: item.id,
+    productId: item.id,
     quantity: item.quantity,
   }));
   const body = {

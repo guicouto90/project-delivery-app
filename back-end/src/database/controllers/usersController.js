@@ -1,5 +1,5 @@
 const {
-  validateUser, newUser, verifyEmail, findAllUsers, findUserByRole, deleteById } = require("../services/usersServices");
+  validateUser, newUser, verifyEmail, findAllUsers, findUserByRole, deleteById, findUsersForAdmin } = require("../services/usersServices");
 const { CREATED, OK, NO_CONTENT } = require("../utils/statusCodes");
 
 const addUser = async(req, res, next) => {
@@ -53,9 +53,20 @@ const deleteUserById = async (req, res, next) => {
   }
 }
 
+const listUsersForAdmin = async (req, res, next) => {
+  try {
+    const result = await findUsersForAdmin(req.user);
+    return res.status(OK).json(result);
+  } catch (error) {
+    console.error(error.message);
+    next(error);
+  }
+}
+
 module.exports = {
   addUser,
   listAllUsers,
   listUsersByRole,
   deleteUserById,
+  listUsersForAdmin,
 }

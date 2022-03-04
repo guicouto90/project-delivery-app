@@ -31,7 +31,7 @@ const validateSaleUpdate = (status) => {
 const addSalesProducts = async (saleId, productsDetails) => {
   await Promise.all(productsDetails.map(async (productDetail) => {
     const { productId, quantity } = productDetail;
-    await salesProducts.create({ sale_id: saleId, product_id: productId, quantity });
+    await salesProducts.create({ saleId, productId, quantity });
   }));
 };
 
@@ -40,13 +40,14 @@ const newSale = async (body) => {
   const { productsDetails } = body;
   await productsExist(productsDetails); // Verifica se os produtos existem;
   const saleDate = new Date().toISOString(); // adiciona a data no formato padrão exigido.
+
   const { id } = await sales.create({ 
-    user_id: body.userId,
-    seller_id: body.sellerId, 
-    total_price: body.totalPrice,
-    delivery_address: body.deliveryAddress,
-    delivery_number: body.deliveryNumber,
-    sale_date: saleDate,
+    userId: body.userId,
+    sellerId: body.sellerId, 
+    totalPrice: body.totalPrice,
+    deliveryAddress: body.deliveryAddress,
+    deliveryNumber: body.deliveryNumber,
+    saleDate,
     status: body.status,
   });
   await addSalesProducts(id, productsDetails); // adiciona os itens na tabela intermediaria de salesProducts;

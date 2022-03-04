@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { useContext } from 'react';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';

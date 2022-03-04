@@ -32,11 +32,11 @@ function OrdersPage() {
           <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
             {formatedDate(order.sale_date)}
           </p>
-          <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
+          <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
             {'R$ '}
             {order.total_price.replace('.', ',')}
           </p>
-          <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
+          <p data-testid={ `customer_orders__element-card-address-${order.id}` }>
             {order.delivery_address}
           </p>
         </div>

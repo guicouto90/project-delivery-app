@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useContext } from 'react/cjs/react.production.min';
 import Input from './input';
 import { postUsers } from '../../axios/index';
 import DeliveryContext from '../../context/DeliveryContext';

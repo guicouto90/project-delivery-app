@@ -6,10 +6,11 @@ import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from './utils/ClientNavBar';
 
 function CheckoutPage() {
-  const { itemsInCart, setUser, user, sellers } = useContext(DeliveryContext);
-  // const sellers = ['VendedorA', 'VendedorB', 'VendedorC'];
+  const {
+    itemsInCart, setUser,
+    user, sellers, setSale, orders, setOrders } = useContext(DeliveryContext);
+
   const history = useHistory();
-  console.log(sellers);
 
   useEffect(() => {}, [itemsInCart]);
 
@@ -86,10 +87,11 @@ function CheckoutPage() {
         type="button"
         data-testid="customer_checkout__button-submit-order"
         onClick={ async () => {
-          console.log(user);
-          const { id } = await newSale(itemsInCart, user, total);
-          console.log(id);
-          history.push(`/customer/orders/${id}`);
+          const result = await newSale(itemsInCart, user, total);
+          result.products = itemsInCart;
+          setOrders([...orders, result]);
+          setSale(result);
+          history.push(`/customer/orders/${result.id}`);
         } }
       >
         Finalizar Pedido

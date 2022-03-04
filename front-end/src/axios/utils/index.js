@@ -1,8 +1,6 @@
-import { getSaleById, postSale } from '../index';
+import { postSale } from '../index';
 
 const newSale = async (itemInCart, user, total) => {
-  // const user = JSON.parse(localStorage.getItem('user'));
-  console.log(itemInCart);
   const productsDetails = itemInCart.map((item) => ({
     product_id: item.id,
     quantity: item.quantity,
@@ -21,10 +19,9 @@ const newSale = async (itemInCart, user, total) => {
       authorization: user.token,
     },
   };
-  console.log(user);
+
   const response = await postSale(body, config);
-  const teste = await getSaleById(response.data.id);
-  console.log(teste);
+
   return response.data;
 };
 

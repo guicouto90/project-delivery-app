@@ -1,5 +1,6 @@
-const { newUser, findAllUsers, findUserByRole } = require('../services/usersServices');
-const { CREATED, OK } = require('../utils/statusCodes');
+const {
+  newUser, findAllUsers, findUserByRole, deleteById, findUsersForAdmin } = require("../services/usersServices");
+const { CREATED, OK, NO_CONTENT } = require("../utils/statusCodes");
 
 const addUser = async (req, res, next) => {
   try {
@@ -37,8 +38,33 @@ const listUsersByRole = async (req, res, next) => {
   }
 };
 
+const deleteUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const result = await deleteById(id, req.user);
+
+    return res.status(NO_CONTENT).json(result);
+  } catch (error) {
+    console.error(error.message);
+    next(error);
+  }
+}
+
+const listUsersForAdmin = async (req, res, next) => {
+  try {
+    const result = await findUsersForAdmin(req.user);
+    return res.status(OK).json(result);
+  } catch (error) {
+    console.error(error.message);
+    next(error);
+  }
+}
+
 module.exports = {
   addUser,
   listAllUsers,
   listUsersByRole,
-};
+  deleteUserById,
+  listUsersForAdmin,
+}

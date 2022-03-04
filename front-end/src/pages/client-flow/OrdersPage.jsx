@@ -19,7 +19,6 @@ function OrdersPage() {
           className="productsTable"
           aria-hidden="true"
           onClick={ () => {
-            console.log(order);
             setSale(order);
             history.push(`/customer/orders/${order.id}`);
           } }
@@ -27,13 +26,19 @@ function OrdersPage() {
           <h3 data-testid={ `customer_orders__element-order-id-${order.id}` }>
             {`Pedido: ${order.id}`}
           </h3>
-          <p data-testid={ `customer_orders__element-delivery-status-${index}` }>
+          <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
             {order.status}
           </p>
-          <p data-testid={ `customer_orders__element-order-date-${index}` }>
+          <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
             {formatedDate(order.sale_date)}
           </p>
-          <p>{`R$ ${order.total_price}`}</p>
+          <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
+            {'R$ '}
+            {order.total_price.replace('.', ',')}
+          </p>
+          <p data-testid={ `customer_orders__element-card-address-${order.id}` }>
+            {order.delivery_address}
+          </p>
         </div>
       ))}
     </>

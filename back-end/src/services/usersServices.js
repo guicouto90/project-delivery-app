@@ -51,10 +51,36 @@ const findUserByRole = async (role) => {
   return user;
 };
 
+const deleteById = async (id, userEmail) => {
+  const findUserByIdDelete = await users.findOne({ where: { id } });
+  
+  if (!findUserByIdDelete) throw errorConstructor(NO_CONTENT, userNotExists);
+
+  const findUserAdmin = await users.findOne({ where: { email: userEmail } });
+
+  if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
+
+  const userDeleted = await users.destroy({ where: { id } });
+
+  return userDeleted;
+}
+
+const findUsersForAdmin = async  (userEmail) => {
+  const findUserAdmin = await users.findOne({ where: { email: userEmail } });
+
+  if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
+
+  const user = await users.findAll({where: {role: {[Op.ne]: 'administrator'}}});
+
+  return user;
+}
+
 module.exports = {
   newUser,
   validateUser,
   verifyEmail,
   findAllUsers,
   findUserByRole,
+  deleteById,
+  findUsersForAdmin,
 };

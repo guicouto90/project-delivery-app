@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { useContext } from 'react';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
@@ -12,7 +10,6 @@ function OrderDetails() {
   const { id, seller_id: sellerId } = sale;
   const sellerName = sellers.find((seller) => seller.id === sellerId).name;
   const testId = 'customer_order_details__element-order-';
-  console.log(sale);
 
   return (
     <>

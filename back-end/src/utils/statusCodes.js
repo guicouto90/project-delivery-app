@@ -6,6 +6,7 @@ const {
   CREATED,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
+  NO_CONTENT,
 } = require('http-status-codes').StatusCodes;
 
 module.exports = {
@@ -16,4 +17,5 @@ module.exports = {
   CREATED,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
+  NO_CONTENT,
 };

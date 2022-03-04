@@ -15,11 +15,8 @@ async function toReturnDataWith(
   }
 ) {
   try {
-    console.log(query, 'test query');
     await database.query(`USE \`${defaultDB}\``);
     const data = await database.query(query, values);
-    // console.log('test data', data);
-    console.log(JSON.stringify(typeof compare === "object" && compareDBData(data, compare, types), 0, 2), 'Morreteste');
     if (nonTest) return data[0];
 
     const diff =

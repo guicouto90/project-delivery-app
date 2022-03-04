@@ -17,7 +17,6 @@ async function toReturnDataWith(
   try {
     await database.query(`USE \`${defaultDB}\``);
     const data = await database.query(query, values);
-
     if (nonTest) return data[0];
 
     const diff =

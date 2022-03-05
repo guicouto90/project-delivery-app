@@ -32,7 +32,7 @@ function ClientNavBar() {
   const sellerButton = () => (
     <div>
       <button
-        data-testid="customer_products__element-navbar-link-products"
+        data-testid="customer_products__element-navbar-link-orders"
         type="button"
         className="productButton"
         disabled={ pathname === '/seller/orders' }

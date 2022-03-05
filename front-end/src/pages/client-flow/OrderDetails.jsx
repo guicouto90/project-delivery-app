@@ -8,12 +8,12 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrderDetails() {
-  const { sale, setSale, sellers } = useContext(DeliveryContext);
+  const { sale, setSale, sellers, user } = useContext(DeliveryContext);
   const { pathname } = useLocation();
   const pageId = pathname.replace('/customer/orders/', '');
   const { id, seller_id: sellerId, total_price: totalPrice } = sale;
   const testId = 'customer_order_details__element-order-';
-  console.log(sale);
+  console.log(user);
 
   useEffect(() => {
     const loadSale = async (saleId) => {
@@ -57,7 +57,6 @@ function OrderDetails() {
           data-testid={ `${testId}details-label-delivery-status` }
         >
           {sale.status}
-
         </p>
         <button
           type="button"

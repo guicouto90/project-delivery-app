@@ -4,5 +4,5 @@ module.exports = {
   userNotExists: 'User does not exist',
   invalidPasswordEmail: 'Email or password invalid',
   productNotFound: 'ProductId not found',
-  unauthorized: 'Unauthorized'
+  unauthorized: 'Unauthorized',
 };

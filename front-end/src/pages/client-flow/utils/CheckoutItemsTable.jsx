@@ -3,21 +3,23 @@ import { useLocation } from 'react-router-dom';
 import DeliveryContext from '../../../context/DeliveryContext';
 
 function CheckoutItemsInTable(item, index) {
-  const { name, quantity, price } = item;
+  const { name, quantity, price, salesProducts } = item;
   const { itemsInCart, setItemsInCart } = useContext(DeliveryContext);
   const { pathname } = useLocation();
   const orderId = 'order_details';
   const checkoutId = 'checkout';
   const checkoutPath = '/customer/checkout';
+  console.log(item);
 
-  const buttonTable = (pIndex) => (
+  const buttonTable = (productIndex) => (
     <td>
       <button
         type="button"
-        data-testid={ `customer_checkout__element-order-table-remove-${pIndex}` }
+        data-testid={ `customer_checkout__element-order-table-remove-${productIndex}` }
         onClick={ () => {
           setItemsInCart(
-            [...itemsInCart.slice(0, pIndex), ...itemsInCart.slice(pIndex + 1)],
+            [...itemsInCart.slice(0, productIndex),
+              ...itemsInCart.slice(productIndex + 1)],
           );
         } }
       >
@@ -47,7 +49,7 @@ function CheckoutItemsInTable(item, index) {
           pathname === checkoutPath ? checkoutId : orderId
         }__element-order-table-quantity-${index}` }
       >
-        {quantity}
+        {pathname === checkoutPath ? quantity : salesProducts.quantity}
       </td>
       <td
         data-testid={
@@ -63,9 +65,10 @@ function CheckoutItemsInTable(item, index) {
           pathname === checkoutPath ? checkoutId : orderId
         }__element-order-table-sub-total-${index}` }
       >
-        {(price * quantity).toFixed(2).replace('.', ',')}
+        {(price * (pathname === checkoutPath ? quantity : salesProducts.quantity))
+          .toFixed(2).replace('.', ',')}
       </td>
-      {pathname === '/customer/checkout' ? buttonTable(index) : null}
+      {pathname === checkoutPath ? buttonTable(index) : null}
     </tr>
   );
 }

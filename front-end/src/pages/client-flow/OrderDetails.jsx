@@ -22,7 +22,7 @@ function OrderDetails() {
     };
 
     loadSale(pageId);
-  }, []);
+  }, [pageId, setSale]);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;
   const sellerName = sellers.find((seller) => seller.id === sellerId).name;
@@ -63,6 +63,7 @@ function OrderDetails() {
           disabled={ sale.status !== 'Em Trânsito' }
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => {
+            setSale({ ...sale, status: 'Entregue' });
             putSaleStatus(id, 'Entregue');
           } }
         >

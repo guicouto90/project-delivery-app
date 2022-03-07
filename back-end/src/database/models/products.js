@@ -10,10 +10,6 @@ const products = (sequelize, DataTypes) => {
     url_image: DataTypes.STRING
   }, { timestamps: false });
 
-  /*product.associate = (models) => {
-    product.belongsTo(models.salesProcuts, { as: 'user', foreignKey: 'userId' });
-  };*/
-
   return product;
 };
 

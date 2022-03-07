@@ -1,5 +1,6 @@
 const express = require('express');
-const { addLogin } = require('../controllers/loginController');
+const { addLogin } = require('../database/controllers/loginController');
+
 const loginRouter = express.Router();
 
 loginRouter.post('/', addLogin);

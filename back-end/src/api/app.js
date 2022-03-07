@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const errorHandler = require('../database/middlewares/errorHandler');
-const usersRouter = require('../database/routers/usersRouter');
-const loginRouter = require('../database/routers/loginRouter');
-const productsRouter = require('../database/routers/productsRouter');
-const salesRouter = require('../database/routers/salesRouter');
+const errorHandler = require('../middlewares/errorHandler');
+const usersRouter = require('../routers/usersRouter');
+const loginRouter = require('../routers/loginRouter');
+const productsRouter = require('../routers/productsRouter');
+const salesRouter = require('../routers/salesRouter');
 // const { salesProducts } = require('../database/models');
 
 const app = express();

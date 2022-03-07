@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
-const secret = fs.readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), 'utf8');
+
+const secret = fs.readFileSync(path.resolve(__dirname, '../../jwt.evaluation.key'), 'utf8');
 
 const generateToken = (user) => {
   const jwtConfig = {
@@ -18,7 +19,6 @@ const generateToken = (user) => {
 const validateToken = (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    console.log(authorization);
     const { user } = jwt.verify(authorization, secret);
     req.user = user;
 
@@ -31,5 +31,5 @@ const validateToken = (req, res, next) => {
 
 module.exports = {
   validateToken,
-  generateToken
-}
+  generateToken,
+};

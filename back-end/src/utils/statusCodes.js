@@ -17,6 +17,5 @@ module.exports = {
   CREATED,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
-  NOT_FOUND,
   NO_CONTENT,
 };

@@ -1,10 +1,11 @@
 const express = require('express');
+
 const productsRouter = express.Router();
 
 const {
   getAllProducts,
   getProductById,
-} = require('../controllers/productsController');
+} = require('../database/controllers/productsController');
 
 productsRouter.get('/', getAllProducts);
 

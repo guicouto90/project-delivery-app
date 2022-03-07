@@ -1,19 +1,27 @@
-const { Op } = require('sequelize');
-const { userSchema } = require("./schemas");
+const { userSchema } = require('./schemas');
 const { users } = require('../models/index');
-const cryptograph = require("../utils/cryptoPassword");
-const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require("../utils/statusCodes");
-const { userExists, userNotExists, unauthorized } = require("../utils/errorMessages");
-const errorConstructor = require("../utils/functions");
-const { generateToken } = require("../middlewares/auth");
+const cryptograph = require('../../utils/cryptoPassword');
+const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require('../../utils/statusCodes');
+const { userExists, userNotExists, unauthorized } = require('../../utils/errorMessages');
+const errorConstructor = require('../../utils/functions');
+const { generateToken } = require('../../middlewares/auth');
 
 const validateUser = (name, email, password, role) => {
-  const { error } = userSchema.validate({name, email, password, role});
-  if(error) throw error;
-
+  const { error } = userSchema.validate({ name, email, password, role });
+  if (error) throw error;
 };
 
-const newUser = async(name, email, password, role) => {
+const verifyEmail = async (email, name) => {
+  const userEmail = await users.findOne({ where: { email } });
+  const userName = await users.findOne({ where: { name } });
+  if (userEmail || userName) {
+    throw errorConstructor(CONFLICT, userExists);
+  }
+};
+
+const newUser = async (name, email, password, role) => {
+  validateUser(name, email, password, role);
+  await verifyEmail(email, name);
   const passwordCrypto = cryptograph(password);
   const token = generateToken(email);
   const { id } = await users.create({ name, email, password: passwordCrypto, role });
@@ -28,28 +36,20 @@ const newUser = async(name, email, password, role) => {
   return login;
 };
 
-const verifyEmail = async(email, name) => {
-  const userEmail = await users.findOne({ where: { email }});
-  const userName = await users.findOne({ where: { name }});
-  if(userEmail || userName) {
-    throw errorConstructor(CONFLICT, userExists);
-  };
-};
-
 const findAllUsers = async () => {
   const user = await users.findAll();
 
   return user;
-}
+};
 
 const findUserByRole = async (role) => {
   const user = await users.findAll({
-    attributes: { exclude: ['password']},
+    attributes: { exclude: ['password'] },
     where: { role },
   });
 
   return user;
-}
+};
 
 const deleteById = async (id, userEmail) => {
   const findUserByIdDelete = await users.findOne({ where: { id } });
@@ -63,17 +63,17 @@ const deleteById = async (id, userEmail) => {
   const userDeleted = await users.destroy({ where: { id } });
 
   return userDeleted;
-}
+};
 
-const findUsersForAdmin = async  (userEmail) => {
+const findUsersForAdmin = async (userEmail) => {
   const findUserAdmin = await users.findOne({ where: { email: userEmail } });
 
   if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
 
-  const user = await users.findAll({where: {role: {[Op.ne]: 'administrator'}}});
+  const user = await users.findAll({ where: { role: 'administrator' } });
 
   return user;
-}
+};
 
 module.exports = {
   newUser,
@@ -83,4 +83,4 @@ module.exports = {
   findUserByRole,
   deleteById,
   findUsersForAdmin,
-}
+};

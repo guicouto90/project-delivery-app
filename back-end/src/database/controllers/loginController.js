@@ -1,12 +1,10 @@
-const { validateLogin, verifyLogin, newLogin } = require("../services/loginService");
-const { OK } = require("../utils/statusCodes");
+const { newLogin } = require('../services/loginService');
+const { OK } = require('../../utils/statusCodes');
 
-const addLogin = async(req, res, next) => {
+const addLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    validateLogin(email, password);
-    const user = await verifyLogin(email, password);
-    const result = await newLogin(user);
+    const result = await newLogin(email, password);
 
     return res.status(OK).json(result);
   } catch (error) {
@@ -17,4 +15,4 @@ const addLogin = async(req, res, next) => {
 
 module.exports = {
   addLogin,
-}
+};

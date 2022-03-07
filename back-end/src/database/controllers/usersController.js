@@ -5,7 +5,7 @@ const {
   deleteById, 
   findUsersForAdmin, 
 } = require('../services/usersServices');
-const { CREATED, OK, NO_CONTENT } = require('../utils/statusCodes');
+const { CREATED, OK, NO_CONTENT } = require('../../utils/statusCodes');
 
 const addUser = async (req, res, next) => {
   try {

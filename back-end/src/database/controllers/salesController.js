@@ -1,5 +1,5 @@
 const { newSale, getAllSales, editSaleStatus, getSaleById } = require('../services/salesService');
-const { CREATED, OK } = require('../utils/statusCodes');
+const { CREATED, OK } = require('../../utils/statusCodes');
 
 const addSales = async (req, res, next) => {
   try {

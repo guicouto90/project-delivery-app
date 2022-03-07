@@ -5,7 +5,7 @@ const {
   listUsersByRole, 
   deleteUserById, 
   listUsersForAdmin, 
-} = require('../controllers/usersController');
+} = require('../database/controllers/usersController');
 const { validateToken } = require('../middlewares/auth');
 
 const usersRouter = express.Router();

@@ -1,5 +1,5 @@
 const { newLogin } = require('../services/loginService');
-const { OK } = require('../utils/statusCodes');
+const { OK } = require('../../utils/statusCodes');
 
 const addLogin = async (req, res, next) => {
   try {

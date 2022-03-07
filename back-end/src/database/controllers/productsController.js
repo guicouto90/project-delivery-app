@@ -1,5 +1,5 @@
 const { allProducts, productById } = require('../services/productsServices');
-const { OK } = require('../utils/statusCodes');
+const { OK } = require('../../utils/statusCodes');
 
 const getAllProducts = async (req, res, next) => {
   try {

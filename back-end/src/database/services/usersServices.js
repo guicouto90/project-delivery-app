@@ -1,10 +1,10 @@
 const { userSchema } = require('./schemas');
-const { users } = require('../database/models/index');
-const cryptograph = require('../utils/cryptoPassword');
-const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require('../utils/statusCodes');
-const { userExists, userNotExists, unauthorized } = require('../utils/errorMessages');
-const errorConstructor = require('../utils/functions');
-const { generateToken } = require('../middlewares/auth');
+const { users } = require('../models/index');
+const cryptograph = require('../../utils/cryptoPassword');
+const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require('../../utils/statusCodes');
+const { userExists, userNotExists, unauthorized } = require('../../utils/errorMessages');
+const errorConstructor = require('../../utils/functions');
+const { generateToken } = require('../../middlewares/auth');
 
 const validateUser = (name, email, password, role) => {
   const { error } = userSchema.validate({ name, email, password, role });

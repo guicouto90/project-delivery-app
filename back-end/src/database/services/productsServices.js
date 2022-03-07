@@ -1,7 +1,7 @@
-const { products } = require('../database/models/index');
-const { productNotFound } = require('../utils/errorMessages');
-const errorConstructor = require('../utils/functions');
-const { NOT_FOUND } = require('../utils/statusCodes');
+const { products } = require('../models/index');
+const { productNotFound } = require('../../utils/errorMessages');
+const errorConstructor = require('../../utils/functions');
+const { NOT_FOUND } = require('../../utils/statusCodes');
 
 const allProducts = async () => {
   const result = await products.findAll();

@@ -4,7 +4,7 @@ const {
   listSales, 
   listSaleById, 
   updateSaleStatus, 
-} = require('../controllers/salesController');
+} = require('../database/controllers/salesController');
 const { validateToken } = require('../middlewares/auth');
 
 const salesRouter = express.Router();

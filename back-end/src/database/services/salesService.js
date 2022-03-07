@@ -1,4 +1,4 @@
-const { sales, products, salesProducts } = require('../database/models/index');
+const { sales, products, salesProducts } = require('../models/index');
 const { productsExist } = require('./productsServices');
 const { salesSchema, salesSchemaUpdate } = require('./schemas');
 
@@ -31,7 +31,7 @@ const validateSaleUpdate = (status) => {
 const addSalesProducts = async (saleId, productsDetails) => {
   await Promise.all(productsDetails.map(async (productDetail) => {
     const { productId, quantity } = productDetail;
-    await salesProducts.create({ saleId, productId, quantity });
+    await salesProducts.create({ sale_id: saleId, product_id: productId, quantity });
   }));
 };
 
@@ -42,12 +42,12 @@ const newSale = async (body) => {
   const saleDate = new Date().toISOString(); // adiciona a data no formato padrão exigido.
 
   const { id } = await sales.create({ 
-    userId: body.userId,
-    sellerId: body.sellerId, 
-    totalPrice: body.totalPrice,
-    deliveryAddress: body.deliveryAddress,
-    deliveryNumber: body.deliveryNumber,
-    saleDate,
+    user_id: body.userId,
+    seller_id: body.sellerId, 
+    total_price: body.totalPrice,
+    delivery_address: body.deliveryAddress,
+    delivery_number: body.deliveryNumber,
+    sale_date: saleDate,
     status: body.status,
   });
   await addSalesProducts(id, productsDetails); // adiciona os itens na tabela intermediaria de salesProducts;

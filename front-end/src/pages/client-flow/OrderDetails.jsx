@@ -1,14 +1,24 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getSaleById, putSaleStatus } from '../../axios';
+import io from 'socket.io-client';
+import { getSaleById } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
+// import updateStatusClient from '../utils/socket';
 
 const formatedDate = require('../utils');
 
 function OrderDetails() {
-  const { sale, setSale, sellers, user } = useContext(DeliveryContext);
+  const {
+    sale,
+    setSale,
+    sellers,
+    user,
+    // socketStatus,
+    // setSocketStatus,
+  } = useContext(DeliveryContext);
+  const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
   const pageId = pathname.replace('/customer/orders/', '');
   const { id, seller_id: sellerId, total_price: totalPrice } = sale;
@@ -23,6 +33,13 @@ function OrderDetails() {
 
     loadSale(pageId);
   }, [pageId, setSale]);
+
+  useEffect(() => {
+    // updateStatusClient(socketStatus, setSale, id);
+    socket.on('refreshDelivery', (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
+    });
+  }, [sale]);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;
   const sellerName = sellers.find((seller) => seller.id === sellerId).name;
@@ -63,8 +80,10 @@ function OrderDetails() {
           disabled={ sale.status !== 'Em Trânsito' }
           data-testid="customer_order_details__button-delivery-check"
           onClick={ () => {
-            setSale({ ...sale, status: 'Entregue' });
-            putSaleStatus(id, 'Entregue');
+            // setSale({ ...sale, status: 'Entregue' });
+            // putSaleStatus(id, 'Entregue');
+            // setSocketStatus('Entregue');
+            socket.emit('Entregue', id);
           } }
         >
           MARCAR COMO ENTREGUE

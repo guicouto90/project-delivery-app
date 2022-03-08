@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const http = require('http');
 const errorHandler = require('../middlewares/errorHandler');
 const usersRouter = require('../routers/usersRouter');
 const loginRouter = require('../routers/loginRouter');
 const productsRouter = require('../routers/productsRouter');
 const salesRouter = require('../routers/salesRouter');
-// const { salesProducts } = require('../database/models');
 
 const app = express();
 
@@ -22,18 +22,6 @@ app.use('/products', productsRouter);
 
 app.use('/sales', salesRouter);
 
-/* app.get('/salesproducts', async (req, res) => {
-  const teste = await salesProducts.findAll();
-  return res.status(200).json(teste);
-});
-
-app.get('/salesproducts/:sale_id', async (req, res) => {
-  const { sale_id } = req.params;
-  const teste = await salesProducts.findAll({ where: { sale_id } });
-
-  return res.status(200).json(teste);
-}); */
-
 app.get('/images/:name', async (req, res, _next) => {
   const { name } = req.params;
 
@@ -44,4 +32,6 @@ app.use(errorHandler);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-module.exports = app;
+const httpServer = http.createServer(app);
+
+module.exports = httpServer;

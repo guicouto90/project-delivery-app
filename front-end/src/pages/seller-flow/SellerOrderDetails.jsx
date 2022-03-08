@@ -1,14 +1,22 @@
 import React, { useContext, useEffect } from 'react';
+import io from 'socket.io-client';
 import { useLocation } from 'react-router-dom';
-import { getSaleById, putSaleStatus } from '../../axios';
+import { getSaleById } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import SellerCheckoutItemsInTable from './utils/SellerCheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
+// import updateStatusSeller from '../utils/socket';
 
 const formatedDate = require('../utils');
 
 function OrderDetails() {
-  const { sale, setSale, sellers } = useContext(DeliveryContext);
+  const { sale,
+    setSale,
+    sellers,
+    // socketStatus,
+    // setSocketStatus,
+  } = useContext(DeliveryContext);
+  const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
   const pageId = pathname.replace('/seller/orders/', '');
   const { id, seller_id: sellerId, total_price: totalPrice } = sale;
@@ -22,6 +30,18 @@ function OrderDetails() {
 
     loadSale(pageId);
   }, [pageId, setSale]);
+
+  useEffect(() => {
+    socket.on('refreshDelivery', (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
+    });
+    socket.on('refreshPreparing', (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Preparando' });
+    });
+    socket.on('refreshDispatch', (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
+    });
+  }, [sale]);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;
 
@@ -50,7 +70,9 @@ function OrderDetails() {
           disabled={ sale.status !== 'Pendente' }
           data-testid="seller_order_details__button-preparing-check"
           onClick={ () => {
-            putSaleStatus(id, 'Preparando');
+            // putSaleStatus(id, 'Preparando');
+            // setSocketStatus('Preparando');
+            socket.emit('Preparando', id);
           } }
         >
           PREPARANDO PEDIDO
@@ -60,7 +82,9 @@ function OrderDetails() {
           disabled={ sale.status !== 'Preparando' }
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => {
-            putSaleStatus(id, 'Em Trânsito');
+            // putSaleStatus(id, 'Em Trânsito');
+            // setSocketStatus('Em Trânsito');
+            socket.emit('Em Trânsito', id);
           } }
         >
           SAIU PARA ENTREGA

@@ -1,9 +1,7 @@
 const port = process.env.PORT || 3001;
-const app = require('./app');
 const { Server } = require('socket.io');
+const app = require('./app');
 const { getSaleById, editSaleStatus } = require('../database/services/salesService');
-
-
 
 const io = new Server(app, {
   cors: {

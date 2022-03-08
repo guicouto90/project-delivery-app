@@ -39,6 +39,12 @@ function OrderDetails() {
     socket.on('refreshDelivery', (saleSocket) => {
       if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
     });
+    socket.on('refreshPreparing', (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Preparando' });
+    });
+    socket.on('refreshDispatch', (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
+    });
   }, [sale]);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;

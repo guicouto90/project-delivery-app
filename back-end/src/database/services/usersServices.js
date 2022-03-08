@@ -1,10 +1,20 @@
-const { userSchema } = require('./schemas');
-const { users } = require('../models/index');
-const cryptograph = require('../../utils/cryptoPassword');
-const { CONFLICT, NO_CONTENT, UNAUTHORIZED } = require('../../utils/statusCodes');
-const { userExists, userNotExists, unauthorized } = require('../../utils/errorMessages');
-const errorConstructor = require('../../utils/functions');
-const { generateToken } = require('../../middlewares/auth');
+const { Op } = require("sequelize");
+
+const { userSchema } = require("./schemas");
+const { users } = require("../models/index");
+const cryptograph = require("../../utils/cryptoPassword");
+const {
+  CONFLICT,
+  NO_CONTENT,
+  UNAUTHORIZED,
+} = require("../../utils/statusCodes");
+const {
+  userExists,
+  userNotExists,
+  unauthorized,
+} = require("../../utils/errorMessages");
+const errorConstructor = require("../../utils/functions");
+const { generateToken } = require("../../middlewares/auth");
 
 const validateUser = (name, email, password, role) => {
   const { error } = userSchema.validate({ name, email, password, role });
@@ -24,7 +34,12 @@ const newUser = async (name, email, password, role) => {
   await verifyEmail(email, name);
   const passwordCrypto = cryptograph(password);
   const token = generateToken(email);
-  const { id } = await users.create({ name, email, password: passwordCrypto, role });
+  const { id } = await users.create({
+    name,
+    email,
+    password: passwordCrypto,
+    role,
+  });
   const login = {
     id,
     name,
@@ -44,7 +59,7 @@ const findAllUsers = async () => {
 
 const findUserByRole = async (role) => {
   const user = await users.findAll({
-    attributes: { exclude: ['password'] },
+    attributes: { exclude: ["password"] },
     where: { role },
   });
 
@@ -53,12 +68,13 @@ const findUserByRole = async (role) => {
 
 const deleteById = async (id, userEmail) => {
   const findUserByIdDelete = await users.findOne({ where: { id } });
-  
+
   if (!findUserByIdDelete) throw errorConstructor(NO_CONTENT, userNotExists);
 
   const findUserAdmin = await users.findOne({ where: { email: userEmail } });
 
-  if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
+  if (findUserAdmin.role !== "administrator")
+    throw errorConstructor(UNAUTHORIZED, unauthorized);
 
   const userDeleted = await users.destroy({ where: { id } });
 
@@ -68,9 +84,12 @@ const deleteById = async (id, userEmail) => {
 const findUsersForAdmin = async (userEmail) => {
   const findUserAdmin = await users.findOne({ where: { email: userEmail } });
 
-  if (findUserAdmin.role !== 'administrator') throw errorConstructor(UNAUTHORIZED, unauthorized);
+  if (findUserAdmin.role !== "administrator")
+    throw errorConstructor(UNAUTHORIZED, unauthorized);
 
-  const user = await users.findAll({ where: { role: 'administrator' } });
+  const user = await users.findAll({
+    where: { role: { [Op.ne]: "administrator" } },
+  });
 
   return user;
 };

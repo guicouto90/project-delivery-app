@@ -1,14 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { getAllSales } from '../../axios';
-import DeliveryContext from '../../context/DeliveryContext';
-import ClientNavBar from '../components/ClientNavBar';
+import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { getAllSales } from "../../axios";
+import DeliveryContext from "../../context/DeliveryContext";
+import ClientNavBar from "../components/ClientNavBar";
+import io from "socket.io-client";
 
-const formatedDate = require('../utils');
+const formatedDate = require("../utils");
 
 function OrdersPage() {
-  const { orders, setSale, setOrders } = useContext(DeliveryContext);
+  const { orders, setSale, setOrders, sale } = useContext(DeliveryContext);
   const history = useHistory();
+  const socket = io("http://localhost:3001");
 
   useEffect(() => {
     const getSales = async () => {
@@ -18,33 +20,47 @@ function OrdersPage() {
     getSales();
   }, []);
 
+  useEffect(() => {
+    socket.on("refreshDelivery", (saleSocket) => {
+      if (id === saleSocket.id) setSale({ ...saleSocket, status: "Entregue" });
+    });
+    socket.on("refreshPreparing", (saleSocket) => {
+      if (id === saleSocket.id)
+        setSale({ ...saleSocket, status: "Preparando" });
+    });
+    socket.on("refreshDispatch", (saleSocket) => {
+      if (id === saleSocket.id)
+        setSale({ ...saleSocket, status: "Em Trânsito" });
+    });
+  }, [sale]);
+
   return (
     <>
       <ClientNavBar />
-      { orders.map((order, index) => (
+      {orders.map((order, index) => (
         <div
-          key={ index }
+          key={index}
           className="productsTable"
           aria-hidden="true"
-          onClick={ () => {
+          onClick={() => {
             setSale(order);
             history.push(`/seller/orders/${order.id}`);
-          } }
+          }}
         >
-          <h3 data-testid={ `seller_orders__element-order-id-${order.id}` }>
+          <h3 data-testid={`seller_orders__element-order-id-${order.id}`}>
             {`Pedido: ${order.id}`}
           </h3>
-          <p data-testid={ `seller_orders__element-delivery-status-${order.id}` }>
+          <p data-testid={`seller_orders__element-delivery-status-${order.id}`}>
             {order.status}
           </p>
-          <p data-testid={ `seller_orders__element-order-date-${order.id}` }>
+          <p data-testid={`seller_orders__element-order-date-${order.id}`}>
             {formatedDate(order.sale_date)}
           </p>
-          <p data-testid={ `seller_orders__element-card-price-${order.id}` }>
-            {'R$ '}
-            {order.total_price.replace('.', ',')}
+          <p data-testid={`seller_orders__element-card-price-${order.id}`}>
+            {"R$ "}
+            {order.total_price.replace(".", ",")}
           </p>
-          <p data-testid={ `seller_orders__element-card-address-${order.id}` }>
+          <p data-testid={`seller_orders__element-card-address-${order.id}`}>
             {order.delivery_address}
           </p>
         </div>

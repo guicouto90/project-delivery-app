@@ -13,9 +13,8 @@ function OrderDetails() {
   const { sale,
     setSale,
     sellers,
-    setUpdateStatus,
-    // orderSeller,
-    // setOrderId,
+    setPreparing,
+    setDispatch,
   } = useContext(DeliveryContext);
   const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
@@ -76,7 +75,8 @@ function OrderDetails() {
             // setOrderId(orderId + 1);
             // const num = orderSeller + 1;
             // setOrderSeller(id);
-            setUpdateStatus(0);
+            console.log('preparing');
+            setPreparing(true);
             socket.emit('Preparando', id);
           } }
         >
@@ -91,7 +91,7 @@ function OrderDetails() {
             // setSocketStatus('Em Trânsito');
             // setOrderId(orderId + 1);
             // const num = orderSeller + 1;
-            setUpdateStatus(1);
+            setDispatch(true);
             socket.emit('Em Trânsito', id);
           } }
         >

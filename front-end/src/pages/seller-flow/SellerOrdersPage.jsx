@@ -8,15 +8,16 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders, orderId } = useContext(DeliveryContext);
+  const { orders, setSale, setOrders, delivery } = useContext(DeliveryContext);
   const history = useHistory();
   const socket = io('http://localhost:3001');
 
+  const getSales = async () => {
+    const salesList = await getAllSales();
+    setOrders(salesList.data);
+  };
+
   useEffect(() => {
-    const getSales = async () => {
-      const salesList = await getAllSales();
-      setOrders(salesList.data);
-    };
     getSales();
   }, []);
 
@@ -28,16 +29,8 @@ function OrdersPage() {
         setOrders(orders);
       }
     });
-    /* socket.on('refreshDelivery', (saleSocket) => {
-      if (sale.id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
-    });
-    socket.on('refreshPreparing', (saleSocket) => {
-      if (sale.id === saleSocket.id) setSale({ ...saleSocket, status: 'Preparando' });
-    });
-    socket.on('refreshDispatch', (saleSocket) => {
-      if (sale.id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
-    }); */
-  }, [orderId]);
+    getSales();
+  }, [delivery]);
 
   return (
     <>

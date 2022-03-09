@@ -1,6 +1,6 @@
 const port = process.env.PORT || 3001;
-const { Server } = require("socket.io");
-const http = require("./app");
+const { Server } = require('socket.io');
+const http = require('./app');
 const {
   getSaleById,
   editSaleStatus,

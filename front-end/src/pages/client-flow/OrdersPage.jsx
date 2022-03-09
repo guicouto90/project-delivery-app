@@ -8,20 +8,20 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders, updateStatus } = useContext(DeliveryContext);
+  const { orders, setSale, setOrders, dispatch, preparing } = useContext(DeliveryContext);
   const history = useHistory();
   const socket = io('http://localhost:3001');
 
+  const getSales = async () => {
+    const salesList = await getAllSales();
+    setOrders(salesList.data);
+  };
+
   useEffect(() => {
-    const getSales = async () => {
-      const salesList = await getAllSales();
-      setOrders(salesList.data);
-    };
     getSales();
   }, []);
 
   useEffect(() => {
-    console.log(updateStatus);
     socket.on('refreshPreparing', (saleSocket) => {
       const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
       if (orders[getIndex]) {
@@ -29,6 +29,10 @@ function OrdersPage() {
         setOrders(orders);
       }
     });
+    getSales();
+  }, [preparing]);
+
+  useEffect(() => {
     socket.on('refreshDispatch', (saleSocket) => {
       const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
       if (orders[getIndex]) {
@@ -36,7 +40,8 @@ function OrdersPage() {
         setOrders(orders);
       }
     });
-  }, [updateStatus]);
+    getSales();
+  }, [dispatch]);
 
   return (
     <>

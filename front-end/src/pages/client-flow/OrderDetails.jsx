@@ -15,8 +15,7 @@ function OrderDetails() {
     setSale,
     sellers,
     user,
-    // orderId,
-    setOrderId,
+    setDelivery,
   } = useContext(DeliveryContext);
   const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
@@ -89,7 +88,7 @@ function OrderDetails() {
             // setSale({ ...sale, status: 'Entregue' });
             // putSaleStatus(id, 'Entregue');
             // setSocketStatus('Entregue');
-            setOrderId(id);
+            setDelivery(true);
             socket.emit('Entregue', id);
           } }
         >

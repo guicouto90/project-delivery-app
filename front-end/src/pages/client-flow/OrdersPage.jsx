@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import io from 'socket.io-client';
 import { useHistory } from 'react-router-dom';
 import { getAllSales } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
@@ -7,8 +8,9 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders } = useContext(DeliveryContext);
+  const { orders, setSale, setOrders, updateStatus } = useContext(DeliveryContext);
   const history = useHistory();
+  const socket = io('http://localhost:3001');
 
   useEffect(() => {
     const getSales = async () => {
@@ -17,6 +19,24 @@ function OrdersPage() {
     };
     getSales();
   }, []);
+
+  useEffect(() => {
+    console.log(updateStatus);
+    socket.on('refreshPreparing', (saleSocket) => {
+      const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
+      if (orders[getIndex]) {
+        orders[getIndex].status = 'Preparando';
+        setOrders(orders);
+      }
+    });
+    socket.on('refreshDispatch', (saleSocket) => {
+      const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
+      if (orders[getIndex]) {
+        orders[getIndex].status = 'Em Trânsito';
+        setOrders(orders);
+      }
+    });
+  }, [updateStatus]);
 
   return (
     <>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Input from './input';
 import { postUsers } from '../../axios/index';
 import DeliveryContext from '../../context/DeliveryContext';
+import './Login.css';
 
 function Register(props) {
   const { history } = props;
@@ -48,53 +49,59 @@ function Register(props) {
   }, [name, email, password, enableButton]);
 
   return (
-    <div>
-      Nome
-      <Input
-        value={ name }
-        name="name"
-        onChange={ ({ target }) => {
-          setName(target.value);
-        } }
-        id="common_register__input-name"
-        data-testid="common_register__input-name"
-        type="text"
-      />
+    <div className="login">
+      <fieldset>
+        <h1 className="title">Nome</h1>
+        <Input
+          className="inputEmail"
+          value={ name }
+          name="name"
+          onChange={ ({ target }) => {
+            setName(target.value);
+          } }
+          id="common_register__input-name"
+          data-testid="common_register__input-name"
+          type="text"
+        />
 
-      Email
-      <Input
-        value={ email }
-        name="email"
-        onChange={ ({ target }) => {
-          setEmail(target.value);
-        } }
-        id="common_register__input-email"
-        data-testid="common_register__input-email"
-        type="email"
-      />
+        <h1 className="title">Email</h1>
+        <Input
+          className="inputEmail"
+          value={ email }
+          name="email"
+          onChange={ ({ target }) => {
+            setEmail(target.value);
+          } }
+          id="common_register__input-email"
+          data-testid="common_register__input-email"
+          type="email"
+        />
 
-      Senha
-      <Input
-        value={ password }
-        name="password"
-        onChange={ ({ target }) => {
-          setPassword(target.value);
-        } }
-        id="common_register__input-password"
-        data-testid="common_register__input-password"
-        type="password"
-      />
+        <h1 className="title">Senha</h1>
+        <Input
+          className="inputSenha"
+          value={ password }
+          name="password"
+          onChange={ ({ target }) => {
+            setPassword(target.value);
+          } }
+          id="common_register__input-password"
+          data-testid="common_register__input-password"
+          type="password"
+        />
 
-      <button
-        onClick={ validPage }
-        data-testid="common_register__button-register"
-        type="button"
-        disabled={ loginValidated }
-      >
-        Cadastrar
-      </button>
-      {!error ? ''
-        : <p data-testid="common_register__element-invalid_register">{message}</p>}
+        <button
+          className="loginButton"
+          onClick={ validPage }
+          data-testid="common_register__button-register"
+          type="button"
+          disabled={ loginValidated }
+        >
+          Cadastrar
+        </button>
+        {!error ? ''
+          : <p data-testid="common_register__element-invalid_register">{message}</p>}
+      </fieldset>
     </div>
   );
 }

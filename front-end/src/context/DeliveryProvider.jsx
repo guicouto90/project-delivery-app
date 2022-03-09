@@ -10,7 +10,7 @@ function DeliveryProvider({ children }) {
   const [orders, setOrders] = useState([]);
   const [sellers, setSellers] = useState([]);
   const [sale, setSale] = useState({});
-  const [socketStatus, setSocketStatus] = useState('');
+  const [orderId, setOrderId] = useState(0);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -46,8 +46,8 @@ function DeliveryProvider({ children }) {
     setOrders,
     sale,
     setSale,
-    socketStatus,
-    setSocketStatus,
+    orderId,
+    setOrderId,
   };
 
   return (

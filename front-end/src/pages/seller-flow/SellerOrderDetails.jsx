@@ -13,8 +13,8 @@ function OrderDetails() {
   const { sale,
     setSale,
     sellers,
-    // socketStatus,
-    // setSocketStatus,
+    // orderId,
+    // setOrderId,
   } = useContext(DeliveryContext);
   const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
@@ -72,6 +72,7 @@ function OrderDetails() {
           onClick={ () => {
             // putSaleStatus(id, 'Preparando');
             // setSocketStatus('Preparando');
+            // setOrderId(orderId + 1);
             socket.emit('Preparando', id);
           } }
         >
@@ -84,6 +85,7 @@ function OrderDetails() {
           onClick={ () => {
             // putSaleStatus(id, 'Em Trânsito');
             // setSocketStatus('Em Trânsito');
+            // setOrderId(orderId + 1);
             socket.emit('Em Trânsito', id);
           } }
         >

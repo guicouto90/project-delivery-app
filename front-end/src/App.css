@@ -1,5 +1,3 @@
-
-  
 .App {
   align-items: center;
   background: #0fa36b;
@@ -12,13 +10,14 @@
   width: 100%;
 }
 
-.App > .logo {
+.App>.logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
+
 /* style my image */
 img {
   width: 40px;
@@ -26,14 +25,14 @@ img {
   border-radius: 50%;
 }
 
-nav > div > p {
+nav>div>p {
   align-items: center;
   justify-content: center;
   background: #421981;
   color: #fff;
   display: flex;
   font-size: 1.5em;
-  margin:  0px 10px;
+  margin: 0px 10px;
   height: 100%;
 }
 
@@ -43,10 +42,11 @@ nav > div > p {
 }
 
 .myOrdersButton {
-  background: #036B52;;
+  background: #036B52;
+  ;
 }
 
-nav > div > button {
+nav>div>button {
   background: #421981;
   border: none;
   border-radius: unset;
@@ -58,30 +58,40 @@ nav > div > button {
   width: 300px;
 }
 
-nav > div {
+nav>div {
   align-items: center;
   background: #421981;
 }
 
-nav > div > button {
-  background:  #056CF9;
+nav>div>button {
+  background: #056CF9;
   border: none;
   border-radius: unset;
 }
 
 .productCard {
   align-items: center;
-  border: solid black;
+  border-radius: 10%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   color: #464646;
   display: flex;
   flex-flow: column wrap;
+  margin: 30px;
+  padding-bottom: 25px;
+  transition: 0.3s;
   width: 300px;
 }
 
+.productimg {
+  height: 74px;
+  width: 74px;
+}
+
 .productsTable {
-  border: #464646;
+  padding-top: 35px;
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   margin: auto;
 }
 
@@ -89,7 +99,8 @@ nav {
   background: #036B52;
 }
 
-nav, nav > div {
+nav,
+nav>div {
   display: flex;
   justify-content: space-between;
 }
@@ -105,32 +116,95 @@ button {
   width: 25px;
 }
 
-@keyframes shake {
+/* //////////// */
 
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
+.tableItens {
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
 }
 
-@keyframes clink {
+.tableItens td,
+.tableItens th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 
-  0% {
-    transform: rotate(-10deg);
-  }
+.tableItens tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-  50% {
-    transform: rotate(20deg);
-  }
+.tableItens tr:hover {
+  background-color: #ddd;
+}
 
-  100% {
-    transform: rotate(-10deg);
-  }
+.tableItens th {
+  background-color: #04AA6D;
+  color: white;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: left;
+}
+
+.totalPrice {
+  background-image: linear-gradient(to right, #04AA6D, #f2f2f2);
+  color: #f2f2f2;
+  font-size: 30px;
+}
+
+.buttonSubmit {
+  border-radius: 8px;
+  border-style: none;
+  font-size: 25px;
+  margin-bottom: 18px;
+  margin-left: 10px;
+  margin-top: 30px;
+  padding: 8px;
+}
+
+/* ///// */
+
+.headerTable {
+  align-items: center;
+  background-color: #DCDCDC;
+  display: flex;
+  height: 60px;
+  justify-content: space-around;
+}
+
+.subTitle {
+  font-size: 18px;
+}
+
+.subTitleBorder {
+  background-color: #04AA6D;
+  border-radius: 8px;
+  font-size: 25px;
+  padding: 8px;
+}
+
+.delivered {
+  border-radius: 8px;
+  border-style: none;
+  font-size: 25px;
+  padding: 8px;
+}
+
+.totalprice {
+  background-color: #04AA6D;
+  border-radius: 8px;
+  border-style: solid;
+  display: flex;
+  font-size: 25px;
+  margin-left: 10px;
+  padding-right: 50px;
+}
+
+.titlecard {
+  background-color: #04AA6D;
+  border: solid 8px #04AA6D;
+  border-radius: 10px 0px 0px 0px;
+  color: #f2f2f2;
+  font-size: 21px;
+  width: 100%;
 }

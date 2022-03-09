@@ -53,9 +53,9 @@ function OrderDetails() {
   return (
     <>
       <ClientNavBar />
-      <h3>Detalhes do Pedido</h3>
-      <div>
-        <h4>
+      <h3 className="totalPrice">Detalhes do Pedido</h3>
+      <div className="headerTable">
+        <h4 className="subTitle">
           {'Pedido '}
           <span
             data-testid={
@@ -65,7 +65,7 @@ function OrderDetails() {
             {id}
           </span>
         </h4>
-        <p>
+        <p className="subTitle">
           {'P. Vend: '}
           <span
             data-testid={ `${testId}details-label-seller-name` }
@@ -73,15 +73,20 @@ function OrderDetails() {
             {sellerName}
           </span>
         </p>
-        <p data-testid={ `${testId}details-label-order-date` }>
+        <p
+          className="subTitleBorder"
+          data-testid={ `${testId}details-label-order-date` }
+        >
           {formatedDate(sale.sale_date)}
         </p>
         <p
+          className="subTitleBorder"
           data-testid={ `${testId}details-label-delivery-status` }
         >
           {sale.status}
         </p>
         <button
+          className="delivered"
           type="button"
           disabled={ sale.status !== 'Em Trânsito' }
           data-testid="customer_order_details__button-delivery-check"
@@ -96,7 +101,7 @@ function OrderDetails() {
 
         </button>
       </div>
-      <table>
+      <table className="tableItens">
         <tr>
           <th>Item</th>
           <th>Descrição</th>
@@ -106,7 +111,7 @@ function OrderDetails() {
         </tr>
         {sale.products.map((item, index) => CheckoutItemsInTable(item, index))}
       </table>
-      <h2>
+      <h2 className="totalPrice">
         {'Total R$ '}
         <span data-testid="customer_order_details__element-order-total-price">
           {totalPrice.replace('.', ',')}

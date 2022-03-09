@@ -68,7 +68,7 @@ function OrdersPage() {
               className="title"
               data-testid={ `seller_orders__element-card-price-${order.id}` }
             >
-              {"R$"}
+              R$
               {order.total_price.replace('.', ',')}
             </p>
             <p

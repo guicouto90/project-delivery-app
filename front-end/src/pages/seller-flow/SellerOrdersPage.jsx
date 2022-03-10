@@ -8,7 +8,8 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders, delivery } = useContext(DeliveryContext);
+  const { orders,
+    setSale, setOrders, delivery, setDelivery } = useContext(DeliveryContext);
   const history = useHistory();
   const socket = io('http://localhost:3001');
 
@@ -22,8 +23,15 @@ function OrdersPage() {
   }, []);
 
   useEffect(() => {
-    socket.on('refreshDelivery', (saleSocket) => {
-      const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
+    if (delivery === true) {
+      getSales();
+      setDelivery(false);
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    socket.on('refreshDelivery', ({ saleById }) => {
+      const getIndex = orders.findIndex((object) => object.id === saleById.id);
       if (orders[getIndex]) {
         orders[getIndex].status = 'Entregue';
         setOrders(orders);

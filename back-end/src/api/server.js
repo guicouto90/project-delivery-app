@@ -4,6 +4,7 @@ const http = require('./app');
 const {
   getSaleById,
   editSaleStatus,
+  getAllSales,
 } = require('../database/services/salesService');
 
 const io = new Server(http, {
@@ -15,27 +16,27 @@ const io = new Server(http, {
 
 io.on('connection', (socket) => {
   socket.on('Entregue', async (id) => {
-    socket.join(id);
     await editSaleStatus(id, 'Entregue');
-    const sale = await getSaleById(id);
+    const saleById = await getSaleById(id);
+    const allSales = await getAllSales();
 
-    io.emit('refreshDelivery', sale);
+    io.emit('refreshDelivery', { saleById, allSales });
   });
 
   socket.on('Preparando', async (id) => {
-    socket.join(id);
     await editSaleStatus(id, 'Preparando');
-    const sale = await getSaleById(id);
+    const saleById = await getSaleById(id);
+    const allSales = await getAllSales();
 
-    io.emit('refreshPreparing', sale);
+    io.emit('refreshPreparing', { saleById, allSales });
   });
 
   socket.on('Em Trânsito', async (id) => {
-    socket.join(id);
     await editSaleStatus(id, 'Em Trânsito');
-    const sale = await getSaleById(id);
+    const saleById = await getSaleById(id);
+    const allSales = await getAllSales();
 
-    io.emit('refreshDispatch', sale);
+    io.emit('refreshDispatch', { saleById, allSales });
   });
 });
 

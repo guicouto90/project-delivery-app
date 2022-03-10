@@ -8,7 +8,15 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders, dispatch, preparing } = useContext(DeliveryContext);
+  const {
+    orders,
+    setSale,
+    setOrders,
+    dispatch,
+    preparing,
+    setPreparing,
+    setDispatch,
+  } = useContext(DeliveryContext);
   const history = useHistory();
   const socket = io('http://localhost:3001');
 
@@ -22,8 +30,19 @@ function OrdersPage() {
   }, []);
 
   useEffect(() => {
-    socket.on('refreshPreparing', (saleSocket) => {
-      const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
+    if (preparing === true) {
+      getSales();
+      setPreparing(false);
+    }
+    if (dispatch === true) {
+      getSales();
+      setDispatch(false);
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    socket.on('refreshPreparing', ({ saleById }) => {
+      const getIndex = orders.findIndex((object) => object.id === saleById.id);
       if (orders[getIndex]) {
         orders[getIndex].status = 'Preparando';
         setOrders(orders);
@@ -33,8 +52,8 @@ function OrdersPage() {
   }, [preparing]);
 
   useEffect(() => {
-    socket.on('refreshDispatch', (saleSocket) => {
-      const getIndex = orders.findIndex((object) => object.id === saleSocket.id);
+    socket.on('refreshDispatch', ({ saleById }) => {
+      const getIndex = orders.findIndex((object) => object.id === saleById.id);
       if (orders[getIndex]) {
         orders[getIndex].status = 'Em Trânsito';
         setOrders(orders);

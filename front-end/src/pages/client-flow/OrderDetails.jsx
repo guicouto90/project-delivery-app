@@ -15,8 +15,8 @@ function OrderDetails() {
     setSale,
     sellers,
     user,
-    // socketStatus,
-    // setSocketStatus,
+    setDelivery,
+    setOrders,
   } = useContext(DeliveryContext);
   const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
@@ -35,15 +35,23 @@ function OrderDetails() {
   }, [pageId, setSale]);
 
   useEffect(() => {
-    // updateStatusClient(socketStatus, setSale, id);
-    socket.on('refreshDelivery', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
+    socket.on('refreshDelivery', ({ saleById, allSales }) => {
+      if (id === saleById.id) {
+        setSale({ ...saleById, status: 'Entregue' });
+        setOrders(allSales);
+      }
     });
-    socket.on('refreshPreparing', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Preparando' });
+    socket.on('refreshPreparing', ({ saleById, allSales }) => {
+      if (id === saleById.id) {
+        setSale({ ...saleById, status: 'Preparando' });
+        setOrders(allSales);
+      }
     });
-    socket.on('refreshDispatch', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
+    socket.on('refreshDispatch', ({ saleById, allSales }) => {
+      if (id === saleById.id) {
+        setSale({ ...saleById, status: 'Em Trânsito' });
+        setOrders(allSales);
+      }
     });
   }, [sale]);
 
@@ -94,6 +102,7 @@ function OrderDetails() {
             // setSale({ ...sale, status: 'Entregue' });
             // putSaleStatus(id, 'Entregue');
             // setSocketStatus('Entregue');
+            setDelivery(true);
             socket.emit('Entregue', id);
           } }
         >

@@ -9,14 +9,13 @@ function ProductsPage() {
   const { products, setProducts, setItemsInCart } = useContext(DeliveryContext);
   const history = useHistory();
 
-  useEffect(() => {}, [products]);
   useEffect(() => {
     const getProducts = async () => {
       const result = await getAllProducts();
       setProducts(result.data);
     };
-    getProducts();
-  }, []);
+    if (!products[0]) getProducts();
+  }, [products]);
 
   const productsAux = [...products];
   productsAux.forEach((product) => { if (!product.quantity) product.quantity = 0; });

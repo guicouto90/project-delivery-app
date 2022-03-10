@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
-import { getSaleById } from '../../axios';
+import { getSaleById, getSellersUsers } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
@@ -14,6 +14,7 @@ function OrderDetails() {
     sale,
     setSale,
     sellers,
+    setSellers,
     user,
     // socketStatus,
     // setSocketStatus,

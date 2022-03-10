@@ -19,7 +19,7 @@ function CheckoutPage() {
       setSellers(sellersList);
     };
     getSellers();
-  }, [itemsInCart, setSellers]);
+  }, [itemsInCart]);
 
   let total = 0;
 

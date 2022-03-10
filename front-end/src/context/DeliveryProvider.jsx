@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 // import { getAllProducts, getAllSales, getSellersUsers } from '../axios';
 import DeliveryContext from './DeliveryContext';
 
@@ -10,18 +10,6 @@ function DeliveryProvider({ children }) {
   const [orders, setOrders] = useState([]);
   const [sellers, setSellers] = useState([]);
   const [sale, setSale] = useState({});
-  const [socketStatus, setSocketStatus] = useState('');
-
-  useEffect(() => {
-
-    // getSellers();
-
-    // const getSales = async () => {
-    //   const salesList = await getAllSales();
-    //   setOrders(salesList.data);
-    // };
-    // getSales();
-  }, []);
 
   const contextValue = {
     itemsInCart,
@@ -36,8 +24,6 @@ function DeliveryProvider({ children }) {
     setOrders,
     sale,
     setSale,
-    socketStatus,
-    setSocketStatus,
   };
 
   return (

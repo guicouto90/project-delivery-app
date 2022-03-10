@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import io from 'socket.io-client';
 import { useLocation } from 'react-router-dom';
-import { getSaleById } from '../../axios';
+import { getSaleById, getSellersUsers } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import SellerCheckoutItemsInTable from './utils/SellerCheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
@@ -13,6 +13,7 @@ function OrderDetails() {
   const { sale,
     setSale,
     sellers,
+    setSellers,
     // socketStatus,
     // setSocketStatus,
   } = useContext(DeliveryContext);
@@ -35,7 +36,7 @@ function OrderDetails() {
     };
 
     loadSale(pageId);
-  }, []);
+  }, [pageId, setSale, setSellers]);
 
   useEffect(() => {
     socket.on('refreshDelivery', (saleSocket) => {
@@ -47,7 +48,7 @@ function OrderDetails() {
     socket.on('refreshDispatch', (saleSocket) => {
       if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
     });
-  }, [sale]);
+  }, [id, sale, setSale, socket]);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;
 

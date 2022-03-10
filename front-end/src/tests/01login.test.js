@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { act } from 'react-dom/test-utils';
 import { createMemoryHistory } from 'history';
@@ -48,30 +48,27 @@ describe('The user is able to login successfully', () => {
       const emailInput = await screen.findByTestId('common_login__input-email');
       const passwordInput = await screen.findByTestId('common_login__input-password');
       const loginButton = await screen.findByTestId('common_login__button-login');
-      const registerButton = await screen.findByTestId('common_login__button-register');
+      await screen.findByTestId('common_login__button-register');
 
       expect(screen.getAllByText(/Login/i).length).toBe(2);
-      expect(emailInput).toBeInTheDocument();
-      expect(passwordInput).toBeInTheDocument();
-      expect(loginButton).toBeInTheDocument();
-      expect(registerButton).toBeInTheDocument();
       expect(loginButton).toBeDisabled();
 
       fireEvent.change(emailInput, { target: { value: emailDoZe } });
       expect(emailInput).toHaveValue(emailDoZe);
       fireEvent.change(passwordInput, { target: { value: passwordDoZe } });
       expect(passwordInput).toHaveValue(passwordDoZe);
-      await new Promise((res) => setTimeout(res, HALF_SECOND));
-      expect(loginButton).toBeEnabled();
+      await waitFor(() => {
+        expect(loginButton).toBeEnabled();
+      });
       fireEvent.click(loginButton);
-      await new Promise((res) => setTimeout(res, HALF_SECOND));
 
-      const navUsername = await screen.findByTestId('customer_products__element-navbar-user-full-name');
-      expect(navUsername).toBeInTheDocument();
-      const logoutButton = await screen.findByTestId('customer_products__element-navbar-link-logout');
-      expect(logoutButton).toBeInTheDocument();
-      fireEvent.click(logoutButton);
-      await new Promise((res) => setTimeout(res, HALF_SECOND));
+      await waitFor(async () => {
+        await screen.findByTestId('customer_products__element-navbar-user-full-name');
+      });
+
+      // const logoutButton = await screen.findByTestId('customer_products__element-navbar-link-logout');
+      // fireEvent.click(logoutButton);
+      // await new Promise((res) => setTimeout(res, HALF_SECOND));
     });
   });
 

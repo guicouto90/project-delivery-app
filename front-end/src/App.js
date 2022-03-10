@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import DeliveryProvider from './context/DeliveryProvider';
 import CheckoutPage from './pages/client-flow/CheckoutPage';
@@ -14,21 +14,19 @@ import Register from './pages/Login/Register';
 function App() {
   return (
     <DeliveryProvider>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/login" />
-          </Route>
-          <Route exact path="/login" component={ Login } />
-          <Route exact path="/customer/orders" component={ OrdersPage } />
-          <Route exact path="/customer/orders/:id" component={ OrderDetails } />
-          <Route exact path="/register" component={ Register } />
-          <Route exact path="/customer/checkout" component={ CheckoutPage } />
-          <Route exact path="/customer/products" component={ ProductsPage } />
-          <Route exact path="/seller/orders" component={ SellerOrdersPage } />
-          <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/customer/orders" component={ OrdersPage } />
+        <Route exact path="/customer/orders/:id" component={ OrderDetails } />
+        <Route exact path="/register" component={ Register } />
+        <Route exact path="/customer/checkout" component={ CheckoutPage } />
+        <Route exact path="/customer/products" component={ ProductsPage } />
+        <Route exact path="/seller/orders" component={ SellerOrdersPage } />
+        <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
+      </Switch>
     </DeliveryProvider>
   );
 }

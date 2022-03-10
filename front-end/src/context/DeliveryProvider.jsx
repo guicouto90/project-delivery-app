@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { getAllProducts, getAllSales, getSellersUsers } from '../axios';
+// import { getAllProducts, getAllSales, getSellersUsers } from '../axios';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {
@@ -12,24 +12,14 @@ function DeliveryProvider({ children }) {
   const [sale, setSale] = useState({});
 
   useEffect(() => {
-    const getProducts = async () => {
-      const result = await getAllProducts();
-      setProducts(result.data);
-    };
-    getProducts();
 
-    const getSellers = async () => {
-      const sellersList = await getSellersUsers();
-      setSellers(sellersList);
-    };
+    // getSellers();
 
-    getSellers();
-
-    const getSales = async () => {
-      const salesList = await getAllSales();
-      setOrders(salesList.data);
-    };
-    getSales();
+    // const getSales = async () => {
+    //   const salesList = await getAllSales();
+    //   setOrders(salesList.data);
+    // };
+    // getSales();
   }, []);
 
   const contextValue = {

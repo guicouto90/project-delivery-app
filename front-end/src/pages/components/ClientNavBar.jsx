@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 function ClientNavBar() {
   const history = useHistory();
   const { pathname } = useLocation();
-  const user = JSON.parse(localStorage.user);
+  const user = localStorage.user ? JSON.parse(localStorage.user) : 'Jhon Doe';
 
   const clientButton = () => (
     <div>

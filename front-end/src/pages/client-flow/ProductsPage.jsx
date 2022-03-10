@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { getAllProducts } from '../../axios';
 
 import DeliveryContext from '../../context/DeliveryContext';
 import ClientNavBar from '../components/ClientNavBar';
@@ -9,6 +10,14 @@ function ProductsPage() {
   const history = useHistory();
 
   useEffect(() => {}, [products]);
+  useEffect(() => {
+    const getProducts = async () => {
+      const result = await getAllProducts();
+      setProducts(result.data);
+    };
+    getProducts();
+  }, []);
+
   const productsAux = [...products];
   productsAux.forEach((product) => { if (!product.quantity) product.quantity = 0; });
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getSaleById, putSaleStatus } from '../../axios';
+import { getSaleById, getSellersUsers, putSaleStatus } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
@@ -8,7 +8,7 @@ import ClientNavBar from '../components/ClientNavBar';
 const formatedDate = require('../utils');
 
 function OrderDetails() {
-  const { sale, setSale, sellers, user } = useContext(DeliveryContext);
+  const { sale, setSale, sellers, setSellers, user } = useContext(DeliveryContext);
   const { pathname } = useLocation();
   const pageId = pathname.replace('/customer/orders/', '');
   const { id, seller_id: sellerId, total_price: totalPrice } = sale;
@@ -16,13 +16,19 @@ function OrderDetails() {
   console.log(user);
 
   useEffect(() => {
+    const getSellers = async () => {
+      const sellersList = await getSellersUsers();
+      setSellers(sellersList);
+    };
+
+    getSellers();
     const loadSale = async (saleId) => {
       const newSale = await getSaleById(saleId);
       setSale(newSale.data);
     };
 
     loadSale(pageId);
-  }, [pageId, setSale]);
+  }, []);
 
   if (!sellers.length || !sellerId) return <h1>JEQUITI...</h1>;
   const sellerName = sellers.find((seller) => seller.id === sellerId).name;

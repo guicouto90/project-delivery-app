@@ -4,15 +4,22 @@ import newSale from '../../axios/utils';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
 import ClientNavBar from '../components/ClientNavBar';
+import { getSellersUsers } from '../../axios';
 
 function CheckoutPage() {
   const {
     itemsInCart, setUser,
-    user, sellers, setSale, orders, setOrders } = useContext(DeliveryContext);
+    user, sellers, setSellers, setSale, orders, setOrders } = useContext(DeliveryContext);
 
   const history = useHistory();
 
-  useEffect(() => {}, [itemsInCart]);
+  useEffect(() => {
+    const getSellers = async () => {
+      const sellersList = await getSellersUsers();
+      setSellers(sellersList);
+    };
+    getSellers();
+  }, [itemsInCart, setSellers]);
 
   let total = 0;
 

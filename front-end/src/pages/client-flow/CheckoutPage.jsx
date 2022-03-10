@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import newSale from '../../axios/utils';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
-import ClientNavBar from '../components/ClientNavBar';
+import CustomNavBar from '../components/CustomNavBar';
 import { getSellersUsers } from '../../axios';
 
 function CheckoutPage() {
@@ -25,7 +25,7 @@ function CheckoutPage() {
 
   return (
     <>
-      <ClientNavBar />
+      <CustomNavBar />
       <h4 className="totalPrice">Finalizar Pedido</h4>
       <table className="tableItens">
         <tr>

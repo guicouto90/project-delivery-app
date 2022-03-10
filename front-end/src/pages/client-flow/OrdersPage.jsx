@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getAllSales } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
-import ClientNavBar from '../components/ClientNavBar';
+import CustomNavBar from '../components/CustomNavBar';
 
 const formatedDate = require('../utils');
 
@@ -20,7 +20,7 @@ function OrdersPage() {
 
   return (
     <>
-      <ClientNavBar />
+      <CustomNavBar />
       <div className="productsTable">
         { orders.map((order, index) => (
           <div

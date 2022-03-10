@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { getSaleById, getSellersUsers } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import SellerCheckoutItemsInTable from './utils/SellerCheckoutItemsTable';
-import ClientNavBar from '../components/ClientNavBar';
+import CustomNavBar from '../components/CustomNavBar';
 // import updateStatusSeller from '../utils/socket';
 
 const formatedDate = require('../utils');
@@ -54,7 +54,7 @@ function OrderDetails() {
 
   return (
     <>
-      <ClientNavBar />
+      <CustomNavBar />
       <h3 className="totalPrice">Detalhes do Pedido</h3>
       <div className="headerTable">
         <h4 className="subTitle">

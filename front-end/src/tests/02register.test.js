@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';

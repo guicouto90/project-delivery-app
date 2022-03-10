@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-function ClientNavBar() {
+function CustomNavBar() {
   const history = useHistory();
   const { pathname } = useLocation();
   const user = localStorage.user ? JSON.parse(localStorage.user) : 'Jhon Doe';
@@ -70,4 +70,4 @@ function ClientNavBar() {
   );
 }
 
-export default ClientNavBar;
+export default CustomNavBar;

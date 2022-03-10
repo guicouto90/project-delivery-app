@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { getSaleById, getSellersUsers } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import CheckoutItemsInTable from './utils/CheckoutItemsTable';
-import ClientNavBar from '../components/ClientNavBar';
+import CustomNavBar from '../components/CustomNavBar';
 // import updateStatusClient from '../utils/socket';
 
 const formatedDate = require('../utils');
@@ -59,7 +59,7 @@ function OrderDetails() {
 
   return (
     <>
-      <ClientNavBar />
+      <CustomNavBar />
       <h3 className="totalPrice">Detalhes do Pedido</h3>
       <div className="headerTable">
         <h4 className="subTitle">

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { getAllProducts } from '../../axios';
 
 import DeliveryContext from '../../context/DeliveryContext';
-import ClientNavBar from '../components/ClientNavBar';
+import CustomNavBar from '../components/CustomNavBar';
 
 function ProductsPage() {
   const { products, setProducts, setItemsInCart } = useContext(DeliveryContext);
@@ -28,7 +28,7 @@ function ProductsPage() {
 
   return (
     <>
-      <ClientNavBar />
+      <CustomNavBar />
       <div className="productsTable">
         { products.map((product, index) => {
           const prefix = 'customer_products__';

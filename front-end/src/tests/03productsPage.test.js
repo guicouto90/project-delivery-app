@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -81,8 +80,9 @@ describe('ProdutsPage Test', () => {
   it('Checkout button must have the correct value when products are added to the cart', async () => {
     await act(async () => {
       const checkoutButton = await screen.findByTestId('customer_products__checkout-bottom-value');
+      expect(checkoutButton).toHaveTextContent('0,00');
+
       await waitFor(async () => {
-        expect(checkoutButton).toHaveTextContent('0,00');
         const productOneInput = await screen.findByTestId('customer_products__input-card-quantity-1');
         fireEvent.change(productOneInput, { target: { value: '2' } });
         expect(productOneInput).toHaveValue('2');

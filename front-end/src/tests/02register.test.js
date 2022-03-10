@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { act } from 'react-dom/test-utils';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
@@ -9,7 +8,7 @@ import App from '../App';
 import * as axios from '../axios';
 import mockProducts from './mockProducts';
 
-describe('The user is able to register successfully', () => {
+describe('Register Page Test', () => {
   const spyPostUser = jest.spyOn(axios, 'postUsers');
   const spyGetAllProducts = jest.spyOn(axios, 'getAllProducts');
 

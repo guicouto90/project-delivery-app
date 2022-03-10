@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { act } from 'react-dom/test-utils';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
@@ -9,7 +8,7 @@ import App from '../App';
 import * as axios from '../axios';
 import mockProducts from './mockProducts';
 
-describe('The user is able to login successfully', () => {
+describe('Login Page Test', () => {
   const emailDoZe = 'zebirita@email.com';
   const passwordDoZe = 'zebirita123';
 
@@ -23,7 +22,7 @@ describe('The user is able to login successfully', () => {
     delete localStorage.user;
   });
 
-  it('Should render login page from the main path', async () => {
+  it('Should render login page from the main path and be able to login succefully', async () => {
     const history = createMemoryHistory();
     render(
       <Router history={ history }>
@@ -70,7 +69,7 @@ describe('The user is able to login successfully', () => {
     });
   });
 
-  it('Should show a message of errror when password or email isn"t right', async () => {
+  it('Should show a message of error when password or email isn\'t right', async () => {
     const history = createMemoryHistory();
     render(
       <Router history={ history }>

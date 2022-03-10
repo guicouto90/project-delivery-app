@@ -39,6 +39,7 @@ function ProductsPage() {
                 {`R$ ${product.price.replace(/\./, ',')}`}
               </h1>
               <img
+                className="productimg"
                 src={ product.url_image }
                 alt={ product.name }
                 data-testid={ `${prefix}img-card-bg-image-${product.id}` }
@@ -84,6 +85,7 @@ function ProductsPage() {
         })}
       </div>
       <button
+        className="totalprice"
         type="button"
         data-testid="customer_products__button-cart"
         disabled={ calculatePrice(products) === 0 }

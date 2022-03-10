@@ -26,8 +26,8 @@ function CheckoutPage() {
   return (
     <>
       <ClientNavBar />
-      <h4>Finalizar Pedido</h4>
-      <table>
+      <h4 className="totalPrice">Finalizar Pedido</h4>
+      <table className="tableItens">
         <tr>
           <th>Item</th>
           <th>Descrição</th>
@@ -41,14 +41,14 @@ function CheckoutPage() {
           return CheckoutItemsInTable(item, index);
         })}
       </table>
-      <h3>
+      <h3 className="totalPrice">
         {'Total: R$ '}
         <span data-testid="customer_checkout__element-order-total-price">
           {total.toFixed(2).replace('.', ',')}
         </span>
       </h3>
-      <h4>Detalhes e Endereço para Entrega</h4>
-      <table>
+      <h4 className="totalPrice">Detalhes e Endereço para Entrega</h4>
+      <table className="tableItens">
         <tr>
           <th>P. Vendedora Responsável</th>
           <th>Endereço</th>
@@ -91,6 +91,7 @@ function CheckoutPage() {
         </tr>
       </table>
       <button
+        className="buttonSubmit"
         type="button"
         data-testid="customer_checkout__button-submit-order"
         onClick={ async () => {

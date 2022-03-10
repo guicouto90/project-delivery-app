@@ -17,7 +17,7 @@ const newSale = async (itemInCart, input, total) => {
   }
 
   const productsDetails = itemInCart.map((item) => ({
-    product_id: item.id,
+    productId: item.id,
     quantity: item.quantity,
   }));
   const body = {

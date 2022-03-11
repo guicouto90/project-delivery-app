@@ -41,13 +41,26 @@ function CustomNavBar() {
         Pedidos
       </button>
     </div>
+  );
 
+  const adminButton = () => (
+    <div>
+      <button
+        data-testid="customer_products__element-navbar-link-orders"
+        type="button"
+        className="productButton"
+        disabled={ pathname === '/admin/manage' }
+      >
+        Gerenciar Usuários
+      </button>
+    </div>
   );
 
   return (
     <nav>
       {pathname.includes('customer') && clientButton()}
       {pathname.includes('seller') && sellerButton()}
+      {pathname.includes('admin') && adminButton()}
       <div>
         <p
           data-testid="customer_products__element-navbar-user-full-name"

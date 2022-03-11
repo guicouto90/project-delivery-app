@@ -16,13 +16,13 @@ const postLogin = async (email, password) => {
 };
 
 // NEW USER
-const postUsers = async (name, email, password) => {
+const postUsers = async (name, email, password, role = 'customer') => {
   try {
     const response = await axios.post(`${url}/users`, {
       name,
       email,
       password,
-      role: 'customer',
+      role,
     });
     return response;
   } catch (error) {
@@ -115,6 +115,37 @@ const getSellersUsers = async () => {
   }
 };
 
+// GET SELLERS AND CUTOMER USERS WITH A VALID TOKEN
+const getUsersToAdmin = async (token) => {
+  console.log('aoba');
+  try {
+    const response = await axios.get(`${url}/users/admin`, {
+      headers: {
+        authorization: token,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+// DELETE USER BY ID WITH A VALID TOKEN
+const deleteUserById = async (id, token) => {
+  try {
+    const response = await axios.delete(`${url}/users/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 export {
   postLogin,
   postUsers,
@@ -124,4 +155,6 @@ export {
   getSaleById,
   putSaleStatus,
   getSellersUsers,
+  getUsersToAdmin,
+  deleteUserById,
 };

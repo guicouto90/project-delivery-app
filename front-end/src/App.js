@@ -10,6 +10,7 @@ import SellerOrdersDetails from './pages/seller-flow/SellerOrderDetails';
 import ProductsPage from './pages/client-flow/ProductsPage';
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register';
+import AdminPage from './pages/adm/AdminPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/customer/products" component={ ProductsPage } />
         <Route exact path="/seller/orders" component={ SellerOrdersPage } />
         <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
+        <Route exact path="/admin/manage" component={ AdminPage } />
       </Switch>
     </DeliveryProvider>
   );

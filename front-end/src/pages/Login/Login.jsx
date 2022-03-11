@@ -9,6 +9,7 @@ const isLogedAux = (loged, history) => {
   if (loged) loged = JSON.parse(loged);
   if (loged && loged.role === 'customer') history.push('/customer/products');
   if (loged && loged.role === 'seller') history.push('/seller/orders');
+  if (loged && loged.role === 'administrator') history.push('/admin/manage');
 };
 
 function Login(props) {

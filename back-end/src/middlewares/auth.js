@@ -10,7 +10,7 @@ const generateToken = (user) => {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
-
+  console.log(user);
   const token = jwt.sign({ user }, secret, jwtConfig);
 
   return token;

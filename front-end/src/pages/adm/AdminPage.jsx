@@ -7,12 +7,13 @@ function AdminPage() {
     name: '',
     email: '',
     password: '',
-    role: 'customer',
+    role: 'seller',
   };
 
   const localUser = JSON.parse(localStorage.user);
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState(userObject);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getUsers = async (axiosToken) => {
@@ -22,11 +23,6 @@ function AdminPage() {
 
     getUsers(localUser.token);
   }, [localUser.token]);
-
-  const selectAux = (user) => {
-    if (user === 'Vendedor') return 'seller';
-    return 'customer';
-  };
 
   const disableRegisterButton = () => {
     const { name, email, password } = newUser;
@@ -74,22 +70,17 @@ function AdminPage() {
             data-testid="admin_manage__input-password"
           />
         </label>
-        <label htmlFor="Type">
+        <label htmlFor="role">
           Tipo:
           <select
-            name="Type"
-            id="Type"
+            value={ newUser.role }
             onChange={ ({ target: { value } }) => {
-              setNewUser({ ...newUser, role: selectAux(value) });
+              setNewUser({ ...newUser, role: value });
             } }
             data-testid="admin_manage__select-role"
           >
-            <option
-              value="Cliente"
-            >
-              Cliente
-            </option>
-            <option value="Vendedor">Vendedor</option>
+            <option value="seller">Vendedor</option>
+            <option value="customer">Cliente</option>
           </select>
         </label>
         <button
@@ -99,19 +90,28 @@ function AdminPage() {
             const { name, email, password, role } = newUser;
 
             const postNewUser = async () => {
-              await postUsers(
-                name, email, password, role,
+              const result = await postUsers(
+                { name, email, password, role }, localUser.token,
               );
+              if (!result) setError(true);
+              else {
+                setUsers([...users, newUser]);
+                setNewUser(userObject);
+              }
             };
 
             postNewUser();
-            setUsers([...users, newUser]);
-            setNewUser(userObject);
           } }
           data-testid="admin_manage__button-register"
         >
           CADASTRAR
         </button>
+        {
+          !error
+            ? ''
+            : <p data-testid="admin_manage__element-invalid-register">Error</p>
+        }
+
       </div>
       <h3>Lista de usuários</h3>
       <table>

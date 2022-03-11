@@ -33,7 +33,7 @@ function Register(props) {
   };
 
   async function validPage() {
-    const user = await postUsers(name, email, password);
+    const user = await postUsers({ name, email, password, role: 'customer' });
     if (!user) {
       setError(true);
       setMessage('Email ou nome já cadastrados');

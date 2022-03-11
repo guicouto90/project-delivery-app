@@ -16,13 +16,18 @@ const postLogin = async (email, password) => {
 };
 
 // NEW USER
-const postUsers = async (name, email, password, role = 'customer') => {
+const postUsers = async (user, token = 'undefined') => {
+  const { name, email, password, role } = user;
   try {
     const response = await axios.post(`${url}/users`, {
       name,
       email,
       password,
       role,
+    }, {
+      headers: {
+        authorization: token,
+      },
     });
     return response;
   } catch (error) {
@@ -117,7 +122,7 @@ const getSellersUsers = async () => {
 
 // GET SELLERS AND CUTOMER USERS WITH A VALID TOKEN
 const getUsersToAdmin = async (token) => {
-  console.log('aoba');
+  console.log(token);
   try {
     const response = await axios.get(`${url}/users/admin`, {
       headers: {

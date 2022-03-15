@@ -1,12 +1,13 @@
 const port = process.env.PORT || 3001;
 const { Server } = require('socket.io');
-const app = require('./app');
+const http = require('./app');
 const {
   getSaleById,
   editSaleStatus,
+  getAllSales,
 } = require('../database/services/salesService');
 
-const io = new Server(app, {
+const io = new Server(http, {
   cors: {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT'],
@@ -15,29 +16,29 @@ const io = new Server(app, {
 
 io.on('connection', (socket) => {
   socket.on('Entregue', async (id) => {
-    socket.join(id);
     await editSaleStatus(id, 'Entregue');
-    const sale = await getSaleById(id);
+    const saleById = await getSaleById(id);
+    const allSales = await getAllSales();
 
-    io.emit('refreshDelivery', sale);
+    io.emit('refreshDelivery', { saleById, allSales });
   });
 
   socket.on('Preparando', async (id) => {
-    socket.join(id);
     await editSaleStatus(id, 'Preparando');
-    const sale = await getSaleById(id);
+    const saleById = await getSaleById(id);
+    const allSales = await getAllSales();
 
-    io.emit('refreshPreparing', sale);
+    io.emit('refreshPreparing', { saleById, allSales });
   });
 
   socket.on('Em Trânsito', async (id) => {
-    socket.join(id);
     await editSaleStatus(id, 'Em Trânsito');
-    const sale = await getSaleById(id);
+    const saleById = await getSaleById(id);
+    const allSales = await getAllSales();
 
-    io.emit('refreshDispatch', sale);
+    io.emit('refreshDispatch', { saleById, allSales });
   });
 });
 
-app.listen(port);
+http.listen(port);
 console.log(`Api rodando na porta ${port}`);

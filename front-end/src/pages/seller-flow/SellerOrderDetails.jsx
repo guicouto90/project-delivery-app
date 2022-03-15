@@ -5,7 +5,6 @@ import { getSaleById, getSellersUsers } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
 import SellerCheckoutItemsInTable from './utils/SellerCheckoutItemsTable';
 import CustomNavBar from '../components/CustomNavBar';
-// import updateStatusSeller from '../utils/socket';
 
 const formatedDate = require('../utils');
 
@@ -13,9 +12,9 @@ function OrderDetails() {
   const { sale,
     setSale,
     sellers,
-    setSellers,
-    // socketStatus,
-    // setSocketStatus,
+    setPreparing,
+    setDispatch,
+    setOrders,
   } = useContext(DeliveryContext);
   const socket = io('http://localhost:3001');
   const { pathname } = useLocation();
@@ -39,14 +38,23 @@ function OrderDetails() {
   }, [pageId, setSale, setSellers]);
 
   useEffect(() => {
-    socket.on('refreshDelivery', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
+    socket.on('refreshDelivery', ({ saleById, allSales }) => {
+      if (id === saleById.id) {
+        setSale({ ...saleById, status: 'Entregue' });
+        setOrders(allSales);
+      }
     });
-    socket.on('refreshPreparing', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Preparando' });
+    socket.on('refreshPreparing', ({ saleById, allSales }) => {
+      if (id === saleById.id) {
+        setSale({ ...saleById, status: 'Preparando' });
+        setOrders(allSales);
+      }
     });
-    socket.on('refreshDispatch', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
+    socket.on('refreshDispatch', ({ saleById, allSales }) => {
+      if (id === saleById.id) {
+        setSale({ ...saleById, status: 'Em Trânsito' });
+        setOrders(allSales);
+      }
     });
   }, [id, sale, setSale, socket]);
 
@@ -84,8 +92,7 @@ function OrderDetails() {
           disabled={ sale.status !== 'Pendente' }
           data-testid="seller_order_details__button-preparing-check"
           onClick={ () => {
-            // putSaleStatus(id, 'Preparando');
-            // setSocketStatus('Preparando');
+            setPreparing(true);
             socket.emit('Preparando', id);
           } }
         >
@@ -97,8 +104,7 @@ function OrderDetails() {
           disabled={ sale.status !== 'Preparando' }
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => {
-            // putSaleStatus(id, 'Em Trânsito');
-            // setSocketStatus('Em Trânsito');
+            setDispatch(true);
             socket.emit('Em Trânsito', id);
           } }
         >

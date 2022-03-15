@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import io from 'socket.io-client';
 import { useHistory } from 'react-router-dom';
 import { getAllSales } from '../../axios';
 import DeliveryContext from '../../context/DeliveryContext';
@@ -7,16 +8,59 @@ import CustomNavBar from '../components/CustomNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders } = useContext(DeliveryContext);
+  const {
+    orders,
+    setSale,
+    setOrders,
+    dispatch,
+    preparing,
+    setPreparing,
+    setDispatch,
+  } = useContext(DeliveryContext);
   const history = useHistory();
+  const socket = io('http://localhost:3001');
+
+  const getSales = async () => {
+    const salesList = await getAllSales();
+    setOrders(salesList.data);
+  };
 
   useEffect(() => {
-    const getSales = async () => {
-      const salesList = await getAllSales();
-      setOrders(salesList.data);
-    };
     getSales();
   }, []);
+
+  useEffect(() => {
+    if (preparing === true) {
+      getSales();
+      setPreparing(false);
+    }
+    if (dispatch === true) {
+      getSales();
+      setDispatch(false);
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    socket.on('refreshPreparing', ({ saleById }) => {
+      const getIndex = orders.findIndex((object) => object.id === saleById.id);
+      if (orders[getIndex]) {
+        orders[getIndex].status = 'Preparando';
+        setOrders(orders);
+      }
+    });
+    getSales();
+  }, [preparing]);
+
+  useEffect(() => {
+    socket.on('refreshDispatch', ({ saleById }) => {
+      const getIndex = orders.findIndex((object) => object.id === saleById.id);
+      if (orders[getIndex]) {
+        orders[getIndex].status = 'Em Trânsito';
+        setOrders(orders);
+      }
+    });
+    getSales();
+  }, [dispatch]);
 
   return (
     <>

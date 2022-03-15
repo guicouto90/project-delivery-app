@@ -8,29 +8,37 @@ import CustomNavBar from '../components/CustomNavBar';
 const formatedDate = require('../utils');
 
 function OrdersPage() {
-  const { orders, setSale, setOrders, sale } = useContext(DeliveryContext);
+  const { orders,
+    setSale, setOrders, delivery, setDelivery } = useContext(DeliveryContext);
   const history = useHistory();
   const socket = io('http://localhost:3001');
 
+  const getSales = async () => {
+    const salesList = await getAllSales();
+    setOrders(salesList.data);
+  };
+
   useEffect(() => {
-    const getSales = async () => {
-      const salesList = await getAllSales();
-      setOrders(salesList.data);
-    };
     getSales();
   }, []);
 
   useEffect(() => {
-    socket.on('refreshDelivery', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Entregue' });
+    if (delivery === true) {
+      getSales();
+      setDelivery(false);
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    socket.on('refreshDelivery', ({ saleById }) => {
+      const getIndex = orders.findIndex((object) => object.id === saleById.id);
+      if (orders[getIndex]) {
+        orders[getIndex].status = 'Entregue';
+        setOrders(orders);
+      }
     });
-    socket.on('refreshPreparing', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Preparando' });
-    });
-    socket.on('refreshDispatch', (saleSocket) => {
-      if (id === saleSocket.id) setSale({ ...saleSocket, status: 'Em Trânsito' });
-    });
-  }, [sale]);
+    getSales();
+  }, [delivery]);
 
   return (
     <>

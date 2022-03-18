@@ -14,6 +14,8 @@ function AdminPage() {
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState(userObject);
   const [error, setError] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
+  // const [loadPage, setLoadPage] = useState(true);
 
   useEffect(() => {
     const getUsers = async (axiosToken) => {
@@ -29,11 +31,17 @@ function AdminPage() {
     const TWELVE = 12;
     const SIX = 6;
     const re = /\S+@\S+\.\S+/;
-    if (name.length < TWELVE || !re.test(email) || password.length < SIX) {
-      return true;
+    if (name.length >= TWELVE && re.test(email) && password.length >= SIX) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
     }
-    return false;
   };
+
+  useEffect(() => {
+    console.log('TESTE');
+    disableRegisterButton();
+  }, [newUser]);
 
   return (
     <>
@@ -44,6 +52,7 @@ function AdminPage() {
           Nome:
           <input
             type="text"
+            value={ newUser.name }
             onChange={
               ({ target }) => { setNewUser({ ...newUser, name: target.value }); }
             }
@@ -54,6 +63,7 @@ function AdminPage() {
           Email:
           <input
             type="text"
+            value={ newUser.email }
             onChange={
               ({ target }) => { setNewUser({ ...newUser, email: target.value }); }
             }
@@ -64,6 +74,7 @@ function AdminPage() {
           Senha:
           <input
             type="password"
+            value={ newUser.password }
             onChange={
               ({ target }) => { setNewUser({ ...newUser, password: target.value }); }
             }
@@ -85,7 +96,7 @@ function AdminPage() {
         </label>
         <button
           type="button"
-          disabled={ disableRegisterButton() }
+          disabled={ disableButton }
           onClick={ () => {
             const { name, email, password, role } = newUser;
 
@@ -96,7 +107,8 @@ function AdminPage() {
               if (!result) setError(true);
               else {
                 setUsers([...users, newUser]);
-                setNewUser(userObject);
+                const userObject2 = { name: '', email: '', password: '', role: 'seller' };
+                setNewUser(userObject2);
               }
             };
 
@@ -125,22 +137,22 @@ function AdminPage() {
         {users.map((user, index) => (
           <tr key={ index }>
             <td
-              data-testid={ `admin_manage__element-user-table-item-number-${index}` }
+              data-testid={ `admin_manage__element-user-table-item-number-${index + 1}` }
             >
               {index + 1}
             </td>
-            <td data-testid={ `admin_manage__element-user-table-name-${index}` }>
+            <td data-testid={ `admin_manage__element-user-table-name-${index + 1}` }>
               {user.name}
             </td>
-            <td data-testid={ `admin_manage__element-user-table-email-${index}` }>
+            <td data-testid={ `admin_manage__element-user-table-email-${index + 1}` }>
               {user.email}
             </td>
-            <td data-testid={ `admin_manage__element-user-table-role-${index}` }>
+            <td data-testid={ `admin_manage__element-user-table-role-${index + 1}` }>
               {user.role}
             </td>
             <td>
               <button
-                data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                data-testid={ `admin_manage__element-user-table-remove-${index + 1}` }
                 type="button"
                 onClick={ () => {
                   const deleteUser = async () => {

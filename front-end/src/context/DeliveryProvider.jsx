@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAllProducts, getAllSales, getSellersUsers } from '../axios';
 import DeliveryContext from './DeliveryContext';
 

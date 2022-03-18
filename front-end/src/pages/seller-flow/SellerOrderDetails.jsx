@@ -15,6 +15,7 @@ function OrderDetails() {
     setPreparing,
     setDispatch,
     setOrders,
+    setSellers,
   } = useContext(DeliveryContext);
   const socket = io('http://localhost:3001');
   const { pathname } = useLocation();

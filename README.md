@@ -6,105 +6,19 @@ Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e
 
 # Boas vindas ao repositório do projeto App de Delivery!
 
-Você já usa o GitHub diariamente para desenvolver os exercícios, certo? Agora, para desenvolver os projetos, você deverá seguir as instruções a seguir. Tenha atenção a cada passo, e se tiver qualquer dúvida nos envie por _Slack_! #vqv 🚀
-
-Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu projeto a partir desse repositório, utilizando uma branch específica e um _Pull Request_ para colocar seus códigos.
-
----
-
-# Sumário
-
-- [Boas vindas ao repositório do projeto App de Delivery!](#boas-vindas-ao-repositório-do-projeto-app-de-delivery)
-- [Sumário](#sumário)
-- [Contexto](#contexto)
-- [Habilidades](#habilidades)
-- [Entregáveis](#entregáveis)
-  - [O que deverá ser desenvolvido](#o-que-deverá-ser-desenvolvido)
-  - [Desenvolvimento](#desenvolvimento)
-  - [Data de Entrega](#data-de-entrega)
-- [Instruções para entregar seu projeto:](#instruções-para-entregar-seu-projeto)
-  - [Antes de começar a desenvolver](#antes-de-começar-a-desenvolver)
-  - [Durante o desenvolvimento](#durante-o-desenvolvimento)
-  - [Scripts relevantes do `package.json` principal](#scripts-relevantes-do-packagejson-principal)
-  - [Preparando o campo e iniciando o projeto](#preparando-o-campo-e-iniciando-o-projeto)
-  - [Linter](#linter)
-  - [Sequelize](#sequelize)
-  - [Componentização](#componentização)
-  - [Data-testids](#data-testids)
-- [Requisitos do projeto](#requisitos-do-projeto)
-  - [`Fluxo Comum`](#fluxo-comum)
-    - [`01login.test`](#01logintest)
-      - [1 - Crie uma tela de login que deve ser acessível pelos endpoints / e /login no navegador](#1---crie-uma-tela-de-login-que-deve-ser-acessível-pelos-endpoints--e-login-no-navegador)
-      - [2 - Crie os elementos da tela de login com os data-testids disponíveis no protótipo](#2---crie-os-elementos-da-tela-de-login-com-os-data-testids-disponíveis-no-protótipo)
-      - [3 - Desenvolva a tela de login de maneira que ela impossibilite o login com dados mal-formatados](#3---desenvolva-a-tela-de-login-de-maneira-que-ela-impossibilite-o-login-com-dados-mal-formatados)
-      - [4 - Desenvolva a tela de login de maneira que ela impossibilite o login com dados válidos, porém inexistentes no banco de dados](#4---desenvolva-a-tela-de-login-de-maneira-que-ela-impossibilite-o-login-com-dados-válidos-porém-inexistentes-no-banco-de-dados)
-      - [5 - Desenvolva a tela de login de maneira que ela possibilite fazer o login com dados válidos e existentes no banco de dados](#5---desenvolva-a-tela-de-login-de-maneira-que-ela-possibilite-fazer-o-login-com-dados-válidos-e-existentes-no-banco-de-dados)
-    - [`02register.test`](#02registertest)
-      - [6 - Crie uma tela de registro que deve ser acessível via endpoint /register no navegador e pelo botão de registro na tela de login](#6---crie-uma-tela-de-registro-que-deve-ser-acessível-via-endpoint-register-no-navegador-e-pelo-botão-de-registro-na-tela-de-login)
-      - [7 - Crie os elementos da tela de registro com os data-testids disponíveis no protótipo](#7---crie-os-elementos-da-tela-de-registro-com-os-data-testids-disponíveis-no-protótipo)
-      - [8 - Desenvolva a tela de registro de maneira que ela impossibilite o cadastro com dados mal-formatados](#8---desenvolva-a-tela-de-registro-de-maneira-que-ela-impossibilite-o-cadastro-com-dados-mal-formatados)
-      - [9 - Desenvolva a tela de registro de maneira que ela possibilite cadastrar com dados válidos](#9---desenvolva-a-tela-de-registro-de-maneira-que-ela-possibilite-cadastrar-com-dados-válidos)
-      - [10 - Desenvolva a tela de registro de maneira que ela impossibilite o cadastro de um usuário já existente](#10---desenvolva-a-tela-de-registro-de-maneira-que-ela-impossibilite-o-cadastro-de-um-usuário-já-existente)
-  - [`Fluxo do Cliente`](#fluxo-do-cliente)
-    - [`03customer_products.test`](#03customer_productstest)
-      - [11 - Crie uma tela de produtos do cliente contendo uma barra de navegação - navbar - que servirá também para demais telas das pessoas usuárias](#11---crie-uma-tela-de-produtos-do-cliente-contendo-uma-barra-de-navegação---navbar---que-servirá-também-para-demais-telas-das-pessoas-usuárias)
-      - [12 - Desenvolva a tela de produtos do cliente criando os demais elementos com os data-testids disponíveis no protótipo](#12---desenvolva-a-tela-de-produtos-do-cliente-criando-os-demais-elementos-com-os-data-testids-disponíveis-no-protótipo)
-      - [13 - Desenvolva a tela de produtos do cliente de forma que ela pressuponha dados válidos da pessoa usuária armazenados no localStorage](#13---desenvolva-a-tela-de-produtos-do-cliente-de-forma-que-ela-pressuponha-dados-válidos-da-pessoa-usuária-armazenados-no-localstorage)
-      - [14 - Desenvolva a tela de produtos do cliente de forma que os cards de todos os produtos pré-cadastrados contenham os valores corretos](#14---desenvolva-a-tela-de-produtos-do-cliente-de-forma-que-os-cards-de-todos-os-produtos-pré-cadastrados-contenham-os-valores-corretos)
-      - [15 - Desenvolva a tela de produtos do cliente de forma que o preço total esteja correto após a adição de itens aleatórios](#15---desenvolva-a-tela-de-produtos-do-cliente-de-forma-que-o-preço-total-esteja-correto-após-a-adição-de-itens-aleatórios)
-      - [16 - Desenvolva a tela de produtos do cliente de forma que haja um botão de carrinho que redirecionará para a tela de checkout caso itens sejam adicionados](#16---desenvolva-a-tela-de-produtos-do-cliente-de-forma-que-haja-um-botão-de-carrinho-que-redirecionará-para-a-tela-de-checkout-caso-itens-sejam-adicionados)
-    - [`04customer_checkout.test`](#04customer_checkouttest)
-      - [17 - Crie uma tela de checkout do cliente com elementos com os data-testids disponíveis no protótipo](#17---crie-uma-tela-de-checkout-do-cliente-com-elementos-com-os-data-testids-disponíveis-no-protótipo)
-      - [18 - Desenvolva a tela de checkout do cliente de forma a possuir os dados corretos do carrinho e preço total](#18---desenvolva-a-tela-de-checkout-do-cliente-de-forma-a-possuir-os-dados-corretos-do-carrinho-e-preço-total)
-      - [19 - Desenvolva a tela de checkout do cliente de forma que seja possível remover itens do carrinho](#19---desenvolva-a-tela-de-checkout-do-cliente-de-forma-que-seja-possível-remover-itens-do-carrinho)
-      - [20 - Desenvolva a tela de checkout do cliente de forma a nos redirecionar para a tela de detalhes do pedido feito após a finalização do mesmo](#20---desenvolva-a-tela-de-checkout-do-cliente-de-forma-a-nos-redirecionar-para-a-tela-de-detalhes-do-pedido-feito-após-a-finalização-do-mesmo)
-      - [21 - Desenvolva a tela de checkout do cliente de forma a gerar uma nova venda na tabela sales, assim como relações em salesProducts ao finalizar o pedido](#21---desenvolva-a-tela-de-checkout-do-cliente-de-forma-a-gerar-uma-nova-venda-na-tabela-sales-assim-como-relações-em-salesproducts-ao-finalizar-o-pedido)
-    - [`05customer_orders.test`](#05customer_orderstest)
-      - [22 - Crie uma tela de pedidos do cliente com elementos a partir dos data-testids disponíveis no protótipo](#22---crie-uma-tela-de-pedidos-do-cliente-com-elementos-a-partir-dos-data-testids-disponíveis-no-protótipo)
-      - [23 - Desenvolva a tela de pedidos do cliente de forma a conter a lista de pedidos do mesmo com os dados corretos](#23---desenvolva-a-tela-de-pedidos-do-cliente-de-forma-a-conter-a-lista-de-pedidos-do-mesmo-com-os-dados-corretos)
-      - [24 - Desenvolva a tela de pedidos do cliente de forma a dar acesso à tela de detalhes de um pedido ao clicar no card do mesmo](#24---desenvolva-a-tela-de-pedidos-do-cliente-de-forma-a-dar-acesso-à-tela-de-detalhes-de-um-pedido-ao-clicar-no-card-do-mesmo)
-    - [`06customer_order_details.test`](#06customer_order_detailstest)
-      - [25 - Crie uma tela de detalhes do pedido do cliente com elementos a partir dos data-testids disponíveis no protótipo](#25---crie-uma-tela-de-detalhes-do-pedido-do-cliente-com-elementos-a-partir-dos-data-testids-disponíveis-no-protótipo)
-      - [26 - Desenvolva a tela de detalhes do pedido do cliente de forma a possuir os dados corretos da venda](#26---desenvolva-a-tela-de-detalhes-do-pedido-do-cliente-de-forma-a-possuir-os-dados-corretos-da-venda)
-  - [`Fluxo da Pessoa Vendedora`](#fluxo-da-pessoa-vendedora)
-    - [`07seller_orders.test`](#07seller_orderstest)
-      - [27 - Crie uma tela de pedidos da pessoa vendedora com elementos a partir dos data-testids disponíveis no protótipo](#27---crie-uma-tela-de-pedidos-da-pessoa-vendedora-com-elementos-a-partir-dos-data-testids-disponíveis-no-protótipo)
-      - [28 - Desenvolva a tela de pedidos da pessoa vendedora de forma a conter a lista de pedidos do mesmo com os dados corretos](#28---desenvolva-a-tela-de-pedidos-da-pessoa-vendedora-de-forma-a-conter-a-lista-de-pedidos-do-mesmo-com-os-dados-corretos)
-      - [29 - Desenvolva a tela de pedidos da pessoa vendedora de forma a dar acesso à tela de detalhes de um pedido ao clicar no card do mesmo](#29---desenvolva-a-tela-de-pedidos-da-pessoa-vendedora-de-forma-a-dar-acesso-à-tela-de-detalhes-de-um-pedido-ao-clicar-no-card-do-mesmo)
-    - [`08seller_order_details.test`](#08seller_order_detailstest)
-      - [30 - Crie uma tela de detalhes do pedido da pessoa vendedora com elementos a partir dos data-testids disponíveis no protótipo](#30---crie-uma-tela-de-detalhes-do-pedido-da-pessoa-vendedora-com-elementos-a-partir-dos-data-testids-disponíveis-no-protótipo)
-      - [31 - Desenvolva a tela de detalhes do pedido da pessoa vendedora de forma a possuir os dados corretos da venda](#31---desenvolva-a-tela-de-detalhes-do-pedido-da-pessoa-vendedora-de-forma-a-possuir-os-dados-corretos-da-venda)
-  - [`Validação do Status do Pedido`](#validação-do-status-do-pedido)
-      - [32 - Desenvolva a tela de detalhes do pedido da pessoa vendedora de forma a ser capaz de alterar o status do pedido](#32---desenvolva-a-tela-de-detalhes-do-pedido-da-pessoa-vendedora-de-forma-a-ser-capaz-de-alterar-o-status-do-pedido)
-    - [`09customer_seller_status_sync.test`](#09customer_seller_status_synctest)
-      - [33 - Garanta que o status do pedido atualizado na tela de detalhes do pedido da pessoa vendedora seja refletido na tela de detalhes do pedido do cliente após atualização das páginas](#33---garanta-que-o-status-do-pedido-atualizado-na-tela-de-detalhes-do-pedido-da-pessoa-vendedora-seja-refletido-na-tela-de-detalhes-do-pedido-do-cliente-após-atualização-das-páginas)
-      - [34 - Garanta que o status do pedido atualizado na tela de detalhes do pedido da pessoa vendedora seja refletido na tela de lista de pedidos do cliente após atualização das páginas](#34---garanta-que-o-status-do-pedido-atualizado-na-tela-de-detalhes-do-pedido-da-pessoa-vendedora-seja-refletido-na-tela-de-lista-de-pedidos-do-cliente-após-atualização-das-páginas)
-      - [35 - Garanta que o status do pedido atualizado na tela de detalhes do pedido do cliente seja refletido na tela de lista de pedidos da pessoa vendedora após atualização das páginas](#35---garanta-que-o-status-do-pedido-atualizado-na-tela-de-detalhes-do-pedido-do-cliente-seja-refletido-na-tela-de-lista-de-pedidos-da-pessoa-vendedora-após-atualização-das-páginas)
-    - [`10customer_seller_socket_status_sync.test`](#10customer_seller_socket_status_synctest)
-      - [36 - Desenvolva a tela de detalhes do pedido da pessoa vendedora de forma a interagir em tempo real com a tela de detalhes do pedido do cliente](#36---desenvolva-a-tela-de-detalhes-do-pedido-da-pessoa-vendedora-de-forma-a-interagir-em-tempo-real-com-a-tela-de-detalhes-do-pedido-do-cliente)
-      - [37 - Desenvolva a tela de detalhes do pedido da pessoa vendedora de forma a interagir em tempo real com a tela de lista de pedidos do cliente](#37---desenvolva-a-tela-de-detalhes-do-pedido-da-pessoa-vendedora-de-forma-a-interagir-em-tempo-real-com-a-tela-de-lista-de-pedidos-do-cliente)
-      - [38 - Desenvolva a tela de detalhes do pedido do cliente de forma a interagir em tempo real com a tela de lista de pedidos da pessoa vendedora](#38---desenvolva-a-tela-de-detalhes-do-pedido-do-cliente-de-forma-a-interagir-em-tempo-real-com-a-tela-de-lista-de-pedidos-da-pessoa-vendedora)
-  - [`Fluxo da Pessoa Administradora`](#fluxo-da-pessoa-administradora)
-    - [`11admin_manage_users.test`](#11admin_manage_userstest)
-      - [39 - Crie uma tela de pessoa administradora com elementos a partir dos data-testids disponíveis no protótipo](#39---crie-uma-tela-de-pessoa-administradora-com-elementos-a-partir-dos-data-testids-disponíveis-no-protótipo)
-      - [40 - Desenvolva a tela da pessoa administradora de forma a validar o formulário de cadastro](#40---desenvolva-a-tela-da-pessoa-administradora-de-forma-a-validar-o-formulário-de-cadastro)
-      - [41 - Desenvolva a tela da pessoa administradora de forma que seja possível cadastrar pessoas usuárias válidas](#41---desenvolva-a-tela-da-pessoa-administradora-de-forma-que-seja-possível-cadastrar-pessoas-usuárias-válidas)
-      - [42 - Desenvolva a tela da pessoa administradora de forma que ela impossibilite o cadastro de pessoas usuárias já existentes](#42---desenvolva-a-tela-da-pessoa-administradora-de-forma-que-ela-impossibilite-o-cadastro-de-pessoas-usuárias-já-existentes)
-      - [43 - (`Bônus`) Desenvolva a tela da pessoa administradora de forma que haja uma tabela de pessoas usuárias cadastradas](#43---bônus-desenvolva-a-tela-da-pessoa-administradora-de-forma-que-haja-uma-tabela-de-pessoas-usuárias-cadastradas)
-      - [44 - (`Bônus`) Desenvolva a tela da pessoa administradora de forma que seja possível deletar pessoas usuárias na tabela](#44---bônus-desenvolva-a-tela-da-pessoa-administradora-de-forma-que-seja-possível-deletar-pessoas-usuárias-na-tabela)
-  - [`Cobertura de Testes`](#cobertura-de-testes)
-    - [`12coverage_tests.test`](#12coverage_teststest)
-      - [45 - Crie testes que cubram no mínimo 30 por cento dos arquivos do front-end e back-end em src com um mínimo de 75 linhas cobertas em cada](#45---crie-testes-que-cubram-no-mínimo-30-por-cento-dos-arquivos-do-front-end-e-back-end-em-src-com-um-mínimo-de-75-linhas-cobertas-em-cada)
-      - [46 - (`Bônus`) Crie testes que cubram no mínimo 60 por cento dos arquivos do front-end e back-end em src com um mínimo de 150 linhas cobertas em cada](#46---bônus-crie-testes-que-cubram-no-mínimo-60-por-cento-dos-arquivos-do-front-end-e-back-end-em-src-com-um-mínimo-de-150-linhas-cobertas-em-cada)
-      - [47 - (`Bônus`) Crie testes que cubram no mínimo 90 por cento dos arquivos do front-end e back-end em src com um mínimo de 225 linhas cobertas em cada](#47---bônus-crie-testes-que-cubram-no-mínimo-90-por-cento-dos-arquivos-do-front-end-e-back-end-em-src-com-um-mínimo-de-225-linhas-cobertas-em-cada)
-  - [`Extra não avaliativo`](#extra-não-avaliativo)
-    - [Realizar o deploy do projeto back-end e front-end](#realizar-o-deploy-do-projeto-back-end-e-front-end)
-    - [Qual poderia ser o próximo passo?](#qual-poderia-ser-o-próximo-passo)
-- [Depois de terminar o desenvolvimento](#depois-de-terminar-o-desenvolvimento)
-- [Revisando um pull request](#revisando-um-pull-request)
-- [Avisos finais](#avisos-finais)
+Esse foi o projeto de conclusão do módulo de backend feito em grupo. Utilizamos as seguintes tecnologias:
+#### Front end:
+- React
+- ContextAPI
+- CSS
+#### Back end:
+- NodeJs
+- Express
+- Sequelize
+- MySQL
 
 ---
+
 
 # Contexto
 
@@ -130,69 +44,6 @@ Agora é mãos à obra! Vamos começar?
 
 ---
 
-# Habilidades
-
-Nesse projeto, você deverá ser capaz de:
-
-- Manter aderência do código à especificação. Seu programa deve se comportar como especificado no repositório, no [protótipo](https://www.figma.com/file/cNKu41RhnPIgNqrbMTzmUI/Delivery-App-new-trybeer?node-id=0%3A1) e no [Diagrama de ER](./assets/readme/eer.png);
-- Manter a organização do seu código e a arquitetura geral da aplicação (tanto da API quando do front-end);
-- Manter aderência ao padrão REST na API;
-- Respeitar a estrutura do banco de dados. Sua implementação não deve adicionar ou remover tabelas, campos ou relacionamentos e sua API deve estar preparada para aproveitar essa estrutura por completo;
-- Manter uma cobertura de testes. Seu código deve ser testável e possuir uma suíte de testes unitários e/ou de integração robusta e com alta cobertura.
-- Implementar a funcionalidade de comunicação em tempo real, utilizando o socket.io.
-- Manter aderência aos princípios SOLID;
-
-# Entregáveis
-
-- **Cada grupo** terá uma branch específica no formato `main-group-X`. Ex: `main-group-1`; `main-group-2`; etc;
-
-- **Para entregar o seu projeto** você deverá criar um `Pull Request` **base** neste repositório no formato `[MAIN GROUP X] [BASE]`, que deve apontar a branch `main-group-X` para branch `main`, ela será sua **PR principal** e deve agregar ao final todo o trabalho do seu grupo para avaliação;
-
-- **Cada feature/fix/etc** deve ser desenvolvida em uma nova branch, cujo formato **preferencialmente** deve ser `main-group-X-<alteração>-<especificação>`. Ex: `main-group-1-feat-login-form`. Isso ajudará tanto o seu time quanto a equipe de instrução a localizar seus trabalhos no projeto;
-
-- **Cada feature/fix/etc** deve, ao término, ser mergeada (preferencialmente via PR, com code review e aprovação de todo o grupo) com a **branch principal do grupo**, onde ocorrerá a avaliação. Ex: `main-group-1-feat-login-form` deve ser mergeado com `main-group-1`;
-
-- **Cada PR** deve, **preferencialmente** ter o título no formato `[MAIN GROUP X] [CONTEXTO] [ALTERAÇÃO] [DESCRIÇÃO]`. Ex: `[MAIN GROUP 1] [API] [FEAT] [LOGIN]`; `[MAIN GROUP 1] [FRONT] [FEAT] [LOGIN-FORM]`; etc. Isso ajudará tanto o seu time quanto a equipe de instrução a localizar seus trabalhos no projeto.
-
-Lembre-se que você pode consultar nosso conteúdo sobre [Git & GitHub](https://app.betrybe.com/course/fundamentals/git-github-e-internet/git-github-o-que-e-e-para-que-serve/70601960-ba49-43ee-b80f-dfa5205ec9d5/dinamica-de-controle-de-versao/fd17caf0-86ba-4395-a2fd-01dca61c4618?use_case=calendar) sempre que precisar!
-
-## O que deverá ser desenvolvido
-
-Esse será o projeto mais desafiador até agora! Nessa aplicação, vocês serão responsáveis por criar e integrar tanto o back-end quanto o front-end!
-
-O projeto em si é super divertido! Como dado no contexto, você vai criar uma plataforma de delivery de cerveja. 🍻
-
-Para facilitar o entendimento, podemos dividir a aplicação em ** 4 fluxos principais**, **uma validação de status entre cliente e pessoa vendedora** e **cobertura de testes (`front-end` e `back-end`)**:
-
-- **Fluxo Comum** que compreende: 
-  - (1) Tela de Login (`01login.test`); 
-  - (2) Tela de Registro (`02register.test`).
-
-- **Fluxo do Cliente** que compreende: : 
-  - (3) Tela de Produtos (`03customer_products.test`); 
-  - (4) Tela de Checkout (`04customer_checkout.test`); 
-  - (5) Tela de Pedidos (`05customer_orders.test`); 
-  - (6) Tela de Detalhes do Pedido (`06customer_order_details.test`).
-
-- **Fluxo da Pessoa Vendedora** que compreende: 
-  - (7) Tela de Pedidos (`07seller_orders.test`); 
-  - (8) Tela de Detalhes/Controle do Pedido (`08seller_order_details.test`).
-
-- **Validação do Status do Pedido** que compreende: 
-  - (9) Teste de status sem atualização em tempo real (`09customer_seller_status_sync.test`); 
-  - (10) Teste de status com atualização em tempo real (`10customer_seller_socket_status_sync.test`).
-
-- **Fluxo da Pessoa Administradora** que compreende: 
-  - (11) Tela de gerenciamento de usuários (`11admin_manage_users.test`).
-
-- **Testes da aplicação** que compreende: 
-  - (12) Testes de cobertura (`12coverage_tests.test`).
-
-
-- ⚠️ **IMPORTANTE** ⚠️: A tela de login deve ser capaz de direcionar para a tela principal de cada pessoa usuária, sendo as páginas:
-  - Do cliente: `/customer/products`,
-  - Da pessoa vendedora:  `/seller/orders`,
-  - Da pessoa administradora: `/admin/manage`
 
 ## Desenvolvimento
 
@@ -213,89 +64,20 @@ Você pode ler mais sobre os atributos `data-*` [neste link](https://developer.m
 
 ![image](https://res.cloudinary.com/drdpedroso/image/upload/c_scale,w_400/v1575815877/Screenshot_2019-12-08_at_11.37.25_kzt7rl.png)
 
-## Data de Entrega
 
-    - Projeto em grupo.
-
-    - Serão 10 dias de projeto.
-
-    - Data de entrega para avaliação final do projeto: `16/03/2022 14:00`.
-
----
-
-# Instruções para entregar seu projeto:
-
-## Antes de começar a desenvolver
+# Instruções para rodar o projeto:
 
 1. Clone o repositório
 
 - `git clone git@github.com:tryber/sd-013-c-project-delivery-app.git`.
 - Entre na pasta do repositório que você acabou de clonar:
   - `cd sd-013-c-project-delivery-app`
-- Vá para a branch do seu grupo, com `git checkout main-group-XX && git pull`, onde `XX` é o número do seu grupo. Exemplos: `main-group-1`, `main-group-22`.
 
 2. Instale as dependências
 
 - Instale as dependências:
   - `npm install`
 
-3. Faça alterações separadas por novas branchs criadas a partir da branch `main-group-XX`, criando uma nova branch para cada demanda
-
-- Verifique que você está na branch `main-group-XX`
-  - Exemplo: `git branch`
-- Se não estiver, mude para a branch `main-group-XX`
-  - Exemplo: `git checkout main-group-XX && git pull`
-- Agora, crie uma branch para a demanda que você vai desenvolver do seu projeto
-  - Você deve criar uma branch com uma breve descrição da demanda a ser desenvolvida
-  - Exemplo: `git checkout -b main-group-XX-cria-campo-de-input`
-
-4. Adicione as mudanças ao _stage_ do Git e faça um `commit`
-
-- Verifique que as mudanças ainda não estão no _stage_
-  - Exemplo: `git status` (devem aparecer listadas as novas alterações em vermelho)
-- Adicione o novo arquivo ao _stage_ do Git
-  - Exemplo:
-    - `git add .` (adicionando todas as mudanças - _que estavam em vermelho_ - ao stage do Git)
-    - `git status` (deve aparecer listado o arquivo _joaozinho/README.md_ em verde)
-- Faça o `commit` inicial
-  - Exemplo:
-    - `git commit -m 'iniciando o projeto x'` (fazendo o primeiro commit)
-    - `git status` (deve aparecer uma mensagem tipo _nothing to commit_ )
-
-5. Adicione a sua branch com o novo `commit` ao repositório remoto
-
-- Usando o exemplo anterior: `git push -u origin main-group-XX-cria-campo-de-input`
-
-6. Crie um novo `Pull Request` _(PR)_
-
-- Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-013-c-project-delivery-app/pulls)
-- Clique no botão verde _"New pull request"_
-- Clique na caixa de seleção _"Compare"_ e escolha a branch do grupo, `main-group-XX`, e a sua branch **com atenção**
-- Coloque um título para a sua _Pull Request_
-  - Exemplo: _"[GRUPO XX] Cria tela de busca"_
-- Clique no botão verde _"Create pull request"_
-- Adicione uma descrição para o _Pull Request_ e clique no botão verde _"Create pull request"_
-- **Não se preocupe em preencher mais nada por enquanto!**
-- Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-013-c-project-delivery-app/pulls) e confira que o seu _Pull Request_ está criado
-
-7. Assim que aprovado por pelo menos duas pessoas do seu grupo e o _Linter_ estiver adereçado, acesse **SEU** _Pull Request_ e clique no botão _"Merge pull request"_
-
-## Durante o desenvolvimento
-
-:warning: **PULL REQUESTS COM ISSUES NO LINTER NÃO SERÃO AVALIADAS, ATENTE-SE PARA RESOLVÊ-LAS ANTES DE FINALIZAR O DESENVOLVIMENTO!** :warning:
-
-- Faça `commits` das alterações que você fizer no código regularmente
-
-- Lembre-se de sempre após um (ou alguns) `commits` atualizar o repositório remoto
-
-- Os comandos que você utilizará com mais frequência são:
-  1. `git status` _(para verificar o que está em vermelho - fora do stage - e o que está em verde - no stage)_
-  2. `git add` _(para adicionar arquivos ao stage do Git)_
-  3. `git commit` _(para criar um commit com os arquivos que estão no stage do Git)_
-  4. `git push -u origin nome-da-branch` _(para enviar o commit para o repositório remoto na primeira vez que fizer o `push` de uma nova branch)_
-  5. `git push` _(para enviar o commit para o repositório remoto após o passo anterior)_
-
----
 
 ## Scripts relevantes do `package.json` principal
 
@@ -1345,61 +1127,3 @@ Garanta que tanto o seu `front-end` quanto `back-end` possuem testes que cubram 
 - Serão validados os dados de cobertura no `front-end` e no `back-end`;
 
 ---
-
-## `Extra não avaliativo`
-
-### Realizar o deploy do projeto back-end e front-end
-
-**Terminei meu projeto, e agora?** Uma prática legal, caso queira apresentar ou publicar seu projeto, é dar `deploy` na sua aplicação.
-
-Um bom exercício aqui é utilizar seu aprendizado de [`Heroku`](https://app.betrybe.com/course/back-end/deployment/infraestrutura-deploy-com-heroku/30597149-145b-49a1-924c-bd8050a8f249) para subir as duas aplicações, garantindo a comunicação de uma com a outra.
-
-Um ponto importante aqui, é que também é necessário subir um banco de dados no Heroku para levar seus dados para a nuvem. O Heroku conta com o [`ClearDB`](https://devcenter.heroku.com/articles/cleardb) *(Artigo em inglês)*, para te ajudar nessa tarefa!
-
----
-
-### Qual poderia ser o próximo passo?
-
-Se seu projeto estiver concluído, considere a expansão que ele pode passar ao longo do tempo. Esse projeto consegue expandir suas entidades? Consegue ter outros módulos (um web-chat, uma área de gerentes de vendedores, instâncias para lojas)?
-
-É super importante que tenhamos seguido todos os princípios e boas práticas de programação (como `SOLID`, por exemplo), tal como uma boa modelagem do banco de dados que torne possível gerar **escala**.
-
-Evidentemente, nada fica ideal num primeiro momento, mas quanto mais conseguirmos trabalhar no nosso projeto pensando a manutenção dele no longo prazo, mais fácil fica de programarmos coisas novas partindo do nosso código legado, por isso é importante sempre revisar nosso trabalho!
-
----
-
-# Depois de terminar o desenvolvimento
-
-Para sinalizar que o seu projeto está pronto para _"Code Review"_, faça o seguinte:
-
-- Vá até a página **DO SEU** _Pull Request_, adicione a label de _"code-review"_ e marque seus colegas:
-
-  - No menu à direita, clique no _link_ **"Labels"** e escolha a _label_ **code-review**;
-
-  - No menu à direita, clique no _link_ **"Assignees"** e escolha **o seu usuário**;
-
-  - No menu à direita, clique no _link_ **"Reviewers"** e digite `students`, selecione o time `tryber/students-sd-013-c`.
-
-Caso tenha alguma dúvida, [aqui tem um video explicativo](https://vimeo.com/362189205).
-
----
-
-# Revisando um pull request
-
-Use o conteúdo sobre [Code Review](https://app.betrybe.com/course/real-life-engineer/code-review) para te ajudar a revisar os _Pull Requests_.
-
-#VQV
-
----
-
-# Avisos finais
-
-Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência preenchendo o formulário. Leva menos de 3 minutos!
-
-Link: [FORMULÁRIO DE AVALIAÇÃO DE PROJETO](https://be-trybe.typeform.com/to/ZTeR4IbH)
-
-#VQV
-
----
-
-Você sabia que o LinkedIn é a principal rede social profissional e compartilhar o seu aprendizado lá é muito importante para quem deseja construir uma carreira de sucesso? Compartilhe esse projeto no seu LinkedIn, marque o perfil da Trybe (@trybe) e mostre para a sua rede toda a sua evolução.
